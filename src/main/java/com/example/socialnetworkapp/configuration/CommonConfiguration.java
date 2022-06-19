@@ -17,7 +17,7 @@ public class CommonConfiguration {
     }
 
     @Bean
-    public MailProperties mailProperties(){
+    public MailProperties mailProperties() {
         return new MailProperties();
     }
 

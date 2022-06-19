@@ -15,7 +15,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        if (StringUtils.isBlank(applicationName)){
+        if (StringUtils.isBlank(applicationName)) {
             applicationName = APPLICATION_NAME_DEFAULT;
         }
         String username = applicationName;
