@@ -17,7 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(callSuper = false)
-public class User extends Auditable<String> implements Serializable {
+public class AppUser extends Auditable<String> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
