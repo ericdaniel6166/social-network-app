@@ -19,6 +19,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 public abstract class Auditable<U> implements Serializable {
+
     @CreatedBy
     protected U createdBy;
 
