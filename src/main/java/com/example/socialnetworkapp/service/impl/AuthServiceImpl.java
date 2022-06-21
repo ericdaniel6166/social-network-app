@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
         emailDTO.setRecipient(appUser.getEmail());
         mailService.sendMail(emailDTO);
         RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO();
-        registerResponseDTO.setEmail(CommonUtils.maskEmail(registerResponseDTO.getEmail()));
+        registerResponseDTO.setEmail(CommonUtils.maskEmail(appUser.getEmail()));
         //TODO set message from db master_message to registerResponseDTO
         registerResponseDTO.setMessage("User Registration Successful");
         return registerResponseDTO;

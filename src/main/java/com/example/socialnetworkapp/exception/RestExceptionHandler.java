@@ -42,7 +42,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<Object> handleConstraintViolationException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
         //TODO get message from master_error_message from database
-        log.error("handle ConstraintViolationException, error message: {}", e.getMessage(), e);
+        log.error("Handle ConstraintViolationException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNPROCESSABLE_ENTITY,
                 ErrorCode.VALIDATION_ERROR.name(), null, httpServletRequest, null);
 
@@ -63,7 +63,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Object> handleResponseStatusException(ResponseStatusException e, HttpServletRequest httpServletRequest) {
-        log.error("handle ResponseStatusException, error message: {}", e.getMessage(), e);
+        log.error("Handle ResponseStatusException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getStatus(), e.getStatus().name(),
                 e.getReason(), httpServletRequest, null);
         return buildResponseExceptionEntity(errorResponseDTO);
@@ -71,7 +71,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(SocialNetworkAppException.class)
     public ResponseEntity<Object> handleSocialNetworkAppException(SocialNetworkAppException e, HttpServletRequest httpServletRequest) {
-        log.error("handle SocialNetworkAppException, error message: {}", e.getMessage(), e);
+        log.error("Handle SocialNetworkAppException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getHttpStatus(), e.getError(),
                 e.getMessage(), httpServletRequest, e.getErrorDetails());
 
