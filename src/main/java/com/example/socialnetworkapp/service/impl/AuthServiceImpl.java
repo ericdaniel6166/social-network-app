@@ -12,7 +12,9 @@ import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.service.VerificationTokenService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     //TODO move to master_general_parameter
@@ -64,9 +67,13 @@ public class AuthServiceImpl implements AuthService {
         emailDTO.setRecipient(appUser.getEmail());
         mailService.sendMail(emailDTO);
         RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO();
-        registerResponseDTO.setEmail(CommonUtils.maskEmail(appUser.getEmail()));
-        //TODO set message from db master_message to registerResponseDTO
-        registerResponseDTO.setMessage("User Registration Successful");
+        String maskEmail = CommonUtils.maskEmail(appUser.getEmail());
+        //TODO get title and message from db master_message to registerResponseDTO
+        String title = "VERIFICATION LINK SENT";
+        registerResponseDTO.setTitle(StringEscapeUtils.unescapeJava(title));
+        String message = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours";
+        message = CommonUtils.formatString(message, appUser.getUsername(), maskEmail);
+        registerResponseDTO.setMessage(StringEscapeUtils.unescapeJava(message));
         return registerResponseDTO;
     }
 
