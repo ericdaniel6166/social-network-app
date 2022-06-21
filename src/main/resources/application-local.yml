@@ -14,8 +14,8 @@ spring:
     host: smtp.mailtrap.io
     port: 2525
     username: d7537128965217
-    password: ff67aef89c5bb6
-#    password: ff67aef89c5bb6z
+#    password: ff67aef89c5bb6
+    password: ff67aef89c5bb6z
     properties:
       mail:
         transport:
@@ -30,6 +30,10 @@ server:
   port: 8080
   error:
     include-stacktrace: never
+
+logging:
+  file:
+    name: D:\Workplace\logs\social-network-app.log
 
 
 

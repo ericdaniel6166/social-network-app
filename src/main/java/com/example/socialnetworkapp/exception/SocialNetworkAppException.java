@@ -24,12 +24,6 @@ public class SocialNetworkAppException extends Exception {
         this.error = error;
     }
 
-    public SocialNetworkAppException(String error, String message, List<ErrorDetail> errorDetails) {
-        super(message);
-        this.error = error;
-        this.errorDetails = errorDetails;
-    }
-
     public SocialNetworkAppException(HttpStatus httpStatus, String error, String message, List<ErrorDetail> errorDetails) {
         super(message);
         this.error = error;

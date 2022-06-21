@@ -12,6 +12,7 @@ import java.util.Properties;
 @Component
 public class MailConfiguration {
 
+    //TODO: move to db master_general_parameter
     private static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
     private static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";

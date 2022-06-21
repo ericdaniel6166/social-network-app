@@ -1,9 +1,11 @@
 package com.example.socialnetworkapp.exception;
 
+import com.example.socialnetworkapp.configuration.OperationIdConfiguration;
 import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.ErrorResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -23,9 +25,14 @@ import java.util.stream.Collectors;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RestExceptionHandler {
 
-    //TODO operationId
+    @Autowired
+    private OperationIdConfiguration operationIdConfiguration;
 
     private ResponseEntity<Object> buildResponseExceptionEntity(ErrorResponseDTO errorResponseDTO) {
+        if (operationIdConfiguration != null){
+            errorResponseDTO.setOperationId(operationIdConfiguration.getOperationId());
+        }
+
         return new ResponseEntity<>(errorResponseDTO, errorResponseDTO.getHttpStatus());
     }
 
