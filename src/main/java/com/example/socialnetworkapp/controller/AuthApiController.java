@@ -1,10 +1,10 @@
 package com.example.socialnetworkapp.controller;
 
 import com.example.socialnetworkapp.dto.RegisterRequestDTO;
+import com.example.socialnetworkapp.dto.RegisterResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +28,9 @@ public class AuthApiController implements AuthApi {
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
         log.info("Start sign up");
-        authService.signUp(registerRequestDTO);
+        RegisterResponseDTO registerResponseDTO = authService.signUp(registerRequestDTO);
         log.info("End sign up");
-        return new ResponseEntity<>("User Registration Successful", OK);
+        return new ResponseEntity<>(registerResponseDTO, OK);
     }
 
 }
