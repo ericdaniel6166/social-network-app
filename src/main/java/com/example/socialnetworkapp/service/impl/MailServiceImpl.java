@@ -47,7 +47,7 @@ public class MailServiceImpl implements MailService {
             log.info("Send mail success");
         } catch (MailException e) {
             SendMailErrorDetail sendMailErrorDetailDTO = modelMapper.map(emailDTO, SendMailErrorDetail.class);
-            log.error("Send mail fail, error message: {}", e.getMessage());
+            log.error("Send mail fail, error message: {}", e.getMessage(), e);
             //TODO get message from master_error_message from database
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.SEND_MAIL_ERROR.name()
                     , "Error occurred sending email to: " + emailDTO.getRecipient()

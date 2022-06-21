@@ -6,13 +6,13 @@ import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.AppUser;
 import com.example.socialnetworkapp.model.VerificationToken;
 import com.example.socialnetworkapp.service.AuthService;
+import com.example.socialnetworkapp.service.EncryptionService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.service.VerificationTokenService;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,9 +31,6 @@ public class AuthServiceImpl implements AuthService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -42,13 +39,16 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private EncryptionService encryptionService;
+
     @Transactional
     @Override
     public void signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
         AppUser appUser;
         String encryptedPassword = null;
         if (StringUtils.isNotBlank(registerRequestDTO.getPassword())) {
-            encryptedPassword = passwordEncoder.encode(registerRequestDTO.getPassword());
+            encryptedPassword = encryptionService.encrypt(registerRequestDTO.getPassword());
         }
 
         registerRequestDTO.setPassword(encryptedPassword);
