@@ -5,6 +5,7 @@ import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.ErrorResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Slf4j
 public class RestExceptionHandler {
 
     @Autowired
@@ -40,6 +42,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<Object> handleConstraintViolationException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
         //TODO get message from master_error_message from database
+        log.error("handle ConstraintViolationException, error message: {}", e.getMessage());
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNPROCESSABLE_ENTITY,
                 ErrorCode.VALIDATION_ERROR.name(), null, httpServletRequest, null);
 
@@ -60,6 +63,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Object> handleResponseStatusException(ResponseStatusException e, HttpServletRequest httpServletRequest) {
+        log.error("handle ResponseStatusException, error message: {}", e.getMessage());
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getStatus(), e.getStatus().name(),
                 e.getReason(), httpServletRequest, null);
         return buildResponseExceptionEntity(errorResponseDTO);
@@ -67,7 +71,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(SocialNetworkAppException.class)
     public ResponseEntity<Object> handleSocialNetworkAppException(SocialNetworkAppException e, HttpServletRequest httpServletRequest) {
-
+        log.error("handle SocialNetworkAppException, error message: {}", e.getMessage());
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getHttpStatus(), e.getError(),
                 e.getMessage(), httpServletRequest, e.getErrorDetails());
 
