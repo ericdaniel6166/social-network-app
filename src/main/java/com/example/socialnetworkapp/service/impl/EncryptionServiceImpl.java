@@ -14,13 +14,7 @@ public class EncryptionServiceImpl implements EncryptionService {
     private PasswordEncoder passwordEncoder;
 
     public String encrypt(String stringInput) {
-        String stringOutput = null;
-        try {
-            stringOutput = passwordEncoder.encode(stringInput);
-        } catch (Exception e) {
-            log.error("Error encrypting, error message: {}", e.getMessage(), e);
-        }
-        return stringOutput;
+        return passwordEncoder.encode(stringInput);
     }
 
 }
