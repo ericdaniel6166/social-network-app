@@ -32,6 +32,7 @@ public class ErrorResponseDTO implements Serializable {
 
     private String error;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String message;
 
     private String path;
