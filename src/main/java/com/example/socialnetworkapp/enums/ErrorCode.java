@@ -1,7 +1,9 @@
 package com.example.socialnetworkapp.enums;
 
 public enum ErrorCode {
-    FORMAT_ERROR,
+    RESOURCE_NOT_FOUND_ERROR,
     VALIDATION_ERROR,
+
+    // error message from db
     SEND_MAIL_ERROR
 }
