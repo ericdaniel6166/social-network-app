@@ -25,7 +25,7 @@ public final class CommonUtils {
             formattedString = String.format(string, objects);
         } catch (IllegalFormatException e) {
             log.error("Error format string, string: {}, arguments: {}", string, Arrays.asList(objects), e);
-            throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.FORMAT_ERROR.name(), e.getMessage(), null);
+            throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), null);
         }
         return formattedString;
     }
