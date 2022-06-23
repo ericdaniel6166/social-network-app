@@ -42,9 +42,9 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ResponseEntity<Object> handleConstraintViolationException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
         //TODO get message from master_error_message from database
-        log.error("Handle ConstraintViolationException, error message: {}", e.getMessage(), e);
+        log.error("Handle MethodArgumentNotValidException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNPROCESSABLE_ENTITY,
                 ErrorCode.VALIDATION_ERROR.name(), VALIDATION_ERROR_MESSAGE, httpServletRequest, null);
 
