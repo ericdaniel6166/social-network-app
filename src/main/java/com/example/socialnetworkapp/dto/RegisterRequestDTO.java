@@ -1,6 +1,9 @@
 package com.example.socialnetworkapp.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -8,6 +11,9 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class RegisterRequestDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
