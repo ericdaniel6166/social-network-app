@@ -27,6 +27,7 @@ public class MasterMessage extends Auditable<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String errorCode;
 
     @Column(unique = true)
