@@ -14,12 +14,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String[] PERMIT_ALL_LIST = {
+            //  Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            //  Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+
+            //  Authentication
+            "/auth/**"
+    };
+
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and()
                 .csrf().disable()
-                .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/auth/**")
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers(PERMIT_ALL_LIST)
                         .permitAll()
                         .anyRequest()
                         .authenticated()

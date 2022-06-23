@@ -13,10 +13,10 @@ public interface AuthApi {
 
     @ApiOperation(value = "Sign up")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "[Business Exception] - BAD_REQUEST"),
-            @ApiResponse(code = 422, message = "[Business Exception] - UNPROCESSABLE_ENTITY"),
-            @ApiResponse(code = 500, message = "[System Exception] - INTERNAL_SERVER_ERROR")
+            @ApiResponse(code = 201, message = "Sign up successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 422, message = "[Business Exception] - Request is not valid"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
     ResponseEntity<?> signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException;
 }
