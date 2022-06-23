@@ -1,7 +1,6 @@
 package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.dto.EmailDTO;
-import com.example.socialnetworkapp.dto.SendMailErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorCode;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
@@ -17,8 +16,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 
 @Service
 @Slf4j
@@ -51,12 +48,11 @@ public class MailServiceImpl implements MailService {
             javaMailSender.send(mimeMessagePreparator);
             log.info("Send mail success");
         } catch (MailException e) {
-            SendMailErrorDetail sendMailErrorDetailDTO = modelMapper.map(emailDTO, SendMailErrorDetail.class);
             log.error("Send mail fail, error message: {}", e.getMessage(), e);
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(ErrorCode.SEND_MAIL_ERROR.name());
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.SEND_MAIL_ERROR.name()
                     , String.format(masterErrorMessage.getErrorMessage(), emailDTO.getRecipient())
-                    , Collections.singletonList(sendMailErrorDetailDTO));
+                    , null);
         }
     }
 
