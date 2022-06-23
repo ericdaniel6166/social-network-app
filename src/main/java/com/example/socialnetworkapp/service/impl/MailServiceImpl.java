@@ -30,9 +30,6 @@ public class MailServiceImpl implements MailService {
     private JavaMailSender javaMailSender;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private MasterErrorMessageService masterErrorMessageService;
 
     @Override
