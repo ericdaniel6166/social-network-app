@@ -61,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
         registerRequestDTO.setPassword(encryptedPassword);
         appUser = modelMapper.map(registerRequestDTO, AppUser.class);
         appUser.setActive(false);
-        appUser = userService.save(appUser);
+        appUser = userService.saveAndFlush(appUser);
         String token = generateVerificationToken(appUser);
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setSubject(VERIFICATION_EMAIL_SUBJECT);
@@ -81,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
         verificationToken.setAppUser(appUser);
-        verificationTokenService.save(verificationToken);
+        verificationTokenService.saveAndFlush(verificationToken);
         return token;
     }
 }

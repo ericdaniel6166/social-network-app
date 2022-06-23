@@ -5,6 +5,6 @@ import com.example.socialnetworkapp.model.AppUser;
 
 public interface UserService {
 
-    AppUser save(AppUser appUser);
+    AppUser saveAndFlush(AppUser appUser);
 
 }

@@ -4,5 +4,5 @@ import com.example.socialnetworkapp.model.VerificationToken;
 
 public interface VerificationTokenService {
 
-    VerificationToken save(VerificationToken verificationToken);
+    VerificationToken saveAndFlush(VerificationToken verificationToken);
 }

@@ -13,7 +13,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     private VerificationTokenRepository verificationTokenRepository;
 
     @Override
-    public VerificationToken save(VerificationToken verificationToken) {
+    public VerificationToken saveAndFlush(VerificationToken verificationToken) {
         return verificationTokenRepository.saveAndFlush(verificationToken);
     }
 }
