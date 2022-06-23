@@ -1,9 +1,9 @@
 package com.example.socialnetworkapp.configuration;
 
+import brave.Tracer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -18,6 +18,6 @@ public class SleuthConfiguration implements OperationIdConfiguration {
 
     @Override
     public String getOperationId() {
-        return Objects.requireNonNull(tracer.currentSpan()).context().traceId();
+        return Objects.requireNonNull(tracer.currentSpan()).context().traceIdString();
     }
 }
