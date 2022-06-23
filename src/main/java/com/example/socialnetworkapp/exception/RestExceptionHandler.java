@@ -43,7 +43,6 @@ public class RestExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
-        //TODO get message from master_error_message from database
         log.error("Handle MethodArgumentNotValidException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNPROCESSABLE_ENTITY,
                 ErrorCode.VALIDATION_ERROR.name(), VALIDATION_ERROR_MESSAGE, httpServletRequest, null);
@@ -75,6 +74,15 @@ public class RestExceptionHandler {
     public ResponseEntity<Object> handleSocialNetworkAppException(SocialNetworkAppException e, HttpServletRequest httpServletRequest) {
         log.error("Handle SocialNetworkAppException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getHttpStatus(), e.getError(),
+                e.getMessage(), httpServletRequest, e.getErrorDetails());
+
+        return buildResponseExceptionEntity(errorResponseDTO);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException e, HttpServletRequest httpServletRequest) {
+        log.error("Handle ResourceNotFoundException, error message: {}", e.getMessage(), e);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.NOT_FOUND, e.getError(),
                 e.getMessage(), httpServletRequest, e.getErrorDetails());
 
         return buildResponseExceptionEntity(errorResponseDTO);
