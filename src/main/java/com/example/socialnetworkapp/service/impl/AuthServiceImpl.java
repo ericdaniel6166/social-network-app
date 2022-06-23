@@ -31,6 +31,8 @@ public class AuthServiceImpl implements AuthService {
 
     //TODO move to master_general_parameter
     private static final String VERIFICATION_URL = "http://localhost:8080/api/auth/accountVerification/";
+    private static final String SIGN_UP_SUCCESS_MESSAGE = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours";
+    private static final String SIGN_UP_SUCCESS_TITLE = "VERIFICATION LINK SENT";
 
     @Autowired
     private ModelMapper modelMapper;
@@ -68,11 +70,8 @@ public class AuthServiceImpl implements AuthService {
         mailService.sendMail(emailDTO);
         RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO();
         String maskEmail = CommonUtils.maskEmail(appUser.getEmail());
-        //TODO get title and message from db master_message to registerResponseDTO
-        String title = "VERIFICATION LINK SENT";
-        registerResponseDTO.setTitle(StringEscapeUtils.unescapeJava(title));
-        String message = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours";
-        message = CommonUtils.formatString(message, appUser.getUsername(), maskEmail);
+        registerResponseDTO.setTitle(StringEscapeUtils.unescapeJava(SIGN_UP_SUCCESS_TITLE));
+        String message = CommonUtils.formatString(SIGN_UP_SUCCESS_MESSAGE, appUser.getUsername(), maskEmail);
         registerResponseDTO.setMessage(StringEscapeUtils.unescapeJava(message));
         return registerResponseDTO;
     }

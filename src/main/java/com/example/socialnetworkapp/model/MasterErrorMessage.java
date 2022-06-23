@@ -18,8 +18,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "master_message")
-public class MasterMessage extends Auditable<String> implements Serializable {
+@Table(name = "master_error_message")
+public class MasterErrorMessage extends Auditable<String> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,6 @@ public class MasterMessage extends Auditable<String> implements Serializable {
     @Column(unique = true)
     private String errorCode;
 
-    @Column(unique = true)
     private String errorMessage;
 
 }

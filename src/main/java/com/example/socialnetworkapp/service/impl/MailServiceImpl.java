@@ -4,8 +4,10 @@ import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.SendMailErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorCode;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.service.MailBuilderService;
 import com.example.socialnetworkapp.service.MailService;
+import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private MasterErrorMessageService masterErrorMessageService;
+
     @Override
     public void sendMail(EmailDTO emailDTO) throws SocialNetworkAppException {
         MimeMessagePreparator mimeMessagePreparator = mimeMessage -> {
@@ -48,9 +53,9 @@ public class MailServiceImpl implements MailService {
         } catch (MailException e) {
             SendMailErrorDetail sendMailErrorDetailDTO = modelMapper.map(emailDTO, SendMailErrorDetail.class);
             log.error("Send mail fail, error message: {}", e.getMessage(), e);
-            //TODO get message from master_error_message from database
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(ErrorCode.SEND_MAIL_ERROR.name());
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.SEND_MAIL_ERROR.name()
-                    , "Error occurred sending email to: " + emailDTO.getRecipient()
+                    , String.format(masterErrorMessage.getErrorMessage(), emailDTO.getRecipient())
                     , Collections.singletonList(sendMailErrorDetailDTO));
         }
     }
