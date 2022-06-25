@@ -1,12 +1,10 @@
 package com.example.socialnetworkapp.utils;
 
-import com.example.socialnetworkapp.enums.ErrorCode;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
-import java.util.IllegalFormatException;
 
 @Slf4j
 public final class CommonUtils {
@@ -23,7 +21,7 @@ public final class CommonUtils {
         String formattedString;
         try {
             formattedString = String.format(string, objects);
-        } catch (IllegalFormatException e) {
+        } catch (Exception e) {
             log.error("Error format string, string: {}, arguments: {}", string, Arrays.asList(objects), e);
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), null);
         }
