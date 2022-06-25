@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RestExceptionHandler {
 
-    private static final String VALIDATION_ERROR_MESSAGE = "Validation Error";
-
     @Autowired
     private OperationIdConfiguration operationIdConfiguration;
 
@@ -45,7 +43,7 @@ public class RestExceptionHandler {
     public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
         log.error("Handle MethodArgumentNotValidException, error message: {}", e.getMessage(), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNPROCESSABLE_ENTITY,
-                ErrorCode.VALIDATION_ERROR.name(), VALIDATION_ERROR_MESSAGE, httpServletRequest, null);
+                ErrorCode.VALIDATION_ERROR.name(), null, httpServletRequest, null);
 
         List<ErrorDetail> errorDetails = e.getBindingResult().getAllErrors().stream()
                 .filter(error -> error instanceof FieldError)
