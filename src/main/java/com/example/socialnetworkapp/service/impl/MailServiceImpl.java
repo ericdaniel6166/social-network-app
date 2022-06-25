@@ -1,14 +1,15 @@
 package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.dto.EmailDTO;
-import com.example.socialnetworkapp.enums.ErrorCode;
+import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.service.MailBuilderService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
+import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.MailException;
@@ -45,10 +46,11 @@ public class MailServiceImpl implements MailService {
             javaMailSender.send(mimeMessagePreparator);
             log.info("Send mail success");
         } catch (MailException e) {
-            log.error("Send mail fail, error message: {}", e.getMessage(), e);
-            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(ErrorCode.SEND_MAIL_ERROR.name());
-            throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.SEND_MAIL_ERROR.name()
-                    , String.format(masterErrorMessage.getErrorMessage(), emailDTO.getRecipient())
+            log.error("Send mail fail, error message: {}, subject: {}, from: {}, to: {}", e.getMessage(), emailDTO.getSubject(), VERIFICATION_EMAIL, emailDTO.getRecipient(), e);
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.SEND_MAIL_ERROR);
+            String errorMessage = StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage());
+            throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, MasterErrorCode.SEND_MAIL_ERROR.name()
+                    , CommonUtils.formatString(errorMessage, CommonUtils.maskEmail(emailDTO.getRecipient()))
                     , null);
         }
     }

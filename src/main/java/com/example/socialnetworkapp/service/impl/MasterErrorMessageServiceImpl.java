@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.service.impl;
 
+import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.repository.MasterErrorMessageRepository;
@@ -14,7 +15,7 @@ public class MasterErrorMessageServiceImpl implements MasterErrorMessageService 
     private MasterErrorMessageRepository masterErrorMessageRepository;
 
     @Override
-    public MasterErrorMessage findByErrorCode(String errorCode) throws ResourceNotFoundException {
-        return masterErrorMessageRepository.findByErrorCode(errorCode).orElseThrow(() -> new ResourceNotFoundException(errorCode));
+    public MasterErrorMessage findByErrorCode(MasterErrorCode errorCode) throws ResourceNotFoundException {
+        return masterErrorMessageRepository.findByErrorCode(errorCode).orElseThrow(() -> new ResourceNotFoundException(errorCode.name()));
     }
 }
