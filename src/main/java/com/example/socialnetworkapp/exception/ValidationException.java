@@ -1,26 +1,16 @@
 package com.example.socialnetworkapp.exception;
 
+import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorCode;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.http.HttpStatus;
 
-import java.io.Serializable;
+import java.util.List;
 
-@Data
 @EqualsAndHashCode(callSuper = false)
 public class ValidationException extends SocialNetworkAppException {
 
-    private String object;
-
-    private String field;
-
-    private Serializable rejectedValue;
-
-    public ValidationException(String object, String field, Serializable rejectedValue, String message) {
-        super(ErrorCode.VALIDATION_ERROR.name(), message);
-        this.object = object;
-        this.field = field;
-        this.rejectedValue = rejectedValue;
+    public ValidationException(HttpStatus httpStatus, String message, List<ErrorDetail> errorDetails) {
+        super(httpStatus, ErrorCode.VALIDATION_ERROR.name(), message, errorDetails);
     }
-
 }

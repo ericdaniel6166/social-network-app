@@ -16,4 +16,14 @@ public class UserServiceImpl implements UserService {
     public AppUser saveAndFlush(AppUser appUser) {
         return userRepository.saveAndFlush(appUser);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 }

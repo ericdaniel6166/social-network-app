@@ -1,25 +1,37 @@
 package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.dto.EmailDTO;
+import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.RegisterRequestDTO;
 import com.example.socialnetworkapp.dto.RegisterResponseDTO;
+import com.example.socialnetworkapp.dto.ValidationErrorDetail;
+import com.example.socialnetworkapp.enums.MasterErrorCode;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.exception.ValidationException;
 import com.example.socialnetworkapp.model.AppUser;
+import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.model.VerificationToken;
 import com.example.socialnetworkapp.service.AuthService;
 import com.example.socialnetworkapp.service.EncryptionService;
 import com.example.socialnetworkapp.service.MailService;
+import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.service.VerificationTokenService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.PredicateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
 
     //TODO move to master_general_parameter
     private static final String VERIFICATION_URL = "http://localhost:8080/api/auth/accountVerification/";
-    private static final String SIGN_UP_SUCCESS_MESSAGE = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours";
+    private static final String SIGN_UP_SUCCESS_MESSAGE = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours.";
     private static final String SIGN_UP_SUCCESS_TITLE = "VERIFICATION LINK SENT";
 
     @Autowired
@@ -49,17 +61,21 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private EncryptionService encryptionService;
 
+    @Autowired
+    private MasterErrorMessageService masterErrorMessageService;
+
     @Transactional
     @Override
     public RegisterResponseDTO signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
-        AppUser appUser;
+        validateAccountNotExists(registerRequestDTO);
+
         String encryptedPassword = null;
         if (StringUtils.isNotBlank(registerRequestDTO.getPassword())) {
             encryptedPassword = encryptionService.encrypt(registerRequestDTO.getPassword());
         }
 
         registerRequestDTO.setPassword(encryptedPassword);
-        appUser = modelMapper.map(registerRequestDTO, AppUser.class);
+        AppUser appUser = modelMapper.map(registerRequestDTO, AppUser.class);
         appUser.setActive(false);
         appUser = userService.saveAndFlush(appUser);
         String token = generateVerificationToken(appUser);
@@ -76,6 +92,36 @@ public class AuthServiceImpl implements AuthService {
         return registerResponseDTO;
     }
 
+    public void validateAccountNotExists(RegisterRequestDTO registerRequestDTO) throws ResourceNotFoundException, ValidationException {
+        List<ErrorDetail> errorDetails = new ArrayList<>();
+        errorDetails.add(validateEmail(registerRequestDTO.getEmail()));
+        errorDetails.add(validateUsername(registerRequestDTO.getUsername()));
+        CollectionUtils.filter(errorDetails, PredicateUtils.notNullPredicate());
+        if (!errorDetails.isEmpty()) {
+            throw new ValidationException(HttpStatus.CONFLICT, null, errorDetails);
+        }
+    }
+
+    private ErrorDetail validateEmail(String email) throws ResourceNotFoundException {
+        boolean existsByEmail = userService.existsByEmail(email);
+        log.info("Validate email, email exists: {}", existsByEmail);
+        if (existsByEmail) {
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTS_ERROR);
+            return new ValidationErrorDetail(null, "email", CommonUtils.maskEmail(email), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
+        }
+        return null;
+    }
+
+    private ErrorDetail validateUsername(String username) throws ResourceNotFoundException {
+        boolean existsByUsername = userService.existsByUsername(username);
+        log.info("Validate username, username exists: {}", existsByUsername);
+        if (existsByUsername) {
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTS_ERROR);
+            return new ValidationErrorDetail(null, "username", username, StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
+        }
+        return null;
+    }
+
     private String generateVerificationToken(AppUser appUser) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
@@ -84,4 +130,5 @@ public class AuthServiceImpl implements AuthService {
         verificationTokenService.saveAndFlush(verificationToken);
         return token;
     }
+
 }

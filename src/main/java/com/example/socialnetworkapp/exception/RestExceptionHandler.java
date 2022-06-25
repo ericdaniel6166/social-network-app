@@ -55,6 +55,15 @@ public class RestExceptionHandler {
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidationException(ValidationException e, HttpServletRequest httpServletRequest) {
+        log.error("Handle ValidationException, error message: {}", e.getMessage(), e);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getHttpStatus(),
+                ErrorCode.VALIDATION_ERROR.name(), e.getMessage(), httpServletRequest, e.getErrorDetails());
+
+        return buildResponseExceptionEntity(errorResponseDTO);
+    }
+
     private ErrorDetail mapFieldErrorToErrorDetail(FieldError fieldError) {
         return new ValidationErrorDetail(fieldError.getObjectName(), fieldError.getField(),
                 fieldError.getRejectedValue(), fieldError.getDefaultMessage());
