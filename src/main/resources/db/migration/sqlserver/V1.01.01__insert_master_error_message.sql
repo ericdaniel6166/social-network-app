@@ -1,5 +1,4 @@
 BEGIN TRANSACTION
-    use social_network_app;
     if not exists(select 1 from master_error_message where error_code = 'SEND_MAIL_ERROR')
         insert master_error_message(created_by, last_modified_by, created_date, last_modified_date, error_code,
                                     error_message)
