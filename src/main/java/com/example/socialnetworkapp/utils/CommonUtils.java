@@ -11,10 +11,10 @@ public final class CommonUtils {
 
     public static final String REGEX_MASKING_EMAIL = "(?<=.)[^@](?=[^@]*?[^@]@)|(?:(?<=@.)|(?!^)\\G(?=[^@]*$)).(?=.*[^@]\\.)";
 
-    public static final String MASKING_CHARACTER_ASTERISK = "*";
+    public static final String CHARACTER_ASTERISK = "*";
 
     public static String maskEmail(String email) {
-        return email.replaceAll(REGEX_MASKING_EMAIL, MASKING_CHARACTER_ASTERISK);
+        return email.replaceAll(REGEX_MASKING_EMAIL, CHARACTER_ASTERISK);
     }
 
     public static String formatString(String string, Object... objects) throws SocialNetworkAppException {
