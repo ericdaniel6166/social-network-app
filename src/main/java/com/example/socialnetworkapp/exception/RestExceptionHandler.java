@@ -86,4 +86,14 @@ public class RestExceptionHandler {
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception e, HttpServletRequest httpServletRequest) {
+        log.error("Handle Exception, error message: {}", e.getMessage(), e);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(),
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), httpServletRequest, null);
+
+        return buildResponseExceptionEntity(errorResponseDTO);
+    }
+
+
 }
