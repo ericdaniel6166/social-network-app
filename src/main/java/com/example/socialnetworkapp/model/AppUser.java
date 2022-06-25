@@ -17,7 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "user")
+@Table(name = "app_user")
 public class AppUser extends Auditable<String> implements Serializable {
 
     private static final long serialVersionUID = 1L;
