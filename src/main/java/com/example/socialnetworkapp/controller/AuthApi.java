@@ -16,6 +16,7 @@ public interface AuthApi {
             @ApiResponse(code = 201, message = "Sign up successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 409, message = "[Business Exception] - Conflict"),
             @ApiResponse(code = 422, message = "[Business Exception] - Request is not valid"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
