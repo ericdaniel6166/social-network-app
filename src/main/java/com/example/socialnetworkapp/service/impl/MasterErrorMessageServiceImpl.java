@@ -16,6 +16,7 @@ public class MasterErrorMessageServiceImpl implements MasterErrorMessageService 
 
     @Override
     public MasterErrorMessage findByErrorCode(MasterErrorCode errorCode) throws ResourceNotFoundException {
-        return masterErrorMessageRepository.findByErrorCode(errorCode).orElseThrow(() -> new ResourceNotFoundException(errorCode.name()));
+        return masterErrorMessageRepository.findByErrorCode(errorCode).orElseThrow(
+                () -> new ResourceNotFoundException("Error code " + errorCode.name()));
     }
 }
