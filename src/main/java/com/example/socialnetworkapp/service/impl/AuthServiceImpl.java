@@ -46,9 +46,6 @@ public class AuthServiceImpl implements AuthService {
 
     //TODO move to master_general_parameter
     private static final String VERIFICATION_URL = "http://localhost:8080/auth/verifyAccount/";
-    //TODO move to master_message
-    private static final String VERIFY_ACCOUNT_SUCCESS_TITLE = "VERIFICATION SUCCESS";
-    private static final String VERIFY_ACCOUNT_SUCCESS_MESSAGE = "Hi %s, your account has been verified.";
 
     @Autowired
     private ModelMapper modelMapper;
@@ -83,8 +80,10 @@ public class AuthServiceImpl implements AuthService {
         appUser.setActive(true);
         userService.saveAndFlush(appUser);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
-        simpleResponseDTO.setTitle(VERIFY_ACCOUNT_SUCCESS_TITLE);
-        simpleResponseDTO.setMessage(CommonUtils.formatString(VERIFY_ACCOUNT_SUCCESS_MESSAGE, appUser.getUsername()));
+        MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.VERIFY_ACCOUNT_SUCCESS);
+        simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(masterMessage.getTitle()));
+        String message = CommonUtils.formatString(StringEscapeUtils.unescapeJava(masterMessage.getMessage()), appUser.getUsername());
+        simpleResponseDTO.setMessage(StringEscapeUtils.unescapeJava(message));
         return simpleResponseDTO;
     }
 
