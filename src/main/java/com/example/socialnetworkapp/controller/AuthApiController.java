@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.controller;
 
-import com.example.socialnetworkapp.dto.RegisterRequestDTO;
+import com.example.socialnetworkapp.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.service.AuthService;
