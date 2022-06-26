@@ -130,7 +130,7 @@ public class AuthServiceImpl implements AuthService {
         boolean existsByEmail = userService.existsByEmail(email);
         log.info("Validate email, email exists: {}", existsByEmail);
         if (existsByEmail) {
-            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTS_ERROR);
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR);
             return new ValidationErrorDetail(null, "email", CommonUtils.maskEmail(email), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
         }
         return null;
@@ -140,7 +140,7 @@ public class AuthServiceImpl implements AuthService {
         boolean existsByUsername = userService.existsByUsername(username);
         log.info("Validate username, username exists: {}", existsByUsername);
         if (existsByUsername) {
-            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTS_ERROR);
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR);
             return new ValidationErrorDetail(null, "username", username, StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
         }
         return null;
