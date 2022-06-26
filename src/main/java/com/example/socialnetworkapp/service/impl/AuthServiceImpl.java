@@ -2,7 +2,7 @@ package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.ErrorDetail;
-import com.example.socialnetworkapp.dto.RegisterRequestDTO;
+import com.example.socialnetworkapp.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
@@ -89,16 +89,16 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public SimpleResponseDTO signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
-        validateAccountNotExists(registerRequestDTO);
+    public SimpleResponseDTO signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
+        validateAccountNotExists(signUpRequestDTO);
 
         String encryptedPassword = null;
-        if (StringUtils.isNotBlank(registerRequestDTO.getPassword())) {
-            encryptedPassword = encryptionService.encrypt(registerRequestDTO.getPassword());
+        if (StringUtils.isNotBlank(signUpRequestDTO.getPassword())) {
+            encryptedPassword = encryptionService.encrypt(signUpRequestDTO.getPassword());
         }
 
-        registerRequestDTO.setPassword(encryptedPassword);
-        AppUser appUser = modelMapper.map(registerRequestDTO, AppUser.class);
+        signUpRequestDTO.setPassword(encryptedPassword);
+        AppUser appUser = modelMapper.map(signUpRequestDTO, AppUser.class);
         appUser.setActive(false);
         appUser = userService.saveAndFlush(appUser);
         String token = generateVerificationToken(appUser);
@@ -116,10 +116,10 @@ public class AuthServiceImpl implements AuthService {
         return simpleResponseDTO;
     }
 
-    public void validateAccountNotExists(RegisterRequestDTO registerRequestDTO) throws ResourceNotFoundException, ValidationException {
+    public void validateAccountNotExists(SignUpRequestDTO signUpRequestDTO) throws ResourceNotFoundException, ValidationException {
         List<ErrorDetail> errorDetails = new ArrayList<>();
-        errorDetails.add(validateEmail(registerRequestDTO.getEmail()));
-        errorDetails.add(validateUsername(registerRequestDTO.getUsername()));
+        errorDetails.add(validateEmail(signUpRequestDTO.getEmail()));
+        errorDetails.add(validateUsername(signUpRequestDTO.getUsername()));
         CollectionUtils.filter(errorDetails, PredicateUtils.notNullPredicate());
         if (!errorDetails.isEmpty()) {
             throw new ValidationException(HttpStatus.CONFLICT, null, errorDetails);

@@ -28,9 +28,9 @@ public class AuthApiController implements AuthApi {
 
     @Override
     @PostMapping("/signUp")
-    public ResponseEntity<?> signUp(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
+    public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
         log.info("Start sign up");
-        SimpleResponseDTO simpleResponseDTO = authService.signUp(registerRequestDTO);
+        SimpleResponseDTO simpleResponseDTO = authService.signUp(signUpRequestDTO);
         log.info("End sign up");
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.CREATED);
     }

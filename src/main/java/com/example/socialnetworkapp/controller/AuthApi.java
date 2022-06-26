@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.controller;
 
-import com.example.socialnetworkapp.dto.RegisterRequestDTO;
+import com.example.socialnetworkapp.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +20,7 @@ public interface AuthApi {
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Sign up")
     @ApiResponses(value = {
