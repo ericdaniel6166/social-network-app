@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.service.impl;
 import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.RegisterRequestDTO;
-import com.example.socialnetworkapp.dto.RegisterResponseDTO;
+import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -42,9 +42,12 @@ public class AuthServiceImpl implements AuthService {
     private static final String VERIFICATION_EMAIL_SUBJECT = "Please verify your email address";
 
     //TODO move to master_general_parameter
-    private static final String VERIFICATION_URL = "http://localhost:8080/api/auth/accountVerification/";
+    private static final String VERIFICATION_URL = "http://localhost:8080/auth/verifyAccount/";
+    //TODO move to master_message
     private static final String SIGN_UP_SUCCESS_MESSAGE = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours.";
     private static final String SIGN_UP_SUCCESS_TITLE = "VERIFICATION LINK SENT";
+    private static final String VERIFY_ACCOUNT_SUCCESS_TITLE = "VERIFICATION SUCCESS";
+    private static final String VERIFY_ACCOUNT_SUCCESS_MESSAGE = "Hi %s, your account has been verified.";
 
     @Autowired
     private ModelMapper modelMapper;
@@ -64,9 +67,26 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private MasterErrorMessageService masterErrorMessageService;
 
+    @Override
+    public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
+        VerificationToken verificationToken = verificationTokenService.findByToken(token);
+        AppUser appUser = verificationToken.getAppUser();
+        if (appUser.isActive()) {
+            log.error("Account has been already activated, username: {}", appUser.getUsername());
+            MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR);
+            throw new SocialNetworkAppException(HttpStatus.BAD_REQUEST, MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR.name(), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()), null);
+        }
+        appUser.setActive(true);
+        userService.saveAndFlush(appUser);
+        SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
+        simpleResponseDTO.setTitle(VERIFY_ACCOUNT_SUCCESS_TITLE);
+        simpleResponseDTO.setMessage(CommonUtils.formatString(VERIFY_ACCOUNT_SUCCESS_MESSAGE, appUser.getUsername()));
+        return simpleResponseDTO;
+    }
+
     @Transactional
     @Override
-    public RegisterResponseDTO signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
+    public SimpleResponseDTO signUp(RegisterRequestDTO registerRequestDTO) throws SocialNetworkAppException {
         validateAccountNotExists(registerRequestDTO);
 
         String encryptedPassword = null;
@@ -84,12 +104,12 @@ public class AuthServiceImpl implements AuthService {
         emailDTO.setBody(VERIFICATION_URL + token);
         emailDTO.setRecipient(appUser.getEmail());
         mailService.sendMail(emailDTO);
-        RegisterResponseDTO registerResponseDTO = new RegisterResponseDTO();
+        SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         String maskEmail = CommonUtils.maskEmail(appUser.getEmail());
-        registerResponseDTO.setTitle(StringEscapeUtils.unescapeJava(SIGN_UP_SUCCESS_TITLE));
+        simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(SIGN_UP_SUCCESS_TITLE));
         String message = CommonUtils.formatString(SIGN_UP_SUCCESS_MESSAGE, appUser.getUsername(), maskEmail);
-        registerResponseDTO.setMessage(StringEscapeUtils.unescapeJava(message));
-        return registerResponseDTO;
+        simpleResponseDTO.setMessage(StringEscapeUtils.unescapeJava(message));
+        return simpleResponseDTO;
     }
 
     public void validateAccountNotExists(RegisterRequestDTO registerRequestDTO) throws ResourceNotFoundException, ValidationException {

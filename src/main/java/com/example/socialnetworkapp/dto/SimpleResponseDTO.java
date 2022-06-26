@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class RegisterResponseDTO implements Serializable {
+public class SimpleResponseDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
