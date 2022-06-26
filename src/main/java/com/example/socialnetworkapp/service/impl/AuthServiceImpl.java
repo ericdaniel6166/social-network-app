@@ -6,16 +6,19 @@ import com.example.socialnetworkapp.dto.RegisterRequestDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
+import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
 import com.example.socialnetworkapp.model.AppUser;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
+import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.model.VerificationToken;
 import com.example.socialnetworkapp.service.AuthService;
 import com.example.socialnetworkapp.service.EncryptionService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
+import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.service.VerificationTokenService;
 import com.example.socialnetworkapp.utils.CommonUtils;
@@ -44,8 +47,6 @@ public class AuthServiceImpl implements AuthService {
     //TODO move to master_general_parameter
     private static final String VERIFICATION_URL = "http://localhost:8080/auth/verifyAccount/";
     //TODO move to master_message
-    private static final String SIGN_UP_SUCCESS_MESSAGE = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours.";
-    private static final String SIGN_UP_SUCCESS_TITLE = "VERIFICATION LINK SENT";
     private static final String VERIFY_ACCOUNT_SUCCESS_TITLE = "VERIFICATION SUCCESS";
     private static final String VERIFY_ACCOUNT_SUCCESS_MESSAGE = "Hi %s, your account has been verified.";
 
@@ -66,6 +67,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private MasterErrorMessageService masterErrorMessageService;
+
+    @Autowired
+    private MasterMessageService masterMessageService;
 
     @Override
     public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
@@ -106,8 +110,9 @@ public class AuthServiceImpl implements AuthService {
         mailService.sendMail(emailDTO);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         String maskEmail = CommonUtils.maskEmail(appUser.getEmail());
-        simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(SIGN_UP_SUCCESS_TITLE));
-        String message = CommonUtils.formatString(SIGN_UP_SUCCESS_MESSAGE, appUser.getUsername(), maskEmail);
+        MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.SIGN_UP_SUCCESS);
+        simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(masterMessage.getTitle()));
+        String message = CommonUtils.formatString(StringEscapeUtils.unescapeJava(masterMessage.getMessage()), appUser.getUsername(), maskEmail);
         simpleResponseDTO.setMessage(StringEscapeUtils.unescapeJava(message));
         return simpleResponseDTO;
     }
