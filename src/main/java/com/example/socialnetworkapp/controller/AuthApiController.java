@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/auth")
@@ -37,7 +36,7 @@ public class AuthApiController implements AuthApi {
 
     @Override
     @GetMapping("/verifyAccount/{token}")
-    public ResponseEntity<?> verifyAccount(@PathVariable @NotBlank String token) throws SocialNetworkAppException {
+    public ResponseEntity<?> verifyAccount(@PathVariable String token) throws SocialNetworkAppException {
         log.info("Start verify account");
         SimpleResponseDTO simpleResponseDTO = authService.verifyAccount(token);
         log.info("End verify account");
