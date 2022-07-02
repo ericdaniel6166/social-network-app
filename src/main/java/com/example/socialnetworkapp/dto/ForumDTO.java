@@ -19,7 +19,7 @@ public class ForumDTO implements Serializable {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @NotBlank(message = "Username is required")
+    @NotBlank(message = "Description is required")
     private String description;
 
 }
