@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/forum")
 @Slf4j
@@ -23,7 +25,7 @@ public class ForumApiController implements ForumApi {
 
     @Override
     @PostMapping("/create")
-    public ResponseEntity<?> createForum(@RequestBody ForumDTO forumDTO) throws SocialNetworkAppException {
+    public ResponseEntity<?> createForum(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
         SimpleResponseDTO forumResponseDTO = forumService.createForum(forumDTO);
         return new ResponseEntity<>(forumResponseDTO, HttpStatus.CREATED);
     }
