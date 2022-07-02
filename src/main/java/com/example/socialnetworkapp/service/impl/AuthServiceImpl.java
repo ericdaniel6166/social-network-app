@@ -1,24 +1,32 @@
 package com.example.socialnetworkapp.service.impl;
 
+import com.example.socialnetworkapp.configuration.JwtConfiguration;
 import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.ErrorDetail;
+import com.example.socialnetworkapp.dto.SignInRequestDTO;
+import com.example.socialnetworkapp.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
+import com.example.socialnetworkapp.enums.AppRoleName;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
+import com.example.socialnetworkapp.model.AppRole;
 import com.example.socialnetworkapp.model.AppUser;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.model.VerificationToken;
 import com.example.socialnetworkapp.service.AuthService;
 import com.example.socialnetworkapp.service.EncryptionService;
+import com.example.socialnetworkapp.service.JwtService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
+import com.example.socialnetworkapp.service.RefreshTokenService;
+import com.example.socialnetworkapp.service.RoleService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.service.VerificationTokenService;
 import com.example.socialnetworkapp.utils.CommonUtils;
@@ -30,10 +38,16 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,6 +82,22 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private MasterMessageService masterMessageService;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private JwtConfiguration jwtConfiguration;
+
+    @Autowired
+    private RefreshTokenService refreshTokenService;
+
+
     @Override
     public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
@@ -87,6 +117,18 @@ public class AuthServiceImpl implements AuthService {
         return simpleResponseDTO;
     }
 
+    @Override
+    public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
+                , signInRequestDTO.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String authenticationToken = jwtService.generateToken(authentication);
+
+        return new SignInResponseDTO(authenticationToken
+                , refreshTokenService.generateRefreshToken().getToken()
+                , Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()).toString());
+    }
+
     @Transactional
     @Override
     public SimpleResponseDTO signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
@@ -100,6 +142,8 @@ public class AuthServiceImpl implements AuthService {
         signUpRequestDTO.setPassword(encryptedPassword);
         AppUser appUser = modelMapper.map(signUpRequestDTO, AppUser.class);
         appUser.setActive(false);
+        AppRole appRole = roleService.findByRoleName(AppRoleName.ROLE_USER);
+        appUser.setRoles(Collections.singletonList(appRole));
         appUser = userService.saveAndFlush(appUser);
         String token = generateVerificationToken(appUser);
         EmailDTO emailDTO = new EmailDTO();
@@ -116,7 +160,7 @@ public class AuthServiceImpl implements AuthService {
         return simpleResponseDTO;
     }
 
-    public void validateAccountNotExists(SignUpRequestDTO signUpRequestDTO) throws ResourceNotFoundException, ValidationException {
+    private void validateAccountNotExists(SignUpRequestDTO signUpRequestDTO) throws ResourceNotFoundException, ValidationException {
         List<ErrorDetail> errorDetails = new ArrayList<>();
         errorDetails.add(validateEmail(signUpRequestDTO.getEmail()));
         errorDetails.add(validateUsername(signUpRequestDTO.getUsername()));

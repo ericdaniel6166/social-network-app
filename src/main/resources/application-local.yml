@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   flyway:
     baseline-on-migrate: true
     enabled: false
@@ -40,6 +43,15 @@ spring:
           starttls:
             enable: true
         debug: true
+
+jwt:
+  expiration:
+    time: 90000
+  public:
+    key: classpath:app.pub
+  private:
+    key: classpath:app.key
+
 
 server:
   port: 8080
