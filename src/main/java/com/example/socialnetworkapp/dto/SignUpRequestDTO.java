@@ -19,7 +19,7 @@ public class SignUpRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Email
-    @NotEmpty(message = "Email is required")
+    @NotBlank(message = "Email is required")
     private String email;
 
     @NotBlank(message = "Username is required")
