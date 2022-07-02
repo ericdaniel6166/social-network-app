@@ -23,7 +23,7 @@ public interface AuthApi {
     })
     ResponseEntity<?> signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException;
 
-    @ApiOperation(value = "Sign up")
+    @ApiOperation(value = "Verify account")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Verify account successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
