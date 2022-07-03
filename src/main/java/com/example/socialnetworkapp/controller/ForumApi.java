@@ -23,9 +23,9 @@ public interface ForumApi {
     })
     ResponseEntity<?> create(ForumDTO forumDTO) throws SocialNetworkAppException;
 
-    @ApiOperation(value = "Get all forum")
+    @ApiOperation(value = "Find all forum")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Get all forum successfully"),
+            @ApiResponse(code = 200, message = "Find all forum successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
