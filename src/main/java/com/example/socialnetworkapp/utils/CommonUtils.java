@@ -40,7 +40,7 @@ public final class CommonUtils {
 
     public static ResponseEntity<?> buildPageResponseEntity(Page<?> page) {
         if (page.getContent().isEmpty()) {
-            log.info("Page is empty, page: {}", page);
+            log.info("Page is empty, page number: {}, total pages: {}", page.getNumber(), page.getTotalPages());
             return new ResponseEntity<>(page, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(page, HttpStatus.OK);
