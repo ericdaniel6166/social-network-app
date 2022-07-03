@@ -52,6 +52,16 @@ jwt:
   private:
     key: classpath:app.key
 
+com.example.socialnetworkapp:
+  time-zone-id: "Asia/Ho_Chi_Minh"
+#  time-zone-id: "Europe/Berlin"
+#  time-zone-id: "Singapore"
+#  time-zone-id: "America/New_York"
+  date-time-format: "yyyy-MM-dd HH:mm:ss"
+  zoned-date-time-format: "yyyy-MM-dd HH:mm:ss Z"
+  date-format: "yyyy-MM-dd"
+  time-format: "HH:mm:ss"
+
 
 server:
   port: 8080

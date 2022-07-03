@@ -3,6 +3,7 @@ package com.example.socialnetworkapp.service.impl;
 import com.example.socialnetworkapp.dto.ForumDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.Forum;
 import com.example.socialnetworkapp.model.MasterMessage;
@@ -44,6 +45,13 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    public Forum findById(Long id) throws ResourceNotFoundException {
+        log.info("Find forum by id, id: {}", id);
+        return forumRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(Constants.FORUM + ", id:" + id));
+    }
+
+    @Override
     public Page<ForumDTO> findAll(Pageable pageable) throws SocialNetworkAppException {
         log.info("Find all forum, pageable: {}", pageable);
         Page<Forum> forumPage = forumRepository.findAll(pageable);
@@ -59,7 +67,7 @@ public class ForumServiceImpl implements ForumService {
         log.info("Create forum, forumDTO: {}", forumDTO);
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
-        forum = saveAndFlush(forum);
+        saveAndFlush(forum);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         simpleResponseDTO.setTitle(CommonUtils.formatString(

@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.service.impl;
 
+import com.example.socialnetworkapp.configuration.AppConfiguration;
 import com.example.socialnetworkapp.configuration.JwtConfiguration;
 import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.ErrorDetail;
@@ -46,9 +47,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @Service
@@ -86,6 +89,8 @@ public class AuthServiceImpl implements AuthService {
 
     private final RefreshTokenService refreshTokenService;
 
+    private final AppConfiguration appConfiguration;
+
 
     @Override
     public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
@@ -113,11 +118,12 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String accessToken = jwtService.generateToken(authentication);
 
-        return new SignInResponseDTO(accessToken
-                , refreshTokenService.generateRefreshToken().getToken()
-                , Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()).toString());
+        String expiresAt = DateTimeFormatter.ofPattern(appConfiguration.getZonedDateTimeFormat())
+                .withZone(TimeZone.getTimeZone(appConfiguration.getTimeZoneId()).toZoneId())
+                .format(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()));
+        return new SignInResponseDTO(jwtService.generateToken(authentication),
+                refreshTokenService.generateRefreshToken().getToken(), expiresAt);
     }
 
     @Transactional

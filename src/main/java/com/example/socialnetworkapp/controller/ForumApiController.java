@@ -44,8 +44,8 @@ public class ForumApiController implements ForumApi {
     @Override
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
-        SimpleResponseDTO forumResponseDTO = forumService.create(forumDTO);
-        return new ResponseEntity<>(forumResponseDTO, HttpStatus.OK);
+        SimpleResponseDTO simpleResponseDTO = forumService.create(forumDTO);
+        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
 
 }

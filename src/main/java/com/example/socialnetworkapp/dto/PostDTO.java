@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class ForumDTO implements Serializable {
+public class PostDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,8 +24,8 @@ public class ForumDTO implements Serializable {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @NotBlank(message = "Description is required")
-    private String description;
+    @NotBlank(message = "Content is required")
+    private String content;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date lastModifiedDate;
@@ -34,4 +33,6 @@ public class ForumDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdDate;
 
+    @NotBlank(message = "Forum ID is required")
+    private Long forumId;
 }
