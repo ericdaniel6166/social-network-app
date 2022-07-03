@@ -45,6 +45,7 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public Page<ForumDTO> findAll(Pageable pageable) throws SocialNetworkAppException {
+        log.info("Find all forum, pageable: {}", pageable);
         Page<Forum> forumPage = forumRepository.findAll(pageable);
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))
@@ -55,6 +56,7 @@ public class ForumServiceImpl implements ForumService {
     @Override
     @Transactional
     public SimpleResponseDTO create(ForumDTO forumDTO) throws SocialNetworkAppException {
+        log.info("Create forum, forumDTO: {}", forumDTO);
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
         forum = saveAndFlush(forum);

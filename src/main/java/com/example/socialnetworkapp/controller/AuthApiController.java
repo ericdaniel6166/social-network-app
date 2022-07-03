@@ -30,7 +30,6 @@ public class AuthApiController implements AuthApi {
     @Override
     @PostMapping("/signUp")
     public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
-        log.info("Start sign up, username: {}", signUpRequestDTO.getUsername());
         SimpleResponseDTO simpleResponseDTO = authService.signUp(signUpRequestDTO);
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
@@ -38,7 +37,6 @@ public class AuthApiController implements AuthApi {
     @Override
     @GetMapping("/verifyAccount/{token}")
     public ResponseEntity<?> verifyAccount(@PathVariable String token) throws SocialNetworkAppException {
-        log.info("Start verify account, token: {}", token);
         SimpleResponseDTO simpleResponseDTO = authService.verifyAccount(token);
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
@@ -46,7 +44,6 @@ public class AuthApiController implements AuthApi {
     @Override
     @PostMapping("/signIn")
     public ResponseEntity<?> signIn(@RequestBody @Valid SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException {
-        log.info("Start sign in, username: {}", signInRequestDTO.getUsername());
         SignInResponseDTO signInResponseDTO = authService.signIn(signInRequestDTO);
         return new ResponseEntity<>(signInResponseDTO, HttpStatus.OK);
     }

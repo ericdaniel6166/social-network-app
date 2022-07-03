@@ -18,7 +18,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public AppRole findByRoleName(AppRoleName roleName) throws ResourceNotFoundException {
-        log.info("Start find app role by role name, role name: {}", roleName);
+        log.info("Find app role by role name, role name: {}", roleName);
         return roleRepository.findByRoleName(roleName).orElseThrow(
                 () -> new ResourceNotFoundException("Role name " + roleName));
     }

@@ -89,6 +89,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
+        log.info("Verify account, token: {}", token);
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
         AppUser appUser = verificationToken.getAppUser();
         if (appUser.isActive()) {
@@ -108,6 +109,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException {
+        log.info("Sign in, username: {}", signInRequestDTO.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -121,6 +123,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public SimpleResponseDTO signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
+        log.info("Sign up, username: {}", signUpRequestDTO.getUsername());
         validateAccountNotExists(signUpRequestDTO);
 
         String encryptedPassword = null;

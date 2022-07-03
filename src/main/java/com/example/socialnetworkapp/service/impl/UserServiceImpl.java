@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AppUser findByUsername(String username) throws ResourceNotFoundException {
-        log.info("Start find app user by username, username: {}", username);
+        log.info("Find app user by username, username: {}", username);
         return userRepository.findByUsername(username).orElseThrow(
                 () -> new ResourceNotFoundException("username " + username));
     }
