@@ -14,9 +14,9 @@ import java.util.Arrays;
 @Slf4j
 public final class CommonUtils {
 
-    public static final String REGEX_MASKING_EMAIL = "(?<=.)[^@](?=[^@]*?[^@]@)|(?:(?<=@.)|(?!^)\\G(?=[^@]*$)).(?=.*[^@]\\.)";
+    private static final String REGEX_MASKING_EMAIL = "(?<=.)[^@](?=[^@]*?[^@]@)|(?:(?<=@.)|(?!^)\\G(?=[^@]*$)).(?=.*[^@]\\.)";
 
-    public static final String CHARACTER_ASTERISK = "*";
+    private static final String CHARACTER_ASTERISK = "*";
 
     public static String maskEmail(String email) {
         return email.replaceAll(REGEX_MASKING_EMAIL, CHARACTER_ASTERISK);
