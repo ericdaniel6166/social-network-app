@@ -47,7 +47,7 @@ public class ForumApiController implements ForumApi {
     public ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
         log.info("Start create forum");
         SimpleResponseDTO forumResponseDTO = forumService.create(forumDTO);
-        return new ResponseEntity<>(forumResponseDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(forumResponseDTO, HttpStatus.OK);
     }
 
 }

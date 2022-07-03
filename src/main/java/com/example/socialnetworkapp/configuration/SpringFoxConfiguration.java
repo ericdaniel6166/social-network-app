@@ -17,11 +17,13 @@ import springfox.documentation.swagger.web.OperationsSorter;
 import springfox.documentation.swagger.web.TagsSorter;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
 
 @Configuration
 @Import({SpringDataRestConfiguration.class, BeanValidatorPluginsConfiguration.class})
+@EnableSwagger2
 public class SpringFoxConfiguration {
 
     private ApiInfo apiInfo() {
@@ -36,7 +38,8 @@ public class SpringFoxConfiguration {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.socialnetworkapp.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .useDefaultResponseMessages(false);
     }
 
     /**

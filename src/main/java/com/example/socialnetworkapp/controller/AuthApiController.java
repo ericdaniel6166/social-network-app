@@ -32,7 +32,7 @@ public class AuthApiController implements AuthApi {
     public ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
         log.info("Start sign up, username: {}", signUpRequestDTO.getUsername());
         SimpleResponseDTO simpleResponseDTO = authService.signUp(signUpRequestDTO);
-        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
 
     @Override
