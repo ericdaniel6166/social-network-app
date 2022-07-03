@@ -11,9 +11,9 @@ import org.springframework.http.ResponseEntity;
 @Api(value = "PostAPI", tags = "Post API")
 public interface PostApi {
 
-    @ApiOperation(value = "Create forum")
+    @ApiOperation(value = "Create post")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Create forum successfully"),
+            @ApiResponse(code = 200, message = "Create post successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 401, message = "[Business Exception] - Unauthorized"),
