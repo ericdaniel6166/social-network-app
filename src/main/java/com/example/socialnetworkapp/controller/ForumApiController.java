@@ -36,7 +36,6 @@ public class ForumApiController implements ForumApi {
                                      @RequestParam(name = "size", required = false, defaultValue = Constants.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
                                      @RequestParam(name = "direction", required = false, defaultValue = Constants.SORT_DIRECTION_DESC) @Valid Sort.Direction direction,
                                      @RequestParam(name = "properties", required = false, defaultValue = Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE) String[] properties) throws SocialNetworkAppException {
-        log.info("Start find all forum");
         Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
         Page<ForumDTO> forumDTOPage = forumService.findAll(pageable);
         return CommonUtils.buildPageResponseEntity(forumDTOPage);
@@ -45,7 +44,6 @@ public class ForumApiController implements ForumApi {
     @Override
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
-        log.info("Start create forum");
         SimpleResponseDTO forumResponseDTO = forumService.create(forumDTO);
         return new ResponseEntity<>(forumResponseDTO, HttpStatus.OK);
     }
