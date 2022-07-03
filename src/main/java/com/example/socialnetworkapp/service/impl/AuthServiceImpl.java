@@ -30,6 +30,7 @@ import com.example.socialnetworkapp.service.RoleService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.service.VerificationTokenService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.PredicateUtils;
@@ -53,6 +54,7 @@ import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     //TODO move to master_general_parameter
@@ -61,41 +63,29 @@ public class AuthServiceImpl implements AuthService {
     //TODO move to master_general_parameter
     private static final String VERIFICATION_URL = "http://localhost:8080/auth/verifyAccount/";
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private VerificationTokenService verificationTokenService;
+    private final VerificationTokenService verificationTokenService;
 
-    @Autowired
-    private MailService mailService;
+    private final MailService mailService;
 
-    @Autowired
-    private EncryptionService encryptionService;
+    private final EncryptionService encryptionService;
 
-    @Autowired
-    private MasterErrorMessageService masterErrorMessageService;
+    private final MasterErrorMessageService masterErrorMessageService;
 
-    @Autowired
-    private MasterMessageService masterMessageService;
+    private final MasterMessageService masterMessageService;
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
-    @Autowired
-    private JwtConfiguration jwtConfiguration;
+    private final JwtConfiguration jwtConfiguration;
 
-    @Autowired
-    private RefreshTokenService refreshTokenService;
+    private final RefreshTokenService refreshTokenService;
 
 
     @Override

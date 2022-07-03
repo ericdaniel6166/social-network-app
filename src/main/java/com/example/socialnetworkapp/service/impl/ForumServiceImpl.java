@@ -3,7 +3,6 @@ package com.example.socialnetworkapp.service.impl;
 import com.example.socialnetworkapp.dto.ForumDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
-import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.Forum;
 import com.example.socialnetworkapp.model.MasterMessage;
@@ -13,6 +12,7 @@ import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
@@ -28,19 +28,16 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ForumServiceImpl implements ForumService {
 
-    @Autowired
-    private ForumRepository forumRepository;
+    private final ForumRepository forumRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private MasterMessageService masterMessageService;
+    private final MasterMessageService masterMessageService;
 
     @Override
     public Forum saveAndFlush(Forum forum) {

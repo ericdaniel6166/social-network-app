@@ -4,16 +4,17 @@ import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.model.VerificationToken;
 import com.example.socialnetworkapp.repository.VerificationTokenRepository;
 import com.example.socialnetworkapp.service.VerificationTokenService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class VerificationTokenServiceImpl implements VerificationTokenService {
 
-    @Autowired
-    private VerificationTokenRepository verificationTokenRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
 
     @Override
     public VerificationToken findByToken(String token) throws ResourceNotFoundException {

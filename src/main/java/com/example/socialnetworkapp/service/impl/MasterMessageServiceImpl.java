@@ -5,16 +5,17 @@ import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.repository.MasterMessageRepository;
 import com.example.socialnetworkapp.service.MasterMessageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MasterMessageServiceImpl implements MasterMessageService {
 
-    @Autowired
-    private MasterMessageRepository masterMessageRepository;
+    private final MasterMessageRepository masterMessageRepository;
 
     @Override
     public MasterMessage findByMessageCode(MasterMessageCode messageCode) throws ResourceNotFoundException {

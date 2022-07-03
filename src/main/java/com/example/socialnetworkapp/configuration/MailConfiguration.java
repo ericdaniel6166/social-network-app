@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.configuration;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Properties;
 
 @Component
+@RequiredArgsConstructor
 public class MailConfiguration {
 
     //TODO: move to db master_general_parameter
@@ -18,8 +20,7 @@ public class MailConfiguration {
     private static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
     private static final String MAIL_DEBUG = "mail.debug";
 
-    @Autowired
-    private MailProperties mailProperties;
+    private final MailProperties mailProperties;
 
     @Bean
     public JavaMailSender javaMailSender() {

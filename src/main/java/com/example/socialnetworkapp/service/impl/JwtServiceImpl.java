@@ -41,7 +41,7 @@ public class JwtServiceImpl implements JwtService {
                 .claim("scope", getAuthorityList(user))
                 .build();
 
-        return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
     private List<String> getAuthorityList(User user) {

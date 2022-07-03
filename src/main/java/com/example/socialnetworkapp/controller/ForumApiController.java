@@ -6,6 +6,7 @@ import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.service.ForumService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,10 +26,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/forum")
 @Slf4j
+@RequiredArgsConstructor
 public class ForumApiController implements ForumApi {
 
-    @Autowired
-    private ForumService forumService;
+    private final ForumService forumService;
 
     @Override
     @GetMapping

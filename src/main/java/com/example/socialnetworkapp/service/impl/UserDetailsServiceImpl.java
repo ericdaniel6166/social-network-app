@@ -3,6 +3,7 @@ package com.example.socialnetworkapp.service.impl;
 import com.example.socialnetworkapp.model.AppUser;
 import com.example.socialnetworkapp.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserService userService;

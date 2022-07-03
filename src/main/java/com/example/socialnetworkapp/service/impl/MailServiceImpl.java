@@ -8,6 +8,7 @@ import com.example.socialnetworkapp.service.MailBuilderService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +21,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
     private static final String VERIFICATION_EMAIL = "verification@socialnetworkapp.com";
 
-    @Autowired
-    private MailBuilderService mailBuilderService;
+    private final MailBuilderService mailBuilderService;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
-    @Autowired
-    private MasterErrorMessageService masterErrorMessageService;
+    private final MasterErrorMessageService masterErrorMessageService;
 
     @Override
     public void sendMail(EmailDTO emailDTO) throws SocialNetworkAppException {

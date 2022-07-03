@@ -6,6 +6,7 @@ import com.example.socialnetworkapp.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/auth")
 @Slf4j
+@RequiredArgsConstructor
 public class AuthApiController implements AuthApi {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @Override
     @PostMapping("/signUp")
