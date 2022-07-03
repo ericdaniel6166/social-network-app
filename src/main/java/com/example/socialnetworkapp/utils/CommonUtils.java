@@ -13,16 +13,6 @@ public final class CommonUtils {
 
     public static final String CHARACTER_ASTERISK = "*";
 
-    public static final String PAGE_REQUEST_DIRECTION_ASC = "ASC";
-
-    public static final String PAGE_REQUEST_DIRECTION_DESC = "DESC";
-
-    public static final String PAGE_REQUEST_SIZE_DEFAULT = "10";
-
-    public static final String PAGE_REQUEST_PAGE_NUMBER_DEFAULT = "0";
-
-    public static final String PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE = "lastModifiedDate";
-
     public static String maskEmail(String email) {
         return email.replaceAll(REGEX_MASKING_EMAIL, CHARACTER_ASTERISK);
     }
@@ -36,6 +26,12 @@ public final class CommonUtils {
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), null);
         }
         return formattedString;
+    }
+
+    public static void checkPageNotEmpty(PageImpl<?> page) throws ResourceNotFoundException {
+        if (page.getContent().isEmpty()) {
+            throw new ResourceNotFoundException("Page");
+        }
     }
 
 }

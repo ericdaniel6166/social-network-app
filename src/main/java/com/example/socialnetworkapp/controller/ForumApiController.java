@@ -4,7 +4,7 @@ import com.example.socialnetworkapp.dto.ForumDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.service.ForumService;
-import com.example.socialnetworkapp.utils.CommonUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,13 +32,13 @@ public class ForumApiController implements ForumApi {
 
     @Override
     @GetMapping
-    public ResponseEntity<?> findAll(@RequestParam(name = "page", required = false, defaultValue = CommonUtils.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
-                                     @RequestParam(name = "size", required = false, defaultValue = CommonUtils.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
-                                     @RequestParam(name = "direction", required = false, defaultValue = CommonUtils.PAGE_REQUEST_DIRECTION_DESC) String direction,
-                                     @RequestParam(name = "properties", required = false, defaultValue = CommonUtils.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE) String[] properties) throws SocialNetworkAppException {
+    public ResponseEntity<?> findAll(@RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
+                                     @RequestParam(name = "size", required = false, defaultValue = Constants.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
+                                     @RequestParam(name = "direction", required = false, defaultValue = Constants.PAGE_REQUEST_DIRECTION_DESC) String direction,
+                                     @RequestParam(name = "properties", required = false, defaultValue = Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE) String[] properties) throws SocialNetworkAppException {
 
         log.info("Start find all, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
-        Sort.Direction pageRequestDirection = CommonUtils.PAGE_REQUEST_DIRECTION_ASC.equalsIgnoreCase(direction) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort.Direction pageRequestDirection = Constants.PAGE_REQUEST_DIRECTION_ASC.equalsIgnoreCase(direction) ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, pageRequestDirection, properties);
         Page<ForumDTO> forumDTOPage = forumService.findAll(pageable);
         return new ResponseEntity<>(forumDTOPage, HttpStatus.OK);

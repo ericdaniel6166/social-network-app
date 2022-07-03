@@ -53,9 +53,7 @@ public class ForumServiceImpl implements ForumService {
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))
                 .collect(Collectors.toList());
         PageImpl<ForumDTO> forumDTOPage = new PageImpl<>(forumDTOList, pageable, forumPage.getTotalElements());
-        if (forumDTOPage.getContent().isEmpty()) {
-            throw new ResourceNotFoundException("Page");
-        }
+        CommonUtils.checkPageNotEmpty(forumDTOPage);
         return forumDTOPage;
     }
 
