@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.utils;
 
-public class Constants {
+public final class Constants {
 
     public static final String SORT_DIRECTION_ASC = "ASC";
 
