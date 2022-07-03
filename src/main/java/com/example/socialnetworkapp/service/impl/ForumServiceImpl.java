@@ -12,6 +12,7 @@ import com.example.socialnetworkapp.service.ForumService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
@@ -63,11 +64,18 @@ public class ForumServiceImpl implements ForumService {
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
         forum = saveAndFlush(forum);
-        MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_FORUM_SUCCESS);
+        MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
-        simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(masterMessage.getTitle()));
-        String string = StringEscapeUtils.unescapeJava(masterMessage.getMessage());
-        String message = CommonUtils.formatString(string, forum.getName());
+        String title = CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getTitle()),
+                Constants.FORUM.toUpperCase()
+        );
+        simpleResponseDTO.setTitle(title);
+        String message = CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getMessage()),
+                Constants.FORUM.toLowerCase(),
+                forum.getName()
+        );
         simpleResponseDTO.setMessage(message);
         return simpleResponseDTO;
     }
