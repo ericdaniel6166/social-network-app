@@ -4,7 +4,11 @@ import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 
@@ -34,6 +38,12 @@ public final class CommonUtils {
         if (page.getContent().isEmpty()) {
             throw new ResourceNotFoundException("Page");
         }
+    }
+
+    public static Pageable buildPageable(Integer page, Integer size, String direction, String[] properties) {
+        log.info("Build pageable, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
+        Sort.Direction pageRequestDirection = Constants.PAGE_REQUEST_DIRECTION_ASC.equalsIgnoreCase(direction) ? Sort.Direction.ASC : Sort.Direction.DESC;
+        return PageRequest.of(page, size, pageRequestDirection, properties);
     }
 
 }

@@ -37,9 +37,7 @@ public class ForumApiController implements ForumApi {
                                      @RequestParam(name = "direction", required = false, defaultValue = Constants.PAGE_REQUEST_DIRECTION_DESC) String direction,
                                      @RequestParam(name = "properties", required = false, defaultValue = Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE) String[] properties) throws SocialNetworkAppException {
 
-        log.info("Start find all, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
-        Sort.Direction pageRequestDirection = Constants.PAGE_REQUEST_DIRECTION_ASC.equalsIgnoreCase(direction) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page, size, pageRequestDirection, properties);
+        Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
         Page<ForumDTO> forumDTOPage = forumService.findAll(pageable);
         return new ResponseEntity<>(forumDTOPage, HttpStatus.OK);
     }
