@@ -33,6 +33,6 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public RefreshToken generateRefreshToken() {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken(UUID.randomUUID().toString());
-        return refreshTokenRepository.save(refreshToken);
+        return refreshTokenRepository.saveAndFlush(refreshToken);
     }
 }
