@@ -48,7 +48,7 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public Page<ForumDTO> findAll(Pageable pageable) throws ResourceNotFoundException {
+    public Page<ForumDTO> findAll(Pageable pageable) throws SocialNetworkAppException {
         Page<Forum> forumPage = forumRepository.findAll(pageable);
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))

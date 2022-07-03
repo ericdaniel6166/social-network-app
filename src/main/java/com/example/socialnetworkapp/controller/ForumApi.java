@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -30,10 +31,10 @@ public interface ForumApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> findAll(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                              @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
-                              @RequestParam(name = "direction", required = false, defaultValue = "ASC") String direction,
-                              @RequestParam(name = "properties", required = false, defaultValue = "id") String[] properties) throws SocialNetworkAppException;
+    ResponseEntity<?> findAll(Integer page,
+                              Integer size,
+                              Sort.Direction direction,
+                              String[] properties) throws SocialNetworkAppException;
 
 
 }

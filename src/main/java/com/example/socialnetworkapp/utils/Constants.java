@@ -2,9 +2,9 @@ package com.example.socialnetworkapp.utils;
 
 public class Constants {
 
-    public static final String PAGE_REQUEST_DIRECTION_ASC = "ASC";
+    public static final String SORT_DIRECTION_ASC = "ASC";
 
-    public static final String PAGE_REQUEST_DIRECTION_DESC = "DESC";
+    public static final String SORT_DIRECTION_DESC = "DESC";
 
     public static final String PAGE_REQUEST_SIZE_DEFAULT = "10";
 

@@ -34,16 +34,15 @@ public final class CommonUtils {
         return formattedString;
     }
 
-    public static void checkPageNotEmpty(PageImpl<?> page) throws ResourceNotFoundException {
+    public static void checkPageNotEmpty(PageImpl<?> page) throws SocialNetworkAppException {
         if (page.getContent().isEmpty()) {
-            throw new ResourceNotFoundException("Page");
+            throw new SocialNetworkAppException(HttpStatus.NO_CONTENT, null, "Page is empty", null);
         }
     }
 
-    public static Pageable buildPageable(Integer page, Integer size, String direction, String[] properties) {
+    public static Pageable buildPageable(Integer page, Integer size, Sort.Direction direction, String[] properties) {
         log.info("Build pageable, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
-        Sort.Direction pageRequestDirection = Constants.PAGE_REQUEST_DIRECTION_ASC.equalsIgnoreCase(direction) ? Sort.Direction.ASC : Sort.Direction.DESC;
-        return PageRequest.of(page, size, pageRequestDirection, properties);
+        return PageRequest.of(page, size, direction, properties);
     }
 
 }
