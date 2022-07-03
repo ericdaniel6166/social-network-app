@@ -2,7 +2,6 @@ package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.service.TemplateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;

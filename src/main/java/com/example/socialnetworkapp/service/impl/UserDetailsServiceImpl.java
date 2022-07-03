@@ -2,7 +2,6 @@ package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.model.AppUser;
 import com.example.socialnetworkapp.service.UserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
