@@ -53,9 +53,7 @@ public class ForumServiceImpl implements ForumService {
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))
                 .collect(Collectors.toList());
-        PageImpl<ForumDTO> forumDTOPage = new PageImpl<>(forumDTOList, pageable, forumPage.getTotalElements());
-        CommonUtils.checkPageNotEmpty(forumDTOPage);
-        return forumDTOPage;
+        return new PageImpl<>(forumDTOList, pageable, forumPage.getTotalElements());
     }
 
     @Override

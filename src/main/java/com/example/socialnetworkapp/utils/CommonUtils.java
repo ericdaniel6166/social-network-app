@@ -1,14 +1,13 @@
 package com.example.socialnetworkapp.utils;
 
-import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 
@@ -34,15 +33,17 @@ public final class CommonUtils {
         return formattedString;
     }
 
-    public static void checkPageNotEmpty(PageImpl<?> page) throws SocialNetworkAppException {
-        if (page.getContent().isEmpty()) {
-            throw new SocialNetworkAppException(HttpStatus.NO_CONTENT, null, "Page is empty", null);
-        }
-    }
-
     public static Pageable buildPageable(Integer page, Integer size, Sort.Direction direction, String[] properties) {
         log.info("Build pageable, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
         return PageRequest.of(page, size, direction, properties);
+    }
+
+    public static ResponseEntity<?> buildPageResponseEntity(Page<?> page) {
+        if (page.getContent().isEmpty()) {
+            log.info("Page is empty, page: {}", page);
+            return new ResponseEntity<>(page, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
 }

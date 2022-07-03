@@ -39,7 +39,7 @@ public class ForumApiController implements ForumApi {
         log.info("Start find all forum");
         Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
         Page<ForumDTO> forumDTOPage = forumService.findAll(pageable);
-        return new ResponseEntity<>(forumDTOPage, HttpStatus.OK);
+        return CommonUtils.buildPageResponseEntity(forumDTOPage);
     }
 
     @Override
