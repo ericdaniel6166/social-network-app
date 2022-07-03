@@ -12,13 +12,18 @@ import com.example.socialnetworkapp.service.ForumService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
-import com.sun.deploy.ref.AppModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -42,8 +47,21 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    public Page<ForumDTO> findAll(Pageable pageable) throws ResourceNotFoundException {
+        Page<Forum> forumPage = forumRepository.findAll(pageable);
+        List<ForumDTO> forumDTOList = forumPage.stream()
+                .map(forum -> modelMapper.map(forum, ForumDTO.class))
+                .collect(Collectors.toList());
+        PageImpl<ForumDTO> forumDTOPage = new PageImpl<>(forumDTOList, pageable, forumPage.getTotalElements());
+        if (forumDTOPage.getContent().isEmpty()) {
+            throw new ResourceNotFoundException("Page");
+        }
+        return forumDTOPage;
+    }
+
+    @Override
     @Transactional
-    public SimpleResponseDTO createForum(ForumDTO forumDTO) throws SocialNetworkAppException {
+    public SimpleResponseDTO create(ForumDTO forumDTO) throws SocialNetworkAppException {
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
         forum = saveAndFlush(forum);
@@ -51,7 +69,7 @@ public class ForumServiceImpl implements ForumService {
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(masterMessage.getTitle()));
         String string = StringEscapeUtils.unescapeJava(masterMessage.getMessage());
-        String message = CommonUtils.formatString(string, forum.getName());;
+        String message = CommonUtils.formatString(string, forum.getName());
         simpleResponseDTO.setMessage(message);
         return simpleResponseDTO;
     }

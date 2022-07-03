@@ -117,6 +117,16 @@ public class RestExceptionHandler {
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest httpServletRequest) {
+        String errorMessage = getRootCauseMessage(e);
+        log.error("Handle IllegalArgumentException, error message: {}", errorMessage, e);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
+                errorMessage, httpServletRequest, null);
+
+        return buildResponseExceptionEntity(errorResponseDTO);
+    }
+
     private String getRootCauseMessage(Exception e) {
         return ExceptionUtils.getRootCause(e).getMessage();
     }

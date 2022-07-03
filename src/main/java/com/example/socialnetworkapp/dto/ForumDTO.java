@@ -16,10 +16,14 @@ public class ForumDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private Long id;
+
     @NotBlank(message = "Name is required")
     private String name;
 
     @NotBlank(message = "Description is required")
     private String description;
+
+    private String lastModifiedDate;
 
 }
