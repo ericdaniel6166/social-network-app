@@ -122,9 +122,9 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String authenticationToken = jwtService.generateToken(authentication);
+        String accessToken = jwtService.generateToken(authentication);
 
-        return new SignInResponseDTO(authenticationToken
+        return new SignInResponseDTO(accessToken
                 , refreshTokenService.generateRefreshToken().getToken()
                 , Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()).toString());
     }
