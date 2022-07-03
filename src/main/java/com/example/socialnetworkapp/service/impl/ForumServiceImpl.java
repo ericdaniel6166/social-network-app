@@ -64,17 +64,15 @@ public class ForumServiceImpl implements ForumService {
         forum = saveAndFlush(forum);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
-        String title = CommonUtils.formatString(
+        simpleResponseDTO.setTitle(CommonUtils.formatString(
                 StringEscapeUtils.unescapeJava(masterMessage.getTitle()),
                 Constants.FORUM.toUpperCase()
-        );
-        simpleResponseDTO.setTitle(title);
-        String message = CommonUtils.formatString(
+        ));
+        simpleResponseDTO.setMessage(CommonUtils.formatString(
                 StringEscapeUtils.unescapeJava(masterMessage.getMessage()),
                 Constants.FORUM.toLowerCase(),
                 forum.getName()
-        );
-        simpleResponseDTO.setMessage(message);
+        ));
         return simpleResponseDTO;
     }
 }
