@@ -29,10 +29,10 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return generateTokenWithUserName(user);
+        return buildToken(user);
     }
 
-    private String generateTokenWithUserName(User user) {
+    private String buildToken(User user) {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())
