@@ -19,7 +19,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public RefreshToken findByToken(String token) throws ResourceNotFoundException {
-        log.info("Find refresh token by token, token: {}", token);
+        log.debug("Find refresh token by token, token: {}", token);
         return refreshTokenRepository.findByToken(token).orElseThrow(
                 () -> new ResourceNotFoundException("Refresh token " + token));
     }

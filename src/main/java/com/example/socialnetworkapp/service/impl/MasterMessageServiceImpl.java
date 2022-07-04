@@ -18,7 +18,7 @@ public class MasterMessageServiceImpl implements MasterMessageService {
 
     @Override
     public MasterMessage findByMessageCode(MasterMessageCode messageCode) throws ResourceNotFoundException {
-        log.info("Find master message by message code, message code: {}", messageCode);
+        log.debug("Find master message by message code, message code: {}", messageCode);
         return masterMessageRepository.findByMessageCode(messageCode).orElseThrow(
                 () -> new ResourceNotFoundException("Message code " + messageCode.name()));
     }

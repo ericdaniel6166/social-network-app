@@ -34,13 +34,13 @@ public final class CommonUtils {
     }
 
     public static Pageable buildPageable(Integer page, Integer size, Sort.Direction direction, String[] properties) {
-        log.info("Build pageable, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
+        log.debug("Build pageable, page: {}, size: {}, direction: {}, properties: {}", page, size, direction, properties);
         return PageRequest.of(page, size, direction, properties);
     }
 
     public static ResponseEntity<?> buildPageResponseEntity(Page<?> page) {
         if (page.getContent().isEmpty()) {
-            log.info("Page is empty, page number: {}, total pages: {}", page.getNumber(), page.getTotalPages());
+            log.debug("Page is empty, page number: {}, total pages: {}", page.getNumber(), page.getTotalPages());
             return new ResponseEntity<>(page, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(page, HttpStatus.OK);

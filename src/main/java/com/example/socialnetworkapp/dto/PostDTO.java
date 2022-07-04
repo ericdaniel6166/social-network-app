@@ -33,6 +33,5 @@ public class PostDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdDate;
 
-    @NotBlank(message = "Forum ID is required")
     private Long forumId;
 }

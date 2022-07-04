@@ -46,14 +46,13 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public Forum findById(Long id) throws ResourceNotFoundException {
-        log.info("Find forum by id, id: {}", id);
+        log.debug("Find forum by id, id: {}", id);
         return forumRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.FORUM + ", id:" + id));
     }
 
     @Override
     public Page<ForumDTO> findAll(Pageable pageable) throws SocialNetworkAppException {
-        log.info("Find all forum, pageable: {}", pageable);
         Page<Forum> forumPage = forumRepository.findAll(pageable);
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))
@@ -64,7 +63,7 @@ public class ForumServiceImpl implements ForumService {
     @Override
     @Transactional
     public SimpleResponseDTO create(ForumDTO forumDTO) throws SocialNetworkAppException {
-        log.info("Create forum, forumDTO: {}", forumDTO);
+        log.debug("Create forum, forum name: {}", forumDTO.getName());
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
         saveAndFlush(forum);

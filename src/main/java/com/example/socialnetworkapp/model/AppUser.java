@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -42,5 +44,10 @@ public class AppUser extends Auditable<String> implements Serializable {
     private boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "app_user_role",
+            joinColumns = { @JoinColumn(name = "app_user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "app_role_id") }
+    )
     private List<AppRole> roles = new ArrayList<>();
 }

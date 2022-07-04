@@ -17,7 +17,7 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 
     @Override
     public VerificationToken findByToken(String token) throws ResourceNotFoundException {
-        log.info("Find verification token by token, token: {}", token);
+        log.debug("Find verification token by token, token: {}", token);
         return verificationTokenRepository.findByToken(token).orElseThrow(
                 () -> new ResourceNotFoundException("Verification token " + token));
     }

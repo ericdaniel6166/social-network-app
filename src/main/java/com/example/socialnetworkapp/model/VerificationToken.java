@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class VerificationToken extends Auditable<String> implements Serializable
     private String token;
 
     @OneToOne(fetch = LAZY)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     private AppUser appUser;
 
 }

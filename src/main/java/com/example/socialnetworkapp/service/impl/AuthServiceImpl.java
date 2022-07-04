@@ -94,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
-        log.info("Verify account, token: {}", token);
+        log.debug("Verify account, token: {}", token);
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
         AppUser appUser = verificationToken.getAppUser();
         if (appUser.isActive()) {
@@ -114,7 +114,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException {
-        log.info("Sign in, username: {}", signInRequestDTO.getUsername());
+        log.debug("Sign in, username: {}", signInRequestDTO.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -129,7 +129,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public SimpleResponseDTO signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
-        log.info("Sign up, username: {}", signUpRequestDTO.getUsername());
+        log.debug("Sign up, username: {}", signUpRequestDTO.getUsername());
         validateAccountNotExists(signUpRequestDTO);
 
         String encryptedPassword = null;
@@ -170,7 +170,7 @@ public class AuthServiceImpl implements AuthService {
 
     private ErrorDetail validateEmail(String email) throws ResourceNotFoundException {
         boolean existsByEmail = userService.existsByEmail(email);
-        log.info("Validate email, email exists: {}", existsByEmail);
+        log.debug("Validate email, email exists: {}", existsByEmail);
         if (existsByEmail) {
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR);
             return new ValidationErrorDetail(null, "email", CommonUtils.maskEmail(email), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
@@ -180,7 +180,7 @@ public class AuthServiceImpl implements AuthService {
 
     private ErrorDetail validateUsername(String username) throws ResourceNotFoundException {
         boolean existsByUsername = userService.existsByUsername(username);
-        log.info("Validate username, username exists: {}", existsByUsername);
+        log.debug("Validate username, username exists: {}", existsByUsername);
         if (existsByUsername) {
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR);
             return new ValidationErrorDetail(null, "username", username, StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));

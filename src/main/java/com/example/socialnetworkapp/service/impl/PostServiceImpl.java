@@ -40,7 +40,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public SimpleResponseDTO create(PostDTO postDTO) throws SocialNetworkAppException {
-        log.info("Create post, postDTO: {}", postDTO);
+        log.debug("Create post, post name: {}", postDTO.getName());
         Post post = modelMapper.map(postDTO, Post.class);
         post.setAppUser(userService.getCurrentUser());
         post.setForum(forumService.findById(postDTO.getForumId()));
