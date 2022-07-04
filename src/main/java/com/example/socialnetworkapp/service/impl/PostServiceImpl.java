@@ -15,12 +15,18 @@ import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -65,8 +71,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> findAll(Pageable pageable) throws SocialNetworkAppException {
-        //TODO
-        return null;
+    public Page<PostDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException {
+        Page<Post> postPage;
+        if (StringUtils.isBlank(search)){
+            postPage = postRepository.findAll(pageable);
+        } else {
+            Specification<Post> spec = (Specification<Post>) CommonUtils.buildSpecification(search);
+            postPage = postRepository.findAll(spec, pageable);
+        }
+        List<PostDTO> postDTOList = postPage.stream()
+                .map(forum -> modelMapper.map(forum, PostDTO.class))
+                .collect(Collectors.toList());
+        return new PageImpl<>(postDTOList, pageable, postPage.getTotalElements());
     }
 }

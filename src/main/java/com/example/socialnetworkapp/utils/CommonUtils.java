@@ -1,11 +1,15 @@
 package com.example.socialnetworkapp.utils;
 
+import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -44,6 +48,12 @@ public final class CommonUtils {
             return new ResponseEntity<>(page, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    public static Specification<?> buildSpecification(String search) {
+        log.debug("Build specification, search: {}", search);
+        Node rootNode = new RSQLParser().parse(search);
+        return rootNode.accept(new CustomRsqlVisitor<>());
     }
 
 }

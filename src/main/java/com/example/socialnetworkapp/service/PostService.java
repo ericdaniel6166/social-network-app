@@ -13,5 +13,5 @@ public interface PostService {
 
     Post saveAndFlush(Post post);
 
-    Page<PostDTO> findAll(Pageable pageable) throws SocialNetworkAppException;
+    Page<PostDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException;
 }
