@@ -68,9 +68,12 @@ server:
   error:
     include-stacktrace: never
 
-#logging:
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
+    com.example.socialnetworkapp: DEBUG
 #  file:
 #    name: D:\Workplace\logs\social-network-app.log
-
-
 
