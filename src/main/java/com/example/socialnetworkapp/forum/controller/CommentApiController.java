@@ -1,6 +1,6 @@
-package com.example.socialnetworkapp.controller;
+package com.example.socialnetworkapp.forum.controller;
 
-import com.example.socialnetworkapp.dto.CommentDTO;
+import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.service.CommentService;
 import com.example.socialnetworkapp.utils.CommonUtils;

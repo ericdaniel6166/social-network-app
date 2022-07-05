@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.dto;
+package com.example.socialnetworkapp.forum.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -14,16 +14,19 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class CommentDTO implements Serializable {
+public class PostDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
+    @NotBlank(message = "Name is required")
+    private String name;
+
     @NotBlank(message = "Content is required")
     private String content;
 
-    private Long postId;
+    private Long forumId;
 
     private String createdBy;
 

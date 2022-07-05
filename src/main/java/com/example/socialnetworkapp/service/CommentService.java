@@ -1,8 +1,8 @@
 package com.example.socialnetworkapp.service;
 
-import com.example.socialnetworkapp.dto.CommentDTO;
+import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
-import com.example.socialnetworkapp.model.AppComment;
+import com.example.socialnetworkapp.forum.model.AppComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

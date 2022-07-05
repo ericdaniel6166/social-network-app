@@ -1,6 +1,6 @@
-package com.example.socialnetworkapp.repository;
+package com.example.socialnetworkapp.forum.repository;
 
-import com.example.socialnetworkapp.model.Post;
+import com.example.socialnetworkapp.forum.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
