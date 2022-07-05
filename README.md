@@ -7,12 +7,15 @@
 # Framework/Library
 
 - Spring Boot 2.6.2
+- Spring Cloud Sleuth
+- AuditorAware
 - Spring Data JPA (REST Query Language with RSQL)
+- JWT
 - Swagger 2
 - ModelMapper
 - Jackson
-- JWT
-- AuditorAware
+
+
 
 # Screenshots
 1. Preview Postman Collections
