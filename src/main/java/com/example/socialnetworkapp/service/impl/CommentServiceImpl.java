@@ -6,7 +6,7 @@ import com.example.socialnetworkapp.model.AppComment;
 import com.example.socialnetworkapp.repository.CommentRepository;
 import com.example.socialnetworkapp.service.CommentService;
 import com.example.socialnetworkapp.service.PostService;
-import com.example.socialnetworkapp.service.UserService;
+import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

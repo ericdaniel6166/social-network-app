@@ -1,7 +1,6 @@
 package com.example.socialnetworkapp.utils;
 
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
-import com.example.socialnetworkapp.dto.UserDetailsImpl;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -59,14 +58,6 @@ public final class CommonUtils {
         log.debug("Build specification, search: {}", search);
         Node rootNode = new RSQLParser().parse(search);
         return rootNode.accept(new CustomRsqlVisitor<>());
-    }
-
-    public static UserDetailsImpl getUserDetailsImpl() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl) {
-            return (UserDetailsImpl) authentication.getPrincipal();
-        }
-        return null;
     }
 
     public static Jwt getJwt() {

@@ -10,7 +10,7 @@ import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.repository.ForumRepository;
 import com.example.socialnetworkapp.service.ForumService;
 import com.example.socialnetworkapp.service.MasterMessageService;
-import com.example.socialnetworkapp.service.UserService;
+import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;

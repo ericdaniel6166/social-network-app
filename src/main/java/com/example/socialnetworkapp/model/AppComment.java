@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.model;
 
+import com.example.socialnetworkapp.auth.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
