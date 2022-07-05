@@ -41,7 +41,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private static final String[] PERMIT_GET_LIST = {"/forum/**", "/post/**"};
+    private static final String[] PERMIT_GET_LIST = {
+            "/comment/**",
+            "/forum/**",
+            "/post/**"
+    };
 
     private static final String[] PERMIT_ALL_LIST = {
             //  Swagger UI v2

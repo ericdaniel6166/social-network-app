@@ -3,6 +3,7 @@ package com.example.socialnetworkapp.service.impl;
 import com.example.socialnetworkapp.dto.PostDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.model.Post;
@@ -84,5 +85,12 @@ public class PostServiceImpl implements PostService {
                 .map(forum -> modelMapper.map(forum, PostDTO.class))
                 .collect(Collectors.toList());
         return new PageImpl<>(postDTOList, pageable, postPage.getTotalElements());
+    }
+
+    @Override
+    public Post findById(Long id) throws ResourceNotFoundException {
+        log.debug("Find post by id, id: {}", id);
+        return postRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(Constants.POST + ", id:" + id));
     }
 }
