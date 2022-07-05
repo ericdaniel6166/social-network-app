@@ -60,7 +60,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             //  Authentication
             "/auth/**"
     };
+
     private final UserDetailsService userDetailsService;
+
     @Value("${jwt.public.key}")
     private RSAPublicKey publicKey;
 
