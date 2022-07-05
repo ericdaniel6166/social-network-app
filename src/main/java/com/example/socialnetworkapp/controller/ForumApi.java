@@ -34,7 +34,8 @@ public interface ForumApi {
     ResponseEntity<?> findAll(Integer page,
                               Integer size,
                               Sort.Direction direction,
-                              String[] properties) throws SocialNetworkAppException;
+                              String[] properties,
+                              String search) throws SocialNetworkAppException;
 
 
 }

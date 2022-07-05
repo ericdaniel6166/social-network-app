@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,9 @@ public class Post extends Auditable<String> implements Serializable {
     private Long id;
 
     private String name;
+
+    @Column
+    private Boolean isActive;
 
     @Lob
     private String content;

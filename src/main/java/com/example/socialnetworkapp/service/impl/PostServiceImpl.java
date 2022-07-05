@@ -50,6 +50,7 @@ public class PostServiceImpl implements PostService {
         Post post = modelMapper.map(postDTO, Post.class);
         post.setAppUser(userService.getCurrentUser());
         post.setForum(forumService.findById(postDTO.getForumId()));
+        post.setIsActive(true);
         saveAndFlush(post);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();

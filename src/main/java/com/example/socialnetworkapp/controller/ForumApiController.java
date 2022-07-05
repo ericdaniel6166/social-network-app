@@ -35,9 +35,10 @@ public class ForumApiController implements ForumApi {
     public ResponseEntity<?> findAll(@RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
                                      @RequestParam(name = "size", required = false, defaultValue = Constants.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
                                      @RequestParam(name = "direction", required = false, defaultValue = Constants.SORT_DIRECTION_DESC) @Valid Sort.Direction direction,
-                                     @RequestParam(name = "properties", required = false, defaultValue = Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE) String[] properties) throws SocialNetworkAppException {
+                                     @RequestParam(name = "properties", required = false, defaultValue = Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE) String[] properties,
+                                     @RequestParam(name = "search", required = false) String search) throws SocialNetworkAppException {
         Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
-        Page<ForumDTO> forumDTOPage = forumService.findAll(pageable);
+        Page<ForumDTO> forumDTOPage = forumService.findAll(pageable, search);
         return CommonUtils.buildPageResponseEntity(forumDTOPage);
     }
 

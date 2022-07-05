@@ -15,11 +15,13 @@ import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,8 +54,14 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public Page<ForumDTO> findAll(Pageable pageable) throws SocialNetworkAppException {
-        Page<Forum> forumPage = forumRepository.findAll(pageable);
+    public Page<ForumDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException {
+        Page<Forum> forumPage;
+        if (StringUtils.isBlank(search)) {
+            forumPage = forumRepository.findAll(pageable);
+        } else {
+            Specification<Forum> spec = (Specification<Forum>) CommonUtils.buildSpecification(search);
+            forumPage = forumRepository.findAll(spec, pageable);
+        }
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))
                 .collect(Collectors.toList());
@@ -66,6 +74,7 @@ public class ForumServiceImpl implements ForumService {
         log.debug("Create forum, forum name: {}", forumDTO.getName());
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
+        forum.setIsActive(true);
         saveAndFlush(forum);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
