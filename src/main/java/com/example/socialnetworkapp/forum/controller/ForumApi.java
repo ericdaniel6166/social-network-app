@@ -1,6 +1,6 @@
-package com.example.socialnetworkapp.controller;
+package com.example.socialnetworkapp.forum.controller;
 
-import com.example.socialnetworkapp.dto.ForumDTO;
+import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.dto;
+package com.example.socialnetworkapp.forum.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

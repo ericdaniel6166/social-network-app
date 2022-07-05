@@ -1,6 +1,7 @@
-package com.example.socialnetworkapp.model;
+package com.example.socialnetworkapp.forum.model;
 
 import com.example.socialnetworkapp.auth.model.AppUser;
+import com.example.socialnetworkapp.model.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

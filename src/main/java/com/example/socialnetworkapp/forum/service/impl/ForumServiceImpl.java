@@ -1,14 +1,14 @@
-package com.example.socialnetworkapp.service.impl;
+package com.example.socialnetworkapp.forum.service.impl;
 
-import com.example.socialnetworkapp.dto.ForumDTO;
+import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
-import com.example.socialnetworkapp.model.Forum;
+import com.example.socialnetworkapp.forum.model.Forum;
 import com.example.socialnetworkapp.model.MasterMessage;
-import com.example.socialnetworkapp.repository.ForumRepository;
-import com.example.socialnetworkapp.service.ForumService;
+import com.example.socialnetworkapp.forum.repository.ForumRepository;
+import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;

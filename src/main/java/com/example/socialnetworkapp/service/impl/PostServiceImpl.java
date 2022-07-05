@@ -8,7 +8,7 @@ import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.model.Post;
 import com.example.socialnetworkapp.repository.PostRepository;
-import com.example.socialnetworkapp.service.ForumService;
+import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.service.PostService;
 import com.example.socialnetworkapp.auth.service.UserService;
