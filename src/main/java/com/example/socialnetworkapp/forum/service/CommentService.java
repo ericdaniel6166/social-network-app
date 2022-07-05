@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.service;
+package com.example.socialnetworkapp.forum.service;
 
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;

@@ -1,11 +1,11 @@
-package com.example.socialnetworkapp.service.impl;
+package com.example.socialnetworkapp.forum.service.impl;
 
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.model.AppComment;
 import com.example.socialnetworkapp.forum.repository.CommentRepository;
-import com.example.socialnetworkapp.service.CommentService;
-import com.example.socialnetworkapp.service.PostService;
+import com.example.socialnetworkapp.forum.service.CommentService;
+import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;

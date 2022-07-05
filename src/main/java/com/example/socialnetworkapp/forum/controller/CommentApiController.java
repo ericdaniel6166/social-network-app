@@ -2,7 +2,7 @@ package com.example.socialnetworkapp.forum.controller;
 
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
-import com.example.socialnetworkapp.service.CommentService;
+import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.service.impl;
+package com.example.socialnetworkapp.forum.service.impl;
 
 import com.example.socialnetworkapp.forum.dto.PostDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -10,7 +10,7 @@ import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.PostRepository;
 import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.service.MasterMessageService;
-import com.example.socialnetworkapp.service.PostService;
+import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
