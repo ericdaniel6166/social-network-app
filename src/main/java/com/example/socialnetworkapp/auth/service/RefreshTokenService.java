@@ -1,7 +1,7 @@
 package com.example.socialnetworkapp.auth.service;
 
-import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 
 public interface RefreshTokenService {
 

@@ -49,8 +49,8 @@ public class AppUser extends Auditable<String> implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "app_user_role",
-            joinColumns = { @JoinColumn(name = "app_user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "app_role_id") }
+            joinColumns = {@JoinColumn(name = "app_user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "app_role_id")}
     )
     private List<AppRole> roles = new ArrayList<>();
 }

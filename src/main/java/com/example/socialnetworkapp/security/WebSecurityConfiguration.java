@@ -39,14 +39,11 @@ import java.security.interfaces.RSAPublicKey;
 @RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-
     private static final String[] PERMIT_GET_LIST = {
             "/comment/**",
             "/forum/**",
             "/post/**"
     };
-
     private static final String[] PERMIT_ALL_LIST = {
             //  Swagger UI v2
             "/v2/api-docs",
@@ -63,7 +60,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             //  Authentication
             "/auth/**"
     };
-
+    private final UserDetailsService userDetailsService;
     @Value("${jwt.public.key}")
     private RSAPublicKey publicKey;
 

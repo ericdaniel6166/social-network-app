@@ -1,7 +1,7 @@
 package com.example.socialnetworkapp.forum.controller;
 
-import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

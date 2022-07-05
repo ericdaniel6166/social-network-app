@@ -1,9 +1,9 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
-import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.repository.RefreshTokenRepository;
 import com.example.socialnetworkapp.auth.service.RefreshTokenService;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

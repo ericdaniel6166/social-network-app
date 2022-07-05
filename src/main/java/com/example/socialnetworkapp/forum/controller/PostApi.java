@@ -1,7 +1,7 @@
 package com.example.socialnetworkapp.forum.controller;
 
-import com.example.socialnetworkapp.forum.dto.PostDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.forum.dto.PostDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -36,9 +36,6 @@ public interface PostApi {
                               Sort.Direction direction,
                               String[] properties,
                               String search) throws SocialNetworkAppException;
-
-
-
 
 
 }

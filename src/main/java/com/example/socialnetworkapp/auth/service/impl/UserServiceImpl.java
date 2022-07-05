@@ -1,9 +1,9 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
-import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.repository.UserRepository;
 import com.example.socialnetworkapp.auth.service.UserService;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;

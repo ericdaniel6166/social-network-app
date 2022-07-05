@@ -1,8 +1,8 @@
 package com.example.socialnetworkapp.forum.controller;
 
-import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;

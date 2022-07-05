@@ -40,7 +40,7 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
             }
             case NOT_EQUAL: {
                 if (argument instanceof String) {
-                    return builder.notLike(root.<String> get(this.property), argument.toString().replace('*', '%'));
+                    return builder.notLike(root.<String>get(this.property), argument.toString().replace('*', '%'));
                 } else if (argument == null) {
                     return builder.isNotNull(root.get(this.property));
                 } else {
@@ -48,16 +48,16 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
                 }
             }
             case GREATER_THAN: {
-                return builder.greaterThan(root.<String> get(this.property), argument.toString());
+                return builder.greaterThan(root.<String>get(this.property), argument.toString());
             }
             case GREATER_THAN_OR_EQUAL: {
-                return builder.greaterThanOrEqualTo(root.<String> get(this.property), argument.toString());
+                return builder.greaterThanOrEqualTo(root.<String>get(this.property), argument.toString());
             }
             case LESS_THAN: {
-                return builder.lessThan(root.<String> get(this.property), argument.toString());
+                return builder.lessThan(root.<String>get(this.property), argument.toString());
             }
             case LESS_THAN_OR_EQUAL: {
-                return builder.lessThanOrEqualTo(root.<String> get(this.property), argument.toString());
+                return builder.lessThanOrEqualTo(root.<String>get(this.property), argument.toString());
             }
             case IN:
                 return root.get(this.property).in(args);

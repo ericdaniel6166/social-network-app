@@ -35,8 +35,7 @@ public class GenericRsqlSpecBuilder<T> {
             for (int i = 1; i < specs.size(); i++) {
                 result = Specification.where(result).and(specs.get(i));
             }
-        }
-        else if (logicalNode.getOperator() == LogicalOperator.OR) {
+        } else if (logicalNode.getOperator() == LogicalOperator.OR) {
             for (int i = 1; i < specs.size(); i++) {
                 result = Specification.where(result).or(specs.get(i));
             }
