@@ -1,8 +1,8 @@
 # social-network-app
 
-#Getting started
+# Getting started
 
-1. Download and import Postman collections and environment: 
+1. Download and import Postman collections and environment: https://github.com/ericdaniel6166/social-network-app/tree/main/docs/postman
 
 # Screenshots
 1. Preview Postman Collections
