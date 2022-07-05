@@ -1,10 +1,12 @@
 package com.example.socialnetworkapp.utils;
 
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
+import com.example.socialnetworkapp.dto.UserDetailsImpl;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +14,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Arrays;
 
@@ -55,5 +60,34 @@ public final class CommonUtils {
         Node rootNode = new RSQLParser().parse(search);
         return rootNode.accept(new CustomRsqlVisitor<>());
     }
+
+    public static UserDetailsImpl getUserDetailsImpl() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl) {
+            return (UserDetailsImpl) authentication.getPrincipal();
+        }
+        return null;
+    }
+
+    public static Jwt getJwt() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof Jwt) {
+            return (Jwt) authentication.getPrincipal();
+        }
+        return null;
+
+    }
+
+    public static String getUsername() {
+        Jwt principal = getJwt();
+        if (principal != null) {
+            if (StringUtils.isNotBlank(principal.getSubject())) {
+                return principal.getSubject();
+            }
+        }
+        return null;
+
+    }
+
 
 }

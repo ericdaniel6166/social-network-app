@@ -53,7 +53,6 @@ public class CommentServiceImpl implements CommentService {
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for (AppComment appComment : commentPage) {
             commentDTO = modelMapper.map(appComment, CommentDTO.class);
-            commentDTO.setUsername(appComment.getAppUser().getUsername());
             commentDTO.setPostId(appComment.getPost().getId());
             commentDTOList.add(commentDTO);
         }

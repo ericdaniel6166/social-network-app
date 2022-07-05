@@ -26,10 +26,14 @@ public class ForumDTO implements Serializable {
     @NotBlank(message = "Description is required")
     private String description;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Date lastModifiedDate;
+    private String createdBy;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdDate;
+
+    private String lastModifiedBy;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Date lastModifiedDate;
 
 }

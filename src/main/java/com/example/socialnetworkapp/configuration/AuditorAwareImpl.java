@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.configuration;
 
+import com.example.socialnetworkapp.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.AuditorAware;
@@ -18,7 +19,12 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         if (StringUtils.isBlank(applicationName)) {
             applicationName = APPLICATION_NAME_DEFAULT;
         }
-        String username = applicationName;
+        String username;
+        if (StringUtils.isNotBlank(CommonUtils.getUsername())) {
+            username = CommonUtils.getUsername();
+        } else {
+            username = applicationName;
+        }
         return Optional.of(username);
     }
 }

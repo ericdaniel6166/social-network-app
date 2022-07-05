@@ -26,11 +26,15 @@ public class PostDTO implements Serializable {
     @NotBlank(message = "Content is required")
     private String content;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Date lastModifiedDate;
+    private Long forumId;
+
+    private String createdBy;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdDate;
 
-    private Long forumId;
+    private String lastModifiedBy;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Date lastModifiedDate;
 }

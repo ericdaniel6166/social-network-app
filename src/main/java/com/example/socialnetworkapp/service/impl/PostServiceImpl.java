@@ -26,8 +26,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -75,15 +75,19 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Post> postPage;
-        if (StringUtils.isBlank(search)){
+        if (StringUtils.isBlank(search)) {
             postPage = postRepository.findAll(pageable);
         } else {
             Specification<Post> spec = (Specification<Post>) CommonUtils.buildSpecification(search);
             postPage = postRepository.findAll(spec, pageable);
         }
-        List<PostDTO> postDTOList = postPage.stream()
-                .map(forum -> modelMapper.map(forum, PostDTO.class))
-                .collect(Collectors.toList());
+        PostDTO postDTO;
+        List<PostDTO> postDTOList = new ArrayList<>();
+        for (Post post : postPage) {
+            postDTO = modelMapper.map(post, PostDTO.class);
+            postDTO.setForumId(post.getForum().getId());
+            postDTOList.add(postDTO);
+        }
         return new PageImpl<>(postDTOList, pageable, postPage.getTotalElements());
     }
 

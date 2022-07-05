@@ -23,13 +23,15 @@ public class CommentDTO implements Serializable {
     @NotBlank(message = "Content is required")
     private String content;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Date lastModifiedDate;
+    private Long postId;
+
+    private String createdBy;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date createdDate;
 
-    private Long postId;
+    private String lastModifiedBy;
 
-    private String username;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Date lastModifiedDate;
 }
