@@ -36,11 +36,13 @@ public class AppUser extends Auditable<String> implements Serializable {
     @Column(unique = true)
     private String username;
 
+    @Column
     private String password;
 
     @Column(unique = true)
     private String email;
 
+    @Column
     private boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)

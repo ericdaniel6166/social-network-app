@@ -34,6 +34,7 @@ public class MasterErrorMessage extends Auditable<String> implements Serializabl
     @Enumerated(EnumType.STRING)
     private MasterErrorCode errorCode;
 
+    @Column
     private String errorMessage;
 
 }

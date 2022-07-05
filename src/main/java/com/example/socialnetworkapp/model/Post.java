@@ -28,12 +28,14 @@ public class Post extends Auditable<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String name;
 
     @Column
     private Boolean isActive;
 
     @Lob
+    @Column
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)

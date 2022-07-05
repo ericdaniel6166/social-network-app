@@ -28,8 +28,10 @@ public class Forum extends Auditable<String> implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Column
     private String name;
 
+    @Column
     private String description;
 
     @Column

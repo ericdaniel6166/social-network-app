@@ -34,8 +34,10 @@ public class MasterMessage extends Auditable<String> implements Serializable {
     @Enumerated(EnumType.STRING)
     private MasterMessageCode messageCode;
 
+    @Column
     private String message;
 
+    @Column
     private String title;
 
 }
