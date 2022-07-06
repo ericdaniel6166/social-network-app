@@ -29,5 +29,5 @@ Postman Collections with all apis, environment and example response for certain 
 ![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Postman_collections.png)
 
 2. Preview Swagger
-Using 
+
 ![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Swagger.png)
