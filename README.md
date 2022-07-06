@@ -18,6 +18,7 @@ Please choose active profile = local
 - Swagger 2
 - ModelMapper
 - Jackson
+- Junit
 
 
 
