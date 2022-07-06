@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -20,6 +21,7 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
+import java.util.function.Predicate;
 
 @Configuration
 @Import({SpringDataRestConfiguration.class, BeanValidatorPluginsConfiguration.class})
@@ -34,9 +36,12 @@ public class SpringFoxConfiguration {
 
     @Bean
     public Docket api() {
+        Predicate<RequestHandler> predicate = RequestHandlerSelectors.basePackage("com.example.socialnetworkapp.controller")
+                .or(RequestHandlerSelectors.basePackage("com.example.socialnetworkapp.auth.controller"))
+                .or(RequestHandlerSelectors.basePackage("com.example.socialnetworkapp.forum.controller"));
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.socialnetworkapp.controller"))
+                .apis(predicate::test)
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);

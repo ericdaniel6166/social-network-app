@@ -8,15 +8,9 @@ spring:
     active: true
     baseline-version: 0.0
     locations: classpath:db/migration/
-#    driver-vendor: mysql
-    driver-vendor: sqlserver
   application:
     name: social-network-app
   datasource:
-#    url: jdbc:mysql://localhost:3306/social_network_app?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
-#    username: root
-#    password: 123456789
-#    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:sqlserver://localhost:1433;databaseName=social_network_app;
     username: sa
     password: 123456789
@@ -26,7 +20,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-#      dialect: org.hibernate.dialect.MySQLDialect
       dialect: org.hibernate.dialect.SQLServer2012Dialect
   mail:
     host: smtp.mailtrap.io

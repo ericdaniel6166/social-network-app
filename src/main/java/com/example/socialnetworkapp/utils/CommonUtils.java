@@ -2,6 +2,7 @@ package com.example.socialnetworkapp.utils;
 
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.extern.slf4j.Slf4j;
@@ -81,4 +82,12 @@ public final class CommonUtils {
     }
 
 
+    public static String writeValueAsString(final Object object) {
+        try {
+            final ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(object);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
