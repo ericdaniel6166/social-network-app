@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 @Api(value = "CommonAPI", tags = "Common API")
 public interface CommonApi {
 
-    @ApiOperation(value = "Sign up")
+    @ApiOperation(value = "Find All master message")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Get master message successfully"),
+            @ApiResponse(code = 200, message = "Find all master message successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 409, message = "[Business Exception] - Conflict"),
