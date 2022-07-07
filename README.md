@@ -2,7 +2,14 @@
 
 # Getting started
 
-1. Download and import Postman collections and environment: https://github.com/ericdaniel6166/social-network-app/tree/main/docs/postman
+1. Download and import Postman collections and environment: 
+
+Link: https://github.com/ericdaniel6166/social-network-app/tree/main/docs/postman
+
+Postman Collections with all apis, environment and example response for certain scenarios
+
+![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Postman_collections.png)
+
 2. Download and install Microsoft SQL Server 2019 database and SQL Server Management Studio: [Link](https://youtu.be/QsXWszvjMBM)
 3. Create a database with name "social_network_app" 
 
@@ -45,13 +52,7 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 
 # Screenshots
-1. Preview Postman Collections
-
-Postman Collections with all apis, environment and example response for certain scenarios
-
-![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Postman_collections.png)
-
-2. Preview Swagger
+1. Preview Swagger
 
 http://localhost:8080/swagger-ui/
 default port: 8080
