@@ -67,6 +67,7 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 1. Preview Swagger
 
 http://localhost:8080/swagger-ui/
+
 default port: 8080
 
 ![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Swagger.png)
