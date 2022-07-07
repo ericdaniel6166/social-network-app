@@ -1,10 +1,14 @@
-package com.example.socialnetworkapp.exception;
+package com.example.socialnetworkapp.controller.advice;
 
 import com.example.socialnetworkapp.configuration.OperationIdConfiguration;
 import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.ErrorResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorCode;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
+import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.exception.ValidationException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +31,10 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
+@RequiredArgsConstructor
 public class RestExceptionHandler {
 
-    @Autowired
-    private OperationIdConfiguration operationIdConfiguration;
+    private final OperationIdConfiguration operationIdConfiguration;
 
     private ResponseEntity<Object> buildResponseExceptionEntity(ErrorResponseDTO errorResponseDTO) {
         if (operationIdConfiguration != null) {
