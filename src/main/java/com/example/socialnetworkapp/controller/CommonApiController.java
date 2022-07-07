@@ -1,7 +1,9 @@
 package com.example.socialnetworkapp.controller;
 
+import com.example.socialnetworkapp.dto.MasterErrorMessageDTO;
 import com.example.socialnetworkapp.dto.MasterMessageDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,15 @@ import java.util.List;
 public class CommonApiController implements CommonApi {
 
     private final MasterMessageService masterMessageService;
+
+    private final MasterErrorMessageService masterErrorMessageService;
+
+    @Override
+    @GetMapping("/masterErrorMessage")
+    public ResponseEntity<?> findAllMasterErrorMessage() throws SocialNetworkAppException {
+        List<MasterErrorMessageDTO> masterErrorMessageDTOList = masterErrorMessageService.findAll();
+        return new ResponseEntity<>(masterErrorMessageDTOList, HttpStatus.OK);
+    }
 
     @Override
     @GetMapping("/masterMessage")
