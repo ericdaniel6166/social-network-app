@@ -61,7 +61,7 @@ public final class CommonUtils {
         return rootNode.accept(new CustomRsqlVisitor<>());
     }
 
-    public static Jwt getJwt() {
+    private static Jwt getJwt() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Jwt) {
             return (Jwt) authentication.getPrincipal();
@@ -70,7 +70,7 @@ public final class CommonUtils {
 
     }
 
-    public static String getUsername() {
+    public static String getCurrentUsername() {
         Jwt principal = getJwt();
         if (principal != null) {
             if (StringUtils.isNotBlank(principal.getSubject())) {

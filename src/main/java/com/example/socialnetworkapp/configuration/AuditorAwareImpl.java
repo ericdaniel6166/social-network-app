@@ -19,12 +19,12 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         if (StringUtils.isBlank(applicationName)) {
             applicationName = APPLICATION_NAME_DEFAULT;
         }
-        String username;
-        if (StringUtils.isNotBlank(CommonUtils.getUsername())) {
-            username = CommonUtils.getUsername();
+        String currentAuditor;
+        if (StringUtils.isNotBlank(CommonUtils.getCurrentUsername())) {
+            currentAuditor = CommonUtils.getCurrentUsername();
         } else {
-            username = applicationName;
+            currentAuditor = applicationName;
         }
-        return Optional.of(username);
+        return Optional.of(currentAuditor);
     }
 }

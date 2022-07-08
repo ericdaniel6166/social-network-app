@@ -15,8 +15,6 @@ public interface CommonApi {
             @ApiResponse(code = 200, message = "Find all master message successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
-            @ApiResponse(code = 409, message = "[Business Exception] - Conflict"),
-            @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
     ResponseEntity<?> findAllMasterMessage() throws SocialNetworkAppException;
@@ -26,8 +24,6 @@ public interface CommonApi {
             @ApiResponse(code = 200, message = "Find all master error message successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
-            @ApiResponse(code = 409, message = "[Business Exception] - Conflict"),
-            @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
     ResponseEntity<?> findAllMasterErrorMessage() throws SocialNetworkAppException;
