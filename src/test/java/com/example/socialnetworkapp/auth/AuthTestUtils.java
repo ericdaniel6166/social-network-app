@@ -1,6 +1,5 @@
 package com.example.socialnetworkapp.auth;
 
-import com.example.socialnetworkapp.TestUtils;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
@@ -10,11 +9,9 @@ import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.model.VerificationToken;
 
-public class AuthTestUtils extends TestUtils {
+public class AuthTestUtils {
 
-    public static final String ACCESS_TOKEN = "accessToken";
-
-    public static final String REFRESH_TOKEN = "refreshToken";
+    public static final String TOKEN = "token";
 
     public static final String PASSWORD = "P@ssw0rd";
 
@@ -54,16 +51,16 @@ public class AuthTestUtils extends TestUtils {
 
     public static SignInResponseDTO buildSignInResponseDTO() {
         SignInResponseDTO signInResponseDTO = new SignInResponseDTO();
-        signInResponseDTO.setAccessToken(ACCESS_TOKEN);
+        signInResponseDTO.setAccessToken(TOKEN);
         signInResponseDTO.setExpiresAt(EXPIRES_AT);
-        signInResponseDTO.setRefreshToken(REFRESH_TOKEN);
+        signInResponseDTO.setRefreshToken(TOKEN);
         return signInResponseDTO;
     }
 
     public static VerificationToken buildVerificationToken() {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setAppUser(buildAppUser());
-        verificationToken.setToken(ACCESS_TOKEN);
+        verificationToken.setToken(TOKEN);
         return verificationToken;
     }
 
@@ -84,7 +81,9 @@ public class AuthTestUtils extends TestUtils {
 
     public static RefreshToken buildRefreshToken() {
         RefreshToken refreshToken = new RefreshToken();
-        refreshToken.setToken(REFRESH_TOKEN);
+        refreshToken.setToken(TOKEN);
         return refreshToken;
     }
+
+
 }

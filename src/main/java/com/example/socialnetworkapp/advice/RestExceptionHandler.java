@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.controller.advice;
+package com.example.socialnetworkapp.advice;
 
 import com.example.socialnetworkapp.configuration.OperationIdConfiguration;
 import com.example.socialnetworkapp.dto.ErrorDetail;
@@ -11,7 +11,6 @@ import com.example.socialnetworkapp.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

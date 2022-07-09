@@ -1,6 +1,7 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
+import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
@@ -13,7 +14,9 @@ import com.example.socialnetworkapp.auth.service.RoleService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.auth.service.VerificationTokenService;
 import com.example.socialnetworkapp.configuration.AppConfiguration;
+import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
+import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
@@ -27,7 +30,7 @@ import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
-import org.apache.commons.collections4.CollectionUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -42,6 +45,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class AuthServiceImplTest extends AbstractServiceTest {
 
@@ -97,7 +103,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenVerifyAccount_givenValidToken_thenReturnSimpleResponseDTO() throws SocialNetworkAppException {
-        String token = AuthTestUtils.ACCESS_TOKEN;
+        String token = AuthTestUtils.TOKEN;
         VerificationToken verificationToken = AuthTestUtils.buildVerificationToken();
         AppUser appUser = verificationToken.getAppUser();
         appUser.setActive(false);
@@ -110,21 +116,21 @@ class AuthServiceImplTest extends AbstractServiceTest {
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.VERIFY_ACCOUNT_SUCCESS)).thenReturn(masterMessage);
         String title = StringEscapeUtils.unescapeJava(masterMessage.getTitle());
         String message = CommonUtils.formatString(StringEscapeUtils.unescapeJava(masterMessage.getMessage()), appUser.getUsername());
+        SimpleResponseDTO expected = new SimpleResponseDTO(title, message);
 
-        SimpleResponseDTO result = authService.verifyAccount(token);
+        SimpleResponseDTO actual = authService.verifyAccount(token);
 
-        Assertions.assertEquals(title, result.getTitle());
-        Assertions.assertEquals(message, result.getMessage());
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
     void whenVerifyAccount_givenActiveUser_thenThrowSocialNetworkAppException() throws SocialNetworkAppException {
-        String token = AuthTestUtils.ACCESS_TOKEN;
+        String token = AuthTestUtils.TOKEN;
         VerificationToken verificationToken = AuthTestUtils.buildVerificationToken();
         AppUser appUser = verificationToken.getAppUser();
         appUser.setActive(true);
         Mockito.when(verificationTokenService.findByToken(token)).thenReturn(verificationToken);
-        MasterErrorMessage masterErrorMessage = AuthTestUtils.buildMasterErrorMessage();
+        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage();
         masterErrorMessage.setErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR)).thenReturn(masterErrorMessage);
 
@@ -145,17 +151,17 @@ class AuthServiceImplTest extends AbstractServiceTest {
         Authentication authentication = new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword());
         Mockito.when(authenticationManager.authenticate(authentication)).thenReturn(authentication);
-        Mockito.when(appConfiguration.getTimeZoneId()).thenReturn(AuthTestUtils.TIME_ZONE_ID);
-        Mockito.when(appConfiguration.getZonedDateTimeFormat()).thenReturn(AuthTestUtils.ZONED_DATE_TIME_FORMAT);
+        Mockito.when(appConfiguration.getTimeZoneId()).thenReturn(CommonTestUtils.TIME_ZONE_ID);
+        Mockito.when(appConfiguration.getZonedDateTimeFormat()).thenReturn(CommonTestUtils.ZONED_DATE_TIME_FORMAT);
         Mockito.when(jwtConfiguration.getJwtExpirationInMillis()).thenReturn(AuthTestUtils.JWT_EXPIRATION_IN_MILLIS);
-        Mockito.when(jwtService.generateToken(authentication)).thenReturn(AuthTestUtils.ACCESS_TOKEN);
+        Mockito.when(jwtService.generateToken(authentication)).thenReturn(AuthTestUtils.TOKEN);
         Mockito.when(refreshTokenService.generateRefreshToken()).thenReturn(AuthTestUtils.buildRefreshToken());
 
-        SignInResponseDTO result = authService.signIn(signInRequestDTO);
+        SignInResponseDTO actual = authService.signIn(signInRequestDTO);
 
-        Assertions.assertEquals(AuthTestUtils.ACCESS_TOKEN, result.getAccessToken());
-        Assertions.assertEquals(AuthTestUtils.REFRESH_TOKEN, result.getRefreshToken());
-        Assertions.assertTrue(StringUtils.isNotBlank(result.getExpiresAt()));
+        Assertions.assertEquals(AuthTestUtils.TOKEN, actual.getAccessToken());
+        Assertions.assertEquals(AuthTestUtils.TOKEN, actual.getRefreshToken());
+        Assertions.assertTrue(StringUtils.isNotBlank(actual.getExpiresAt()));
     }
 
     @Test
@@ -169,20 +175,22 @@ class AuthServiceImplTest extends AbstractServiceTest {
         Mockito.when(modelMapper.map(signUpRequestDTO, AppUser.class)).thenReturn(appUser);
         Mockito.when(roleService.findByRoleName(AppRoleName.ROLE_USER)).thenReturn(AuthTestUtils.buildAppRole(AppRoleName.ROLE_USER));
         Mockito.when(userService.saveAndFlush(appUser)).thenReturn(appUser);
+        Mockito.when(verificationTokenService.saveAndFlush(Mockito.any())).thenReturn(AuthTestUtils.buildVerificationToken());
         MasterMessage masterMessage = new MasterMessage();
         masterMessage.setMessageCode(MasterMessageCode.SIGN_UP_SUCCESS);
         masterMessage.setMessage(AuthTestUtils.SIGN_UP_SUCCESS_MESSAGE);
+
+        Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.SIGN_UP_SUCCESS)).thenReturn(masterMessage);
         String maskEmail = CommonUtils.maskEmail(appUser.getEmail());
         String message = CommonUtils.formatString(StringEscapeUtils.unescapeJava(masterMessage.getMessage()), appUser.getUsername(), maskEmail);
         masterMessage.setTitle(AuthTestUtils.SIGN_UP_SUCCESS_TITLE);
         String title = StringEscapeUtils.unescapeJava(masterMessage.getTitle());
-        Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.SIGN_UP_SUCCESS)).thenReturn(masterMessage);
-        Mockito.when(verificationTokenService.saveAndFlush(Mockito.any())).thenReturn(AuthTestUtils.buildVerificationToken());
+        SimpleResponseDTO expected = new SimpleResponseDTO(title, message);
 
-        SimpleResponseDTO result = authService.signUp(signUpRequestDTO);
 
-        Assertions.assertEquals(title, result.getTitle());
-        Assertions.assertEquals(message, result.getMessage());
+        SimpleResponseDTO actual = authService.signUp(signUpRequestDTO);
+
+        Assertions.assertEquals(expected, actual);
 
     }
 
@@ -191,15 +199,17 @@ class AuthServiceImplTest extends AbstractServiceTest {
         SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
         Mockito.when(userService.existsByEmail(signUpRequestDTO.getEmail())).thenReturn(false);
         Mockito.when(userService.existsByUsername(signUpRequestDTO.getUsername())).thenReturn(true);
-        MasterErrorMessage masterErrorMessage = AuthTestUtils.buildMasterErrorMessage();
+        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage();
         masterErrorMessage.setErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR)).thenReturn(masterErrorMessage);
+        List<ErrorDetail> errorDetails = new ArrayList<>();
+        errorDetails.add(new ValidationErrorDetail(null, Constants.USERNAME.toLowerCase(), CommonUtils.maskEmail(signUpRequestDTO.getEmail()), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage())));
+        ValidationException expected = new ValidationException(HttpStatus.CONFLICT, null, errorDetails);
 
         try {
             authService.signUp(signUpRequestDTO);
         } catch (ValidationException e) {
-            Assertions.assertEquals(HttpStatus.CONFLICT, e.getHttpStatus());
-            Assertions.assertTrue(CollectionUtils.isNotEmpty(e.getErrorDetails()));
+            Assertions.assertEquals(expected, e);
         }
 
     }
@@ -209,15 +219,17 @@ class AuthServiceImplTest extends AbstractServiceTest {
     void whenSignUp_givenEmailExisted_thenThrowValidationException() throws SocialNetworkAppException {
         SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
         Mockito.when(userService.existsByEmail(signUpRequestDTO.getEmail())).thenReturn(true);
-        MasterErrorMessage masterErrorMessage = AuthTestUtils.buildMasterErrorMessage();
+        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage();
         masterErrorMessage.setErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR)).thenReturn(masterErrorMessage);
+        List<ErrorDetail> errorDetails = new ArrayList<>();
+        errorDetails.add(new ValidationErrorDetail(null, Constants.EMAIL.toLowerCase(), CommonUtils.maskEmail(signUpRequestDTO.getEmail()), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage())));
+        ValidationException expected = new ValidationException(HttpStatus.CONFLICT, null, errorDetails);
 
         try {
             authService.signUp(signUpRequestDTO);
         } catch (ValidationException e) {
-            Assertions.assertEquals(HttpStatus.CONFLICT, e.getHttpStatus());
-            Assertions.assertTrue(CollectionUtils.isNotEmpty(e.getErrorDetails()));
+            Assertions.assertEquals(expected, e);
         }
 
     }

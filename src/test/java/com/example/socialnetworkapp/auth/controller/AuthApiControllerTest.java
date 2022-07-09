@@ -1,6 +1,7 @@
 package com.example.socialnetworkapp.auth.controller;
 
 import com.example.socialnetworkapp.AbstractApiTest;
+import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,7 +29,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @WebMvcTest(AuthApiController.class)
 @AutoConfigureMockMvc(addFilters = false)
+@ComponentScan(value = "com.example.socialnetworkapp.auth.controller")
 class AuthApiControllerTest extends AbstractApiTest {
+
     private static final String URL_TEMPLATE = "/auth";
 
     @Autowired
@@ -47,7 +51,7 @@ class AuthApiControllerTest extends AbstractApiTest {
     @Test
     void whenSignUp_givenValidSignUpRequestDTO_thenReturnOK() throws Exception {
         SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
-        SimpleResponseDTO simpleResponseDTO = AuthTestUtils.buildSimpleResponseDTO();
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
         Mockito.when(authService.signUp(signUpRequestDTO)).thenReturn(simpleResponseDTO);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .post(URL_TEMPLATE + "/signUp")
@@ -68,7 +72,7 @@ class AuthApiControllerTest extends AbstractApiTest {
     @Test
     void whenVerifyAccount_givenValidToken_thenReturnOK() throws Exception {
         String token = RandomStringUtils.randomAlphabetic(10);
-        SimpleResponseDTO simpleResponseDTO = AuthTestUtils.buildSimpleResponseDTO();
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
         Mockito.when(authService.verifyAccount(token)).thenReturn(simpleResponseDTO);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .get(URL_TEMPLATE + "/verifyAccount/" + token)

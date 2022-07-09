@@ -31,6 +31,7 @@ import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -169,7 +170,7 @@ public class AuthServiceImpl implements AuthService {
         log.debug("Validate email, email exists: {}", existsByEmail);
         if (existsByEmail) {
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR);
-            return new ValidationErrorDetail(null, "email", CommonUtils.maskEmail(email), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
+            return new ValidationErrorDetail(null, Constants.EMAIL.toLowerCase(), CommonUtils.maskEmail(email), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
         }
         return null;
     }
@@ -179,7 +180,7 @@ public class AuthServiceImpl implements AuthService {
         log.debug("Validate username, username exists: {}", existsByUsername);
         if (existsByUsername) {
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR);
-            return new ValidationErrorDetail(null, "username", username, StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
+            return new ValidationErrorDetail(null, Constants.USERNAME.toLowerCase(), username, StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()));
         }
         return null;
     }

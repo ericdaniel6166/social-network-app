@@ -23,6 +23,7 @@
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <modelmapper.version>3.1.0</modelmapper.version>
+        <jacoco.version>0.8.5</jacoco.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -163,6 +164,41 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>com/example/socialnetworkapp/**/advice/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/configuration/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/controller/advice/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/dto/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/enums/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/exception/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/model/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/repository/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/security/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/**/utils/**/*</exclude>
+                        <exclude>com/example/socialnetworkapp/SocialNetworkApp*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

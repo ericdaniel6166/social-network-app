@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/common")
+@RequestMapping("/admin")
 @Slf4j
 @RequiredArgsConstructor
-public class CommonApiController implements CommonApi {
+public class AdminApiController implements CommonApi {
+    //TODO: implement ROLE_ADMIN
 
     private final MasterMessageService masterMessageService;
 
