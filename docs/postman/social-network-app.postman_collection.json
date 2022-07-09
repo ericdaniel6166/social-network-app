@@ -5611,12 +5611,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/common/masterMessage",
+							"raw": "{{domain}}/admin/masterMessage",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
-								"common",
+								"admin",
 								"masterMessage"
 							]
 						}
@@ -5720,12 +5720,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/common/masterErrorMessage",
+							"raw": "{{domain}}/admin/masterErrorMessage",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
-								"common",
+								"admin",
 								"masterErrorMessage"
 							]
 						}

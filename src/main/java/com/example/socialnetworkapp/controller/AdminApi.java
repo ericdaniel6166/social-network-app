@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
 
-@Api(value = "CommonAPI", tags = "Common API")
-public interface CommonApi {
+@Api(value = "AdminAPI", tags = "Admin API")
+public interface AdminApi {
 
     @ApiOperation(value = "Find all master message")
     @ApiResponses(value = {

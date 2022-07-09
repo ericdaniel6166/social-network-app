@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/admin")
 @Slf4j
 @RequiredArgsConstructor
-public class AdminApiController implements CommonApi {
+public class AdminApiController implements AdminApi {
     //TODO: implement ROLE_ADMIN
 
     private final MasterMessageService masterMessageService;
