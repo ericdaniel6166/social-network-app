@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.advice;
+package com.example.socialnetworkapp.exception.advice;
 
 import com.example.socialnetworkapp.configuration.OperationIdConfiguration;
 import com.example.socialnetworkapp.dto.ErrorDetail;

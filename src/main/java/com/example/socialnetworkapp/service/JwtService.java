@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.security.service;
+package com.example.socialnetworkapp.service;
 
 
 import org.springframework.security.core.Authentication;

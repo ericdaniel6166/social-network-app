@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.security;
+package com.example.socialnetworkapp.configuration.security;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,10 +1,9 @@
-package com.example.socialnetworkapp.security.service.impl;
+package com.example.socialnetworkapp.service.impl;
 
-import com.example.socialnetworkapp.security.JwtConfiguration;
-import com.example.socialnetworkapp.security.service.JwtService;
+import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
+import com.example.socialnetworkapp.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -23,8 +22,7 @@ public class JwtServiceImpl implements JwtService {
 
     private final JwtEncoder jwtEncoder;
 
-    @Autowired
-    private JwtConfiguration jwtConfiguration;
+    private final JwtConfiguration jwtConfiguration;
 
     @Override
     public String generateToken(Authentication authentication) {

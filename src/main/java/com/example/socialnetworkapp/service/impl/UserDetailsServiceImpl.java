@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.security.service.impl;
+package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.UserService;

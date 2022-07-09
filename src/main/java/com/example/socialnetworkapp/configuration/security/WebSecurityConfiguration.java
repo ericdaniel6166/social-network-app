@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.security;
+package com.example.socialnetworkapp.configuration.security;
 
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
