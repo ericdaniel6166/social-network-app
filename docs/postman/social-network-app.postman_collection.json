@@ -5590,6 +5590,229 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "09.01_/common",
+			"item": [
+				{
+					"name": "find all master message",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/common/masterMessage",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"common",
+								"masterMessage"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/forum",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"forum"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 05 Jul 2022 17:38:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 48,\n            \"name\": \"Implemented maximize sensor deposit productivity\",\n            \"description\": \"Try to parse the EXE firewall, maybe it will hack the open-source transmitter!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:18 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:18 +0700\"\n        },\n        {\n            \"id\": 47,\n            \"name\": \"Planner responsive Division digital productize\",\n            \"description\": \"The SAS driver is down, synthesize the back-end protocol so we can input the PCI sensor!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:17 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:17 +0700\"\n        },\n        {\n            \"id\": 46,\n            \"name\": \"program bandwidth Cross-group Bacon Mandatory\",\n            \"description\": \"Try to program the AI microchip, maybe it will copy the redundant panel!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:16 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:16 +0700\"\n        },\n        {\n            \"id\": 45,\n            \"name\": \"multi-byte primary toolset\",\n            \"description\": \"The SMTP panel is down, program the digital bandwidth so we can back up the CSS bandwidth!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:16 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:16 +0700\"\n        },\n        {\n            \"id\": 44,\n            \"name\": \"transmitting synergies\",\n            \"description\": \"bypassing the microchip won't do anything, we need to copy the haptic JSON application!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:15 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:15 +0700\"\n        },\n        {\n            \"id\": 43,\n            \"name\": \"boliviano pixel Washington\",\n            \"description\": \"Try to index the SMTP protocol, maybe it will compress the optical program!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:14 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:14 +0700\"\n        },\n        {\n            \"id\": 42,\n            \"name\": \"Credit Hills applications structure\",\n            \"description\": \"If we index the transmitter, we can get to the JSON array through the open-source XSS feed!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:14 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:14 +0700\"\n        },\n        {\n            \"id\": 41,\n            \"name\": \"auxiliary Fresh Greece Wyoming\",\n            \"description\": \"If we synthesize the bus, we can get to the XML microchip through the bluetooth AI card!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:13 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:13 +0700\"\n        },\n        {\n            \"id\": 40,\n            \"name\": \"Polarised Incredible\",\n            \"description\": \"Use the bluetooth RAM bus, then you can bypass the wireless protocol!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:12 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:12 +0700\"\n        },\n        {\n            \"id\": 39,\n            \"name\": \"system invoice Handcrafted synthesize Card\",\n            \"description\": \"Use the back-end SAS circuit, then you can back up the open-source transmitter!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:12 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:12 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 26,\n    \"totalPages\": 3,\n    \"last\": false,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "find all master error message",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/common/masterErrorMessage",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"common",
+								"masterErrorMessage"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/forum",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"forum"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 05 Jul 2022 17:38:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 48,\n            \"name\": \"Implemented maximize sensor deposit productivity\",\n            \"description\": \"Try to parse the EXE firewall, maybe it will hack the open-source transmitter!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:18 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:18 +0700\"\n        },\n        {\n            \"id\": 47,\n            \"name\": \"Planner responsive Division digital productize\",\n            \"description\": \"The SAS driver is down, synthesize the back-end protocol so we can input the PCI sensor!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:17 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:17 +0700\"\n        },\n        {\n            \"id\": 46,\n            \"name\": \"program bandwidth Cross-group Bacon Mandatory\",\n            \"description\": \"Try to program the AI microchip, maybe it will copy the redundant panel!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:16 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:16 +0700\"\n        },\n        {\n            \"id\": 45,\n            \"name\": \"multi-byte primary toolset\",\n            \"description\": \"The SMTP panel is down, program the digital bandwidth so we can back up the CSS bandwidth!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:16 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:16 +0700\"\n        },\n        {\n            \"id\": 44,\n            \"name\": \"transmitting synergies\",\n            \"description\": \"bypassing the microchip won't do anything, we need to copy the haptic JSON application!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:15 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:15 +0700\"\n        },\n        {\n            \"id\": 43,\n            \"name\": \"boliviano pixel Washington\",\n            \"description\": \"Try to index the SMTP protocol, maybe it will compress the optical program!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:14 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:14 +0700\"\n        },\n        {\n            \"id\": 42,\n            \"name\": \"Credit Hills applications structure\",\n            \"description\": \"If we index the transmitter, we can get to the JSON array through the open-source XSS feed!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:14 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:14 +0700\"\n        },\n        {\n            \"id\": 41,\n            \"name\": \"auxiliary Fresh Greece Wyoming\",\n            \"description\": \"If we synthesize the bus, we can get to the XML microchip through the bluetooth AI card!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:13 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:13 +0700\"\n        },\n        {\n            \"id\": 40,\n            \"name\": \"Polarised Incredible\",\n            \"description\": \"Use the bluetooth RAM bus, then you can bypass the wireless protocol!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:12 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:12 +0700\"\n        },\n        {\n            \"id\": 39,\n            \"name\": \"system invoice Handcrafted synthesize Card\",\n            \"description\": \"Use the back-end SAS circuit, then you can back up the open-source transmitter!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:12 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:12 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 26,\n    \"totalPages\": 3,\n    \"last\": false,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+						}
+					]
+				}
+			]
 		}
 	]
 }
