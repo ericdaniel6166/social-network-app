@@ -1,5 +1,7 @@
 # social-network-app
 
+![Coverage](.github/badges/jacoco.svg)
+
 # Getting started
 
 1. Download and import Postman collections and environment: 
