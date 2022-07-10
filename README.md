@@ -10,12 +10,15 @@ Postman Collections with all apis, environment and example response for certain 
 
 ![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Postman_collections.png)
 
-2. Download and install Microsoft SQL Server 2019 database and SQL Server Management Studio: [Link](https://youtu.be/QsXWszvjMBM)
+2. Setup database
+
+Download and install Microsoft SQL Server 2019 database and SQL Server Management Studio: [Link](https://youtu.be/QsXWszvjMBM)
+
 3. Create a database with name "social_network_app" 
 
 ![Database](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/database.png)
 
-4. Config your database username and password 
+4. Config database username and password 
 
 Config database username and password in src/main/resources/application-local.yml
 
@@ -40,7 +43,7 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 - Spring Boot 2.6.2
 - Junit 5
 - Jacoco 
-    - a code coverage reports generator for Java projects.
+    - Code coverage reports generator for Java projects.
 - Spring Cloud Sleuth
     - provides Spring Boot auto-configuration for distributed tracing.
     - enhancing logs, especially in a system built up of multiple services
