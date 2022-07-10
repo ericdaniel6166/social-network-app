@@ -178,7 +178,6 @@
                         <exclude>**/model/**/*</exclude>
                         <exclude>**/utils/**/*</exclude>
                         <exclude>**/SocialNetworkApp*</exclude>
-
                     </excludes>
                 </configuration>
                 <executions>
