@@ -1,7 +1,6 @@
 package com.example.socialnetworkapp.forum;
 
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
@@ -57,7 +56,7 @@ public class ForumTestUtils {
         return appComment;
     }
 
-    private static Post buildPost() {
+    public static Post buildPost() {
         Post post = new Post();
         post.setId(1L);
         post.setIsActive(true);
@@ -68,7 +67,7 @@ public class ForumTestUtils {
         return post;
     }
 
-    private static Forum buildForum() {
+    public static Forum buildForum() {
         Forum forum = new Forum();
         forum.setId(1L);
         forum.setIsActive(true);

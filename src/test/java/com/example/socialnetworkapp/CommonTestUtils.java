@@ -3,19 +3,19 @@ package com.example.socialnetworkapp;
 import com.example.socialnetworkapp.dto.MasterErrorMessageDTO;
 import com.example.socialnetworkapp.dto.MasterMessageDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
+import com.example.socialnetworkapp.enums.MasterErrorCode;
+import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
+import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class CommonTestUtils {
 
@@ -38,23 +38,38 @@ public class CommonTestUtils {
         return simpleResponseDTO;
     }
 
-    public static MasterErrorMessage buildMasterErrorMessage() {
+    public static MasterErrorMessage buildMasterErrorMessage(MasterErrorCode masterErrorCode) {
         MasterErrorMessage masterErrorMessage = new MasterErrorMessage();
         masterErrorMessage.setErrorMessage(ERROR_MESSAGE);
+        masterErrorMessage.setErrorCode(masterErrorCode);
         return masterErrorMessage;
     }
 
-    public static MasterErrorMessageDTO buildMasterErrorMessageDTO() {
+    public static MasterErrorMessageDTO buildMasterErrorMessageDTO(MasterErrorCode masterErrorCode) {
         MasterErrorMessageDTO masterErrorMessageDTO = new MasterErrorMessageDTO();
-        masterErrorMessageDTO.setErrorMessage(ERROR_MESSAGE);
+        MasterErrorMessage masterErrorMessage = buildMasterErrorMessage(masterErrorCode);
+        masterErrorMessageDTO.setErrorMessage(masterErrorMessage.getErrorMessage());
+        masterErrorMessageDTO.setErrorCode(masterErrorMessage.getErrorCode());
         return masterErrorMessageDTO;
     }
 
-    public static MasterMessageDTO buildMasterMessageDTO() {
+    public static MasterMessageDTO buildMasterMessageDTO(MasterMessageCode masterMessageCode) {
         MasterMessageDTO masterMessageDTO = new MasterMessageDTO();
-        masterMessageDTO.setMessage(MESSAGE);
+        MasterMessage masterMessage = buildMasterMessage(masterMessageCode);
+        masterMessageDTO.setMessage(masterMessage.getMessage());
+        masterMessageDTO.setTitle(masterMessage.getTitle());
+        masterMessageDTO.setMessageCode(masterMessage.getMessageCode());
         return masterMessageDTO;
     }
+
+    public static MasterMessage buildMasterMessage(MasterMessageCode masterMessageCode) {
+        MasterMessage masterMessage = new MasterMessage();
+        masterMessage.setMessage(MESSAGE);
+        masterMessage.setTitle(TITLE);
+        masterMessage.setMessageCode(masterMessageCode);
+        return masterMessage;
+    }
+
 
     public static Page<?> buildPage(Object... objects) {
         Pageable pageable = buildPageable();

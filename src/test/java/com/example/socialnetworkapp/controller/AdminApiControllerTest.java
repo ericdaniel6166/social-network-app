@@ -50,7 +50,7 @@ public class AdminApiControllerTest extends AbstractApiTest {
 
     @Test
     void whenFindAllMasterErrorMessage_thenReturnOK() throws Exception {
-        List<MasterErrorMessageDTO> masterErrorMessageDTOList = Collections.singletonList(CommonTestUtils.buildMasterErrorMessageDTO());
+        List<MasterErrorMessageDTO> masterErrorMessageDTOList = Collections.singletonList(CommonTestUtils.buildMasterErrorMessageDTO(null));
         Mockito.when(masterErrorMessageService.findAll()).thenReturn(masterErrorMessageDTOList);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .get(URL_TEMPLATE + "/masterErrorMessage")
@@ -68,8 +68,8 @@ public class AdminApiControllerTest extends AbstractApiTest {
 
     @Test
     void whenFindAllMasterMessage_thenReturnOK() throws Exception {
-        List<MasterMessageDTO> masterErrorMessageDTOList = Collections.singletonList(CommonTestUtils.buildMasterMessageDTO());
-        Mockito.when(masterMessageService.findAll()).thenReturn(masterErrorMessageDTOList);
+        List<MasterMessageDTO> masterMessageDTOList = Collections.singletonList(CommonTestUtils.buildMasterMessageDTO(null));
+        Mockito.when(masterMessageService.findAll()).thenReturn(masterMessageDTOList);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .get(URL_TEMPLATE + "/masterMessage")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -80,7 +80,7 @@ public class AdminApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(masterErrorMessageDTOList), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(masterMessageDTOList), actual.getResponse().getContentAsString());
 
     }
 }

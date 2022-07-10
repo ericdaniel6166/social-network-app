@@ -14,6 +14,7 @@ import com.example.socialnetworkapp.auth.service.RoleService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.auth.service.VerificationTokenService;
 import com.example.socialnetworkapp.configuration.AppConfiguration;
+import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
 import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
@@ -23,9 +24,8 @@ import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.model.MasterMessage;
-import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
-import com.example.socialnetworkapp.service.JwtService;
 import com.example.socialnetworkapp.service.EncryptionService;
+import com.example.socialnetworkapp.service.JwtService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
@@ -130,8 +130,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
         AppUser appUser = verificationToken.getAppUser();
         appUser.setActive(true);
         Mockito.when(verificationTokenService.findByToken(token)).thenReturn(verificationToken);
-        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage();
-        masterErrorMessage.setErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR);
+        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR)).thenReturn(masterErrorMessage);
 
         try {
@@ -199,8 +198,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
         SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
         Mockito.when(userService.existsByEmail(signUpRequestDTO.getEmail())).thenReturn(false);
         Mockito.when(userService.existsByUsername(signUpRequestDTO.getUsername())).thenReturn(true);
-        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage();
-        masterErrorMessage.setErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR);
+        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage(MasterErrorCode.USERNAME_EXISTED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.USERNAME_EXISTED_ERROR)).thenReturn(masterErrorMessage);
         List<ErrorDetail> errorDetails = new ArrayList<>();
         errorDetails.add(new ValidationErrorDetail(null, Constants.USERNAME.toLowerCase(), CommonUtils.maskEmail(signUpRequestDTO.getEmail()), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage())));
@@ -219,8 +217,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
     void whenSignUp_givenEmailExisted_thenThrowValidationException() throws SocialNetworkAppException {
         SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
         Mockito.when(userService.existsByEmail(signUpRequestDTO.getEmail())).thenReturn(true);
-        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage();
-        masterErrorMessage.setErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR);
+        MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage(MasterErrorCode.EMAIL_EXISTED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.EMAIL_EXISTED_ERROR)).thenReturn(masterErrorMessage);
         List<ErrorDetail> errorDetails = new ArrayList<>();
         errorDetails.add(new ValidationErrorDetail(null, Constants.EMAIL.toLowerCase(), CommonUtils.maskEmail(signUpRequestDTO.getEmail()), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage())));

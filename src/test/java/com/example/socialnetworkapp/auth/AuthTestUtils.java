@@ -69,6 +69,7 @@ public class AuthTestUtils {
         appUser.setUsername(USERNAME);
         appUser.setEmail(EMAIL);
         appUser.setPassword(ENCRYPTED_PASSWORD);
+        appUser.setActive(true);
         return appUser;
     }
 

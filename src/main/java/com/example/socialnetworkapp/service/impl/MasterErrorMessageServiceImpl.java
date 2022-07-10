@@ -1,11 +1,9 @@
 package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.dto.MasterErrorMessageDTO;
-import com.example.socialnetworkapp.dto.MasterMessageDTO;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
-import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.repository.MasterErrorMessageRepository;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import lombok.RequiredArgsConstructor;
