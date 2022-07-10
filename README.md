@@ -24,7 +24,15 @@ Postman Collections with all apis, environment and example response for certain 
 
 ![Database_config](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/database_config.png)
 
-5. Running project: 
+3. Setup mail
+
+- Use mailtrap: https://mailtrap.io/
+
+- Config mail username and password
+
+![Config_mailtrap](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/config_mailtrap.png)
+
+4. Running project: 
 
 Please choose active profile = local
 
