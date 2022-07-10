@@ -15,8 +15,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,18 +27,17 @@ import java.util.List;
 
 @WebMvcTest(AdminApiController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ComponentScan(value = "com.example.socialnetworkapp.controller")
-class AdminApiControllerTest extends AbstractApiTest {
+public class AdminApiControllerTest extends AbstractApiTest {
 
     private static final String URL_TEMPLATE = "/admin";
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
     private MasterMessageService masterMessageService;
 
-    @MockBean
+    @Autowired
     private MasterErrorMessageService masterErrorMessageService;
 
     @BeforeEach
@@ -61,11 +58,11 @@ class AdminApiControllerTest extends AbstractApiTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8);
 
-        MvcResult result = mockMvc.perform(builder)
+        MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
-        Assertions.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(masterErrorMessageDTOList), result.getResponse().getContentAsString());
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(masterErrorMessageDTOList), actual.getResponse().getContentAsString());
 
     }
 
@@ -79,11 +76,11 @@ class AdminApiControllerTest extends AbstractApiTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8);
 
-        MvcResult result = mockMvc.perform(builder)
+        MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
-        Assertions.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(masterErrorMessageDTOList), result.getResponse().getContentAsString());
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(masterErrorMessageDTOList), actual.getResponse().getContentAsString());
 
     }
 }

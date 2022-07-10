@@ -10,6 +10,7 @@ import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,18 +27,20 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.Objects;
 
 @WebMvcTest(AuthApiController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ComponentScan(value = "com.example.socialnetworkapp.auth.controller")
-class AuthApiControllerTest extends AbstractApiTest {
+public class AuthApiControllerTest extends AbstractApiTest {
 
     private static final String URL_TEMPLATE = "/auth";
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
     private AuthService authService;
 
     @BeforeEach
@@ -60,14 +63,93 @@ class AuthApiControllerTest extends AbstractApiTest {
                 .characterEncoding(UTF_8)
                 .content(CommonUtils.writeValueAsString(signUpRequestDTO));
 
-        MvcResult result = mockMvc.perform(builder)
+        MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
-        Assertions.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), result.getResponse().getContentAsString());
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
+    @Test
+    void whenSignUp_givenWrongEmailFormat_thenThrowMethodArgumentNotValidException() throws Exception {
+        SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
+        signUpRequestDTO.setEmail("wrongEmailFormat");
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        Mockito.when(authService.signUp(signUpRequestDTO)).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signUp")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertInstanceOf(MethodArgumentNotValidException.class,
+                Objects.requireNonNull(actual.getResolvedException()));
+
+    }
+
+    @Test
+    void whenSignUp_givenBlankEmail_thenThrowMethodArgumentNotValidException() throws Exception {
+        SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
+        signUpRequestDTO.setEmail(StringUtils.SPACE);
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        Mockito.when(authService.signUp(signUpRequestDTO)).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signUp")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertInstanceOf(MethodArgumentNotValidException.class,
+                Objects.requireNonNull(actual.getResolvedException()));
+
+    }
+
+    @Test
+    void whenSignUp_givenBlankUsername_thenThrowMethodArgumentNotValidException() throws Exception {
+        SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
+        signUpRequestDTO.setUsername(StringUtils.SPACE);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signUp")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertInstanceOf(MethodArgumentNotValidException.class,
+                Objects.requireNonNull(actual.getResolvedException()));
+
+    }
+
+    @Test
+    void whenSignUp_givenBlankPassword_thenThrowMethodArgumentNotValidException() throws Exception {
+        SignUpRequestDTO signUpRequestDTO = AuthTestUtils.buildSignUpRequestDTO();
+        signUpRequestDTO.setPassword(StringUtils.SPACE);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signUp")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertInstanceOf(MethodArgumentNotValidException.class,
+                Objects.requireNonNull(actual.getResolvedException()));
+
+    }
 
     @Test
     void whenVerifyAccount_givenValidToken_thenReturnOK() throws Exception {
@@ -80,11 +162,11 @@ class AuthApiControllerTest extends AbstractApiTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8);
 
-        MvcResult result = mockMvc.perform(builder)
+        MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
-        Assertions.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), result.getResponse().getContentAsString());
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -100,11 +182,53 @@ class AuthApiControllerTest extends AbstractApiTest {
                 .characterEncoding(UTF_8)
                 .content(CommonUtils.writeValueAsString(signInRequestDTO));
 
-        MvcResult result = mockMvc.perform(builder)
+        MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
-        Assertions.assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(signInResponseDTO), result.getResponse().getContentAsString());
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(signInResponseDTO), actual.getResponse().getContentAsString());
 
     }
+
+    @Test
+    void whenSignIn_givenBlankUsername_thenThrowMethodArgumentNotValidException() throws Exception {
+        SignInRequestDTO signInRequestDTO = AuthTestUtils.buildSignInRequestDTO();
+        signInRequestDTO.setUsername(StringUtils.SPACE);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signIn")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(signInRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertInstanceOf(MethodArgumentNotValidException.class,
+                Objects.requireNonNull(actual.getResolvedException()));
+
+    }
+
+    @Test
+    void whenSignIn_givenBlankPassword_thenThrowMethodArgumentNotValidException() throws Exception {
+        SignInRequestDTO signInRequestDTO = AuthTestUtils.buildSignInRequestDTO();
+        signInRequestDTO.setPassword(StringUtils.SPACE);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signIn")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(signInRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertInstanceOf(MethodArgumentNotValidException.class,
+                Objects.requireNonNull(actual.getResolvedException()));
+
+    }
+
+
+
+
 }

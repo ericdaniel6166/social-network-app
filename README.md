@@ -39,6 +39,8 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 - Spring Boot 2.6.2
 - Junit 5
+- Jacoco 
+    - a code coverage reports generator for Java projects.
 - Spring Cloud Sleuth
     - provides Spring Boot auto-configuration for distributed tracing.
     - enhancing logs, especially in a system built up of multiple services
@@ -59,6 +61,7 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
     - map objects to each other
 - Jackson 
     - ObjectMapper to serialize Java objects into JSON and deserialize JSON string into Java objects.
+
 
 
 
