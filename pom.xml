@@ -177,7 +177,6 @@
                         <exclude>**/exception/**/*</exclude>
                         <exclude>**/model/**/*</exclude>
                         <exclude>**/utils/**/*</exclude>
-<!--                        <exclude>**/service/impl/TemplateServiceImpl*</exclude>-->
                         <exclude>**/SocialNetworkApp*</exclude>
 
                     </excludes>
@@ -196,14 +195,6 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    -->
                 </executions>
             </plugin>
         </plugins>
