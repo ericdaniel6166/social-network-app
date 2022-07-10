@@ -3,6 +3,7 @@ package com.example.socialnetworkapp.service.impl;
 import com.example.socialnetworkapp.service.TemplateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TemplateServiceImpl implements TemplateService {
 
-    private final TemplateEngine templateEngine;
+    private final ITemplateEngine templateEngine;
 
     @Override
     public String build(String template, Map<String, Object> variables) {

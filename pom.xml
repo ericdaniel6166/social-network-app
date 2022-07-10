@@ -177,7 +177,7 @@
                         <exclude>**/exception/**/*</exclude>
                         <exclude>**/model/**/*</exclude>
                         <exclude>**/utils/**/*</exclude>
-                        <exclude>**/service/impl/TemplateServiceImpl*</exclude>
+<!--                        <exclude>**/service/impl/TemplateServiceImpl*</exclude>-->
                         <exclude>**/SocialNetworkApp*</exclude>
 
                     </excludes>
