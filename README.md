@@ -57,6 +57,8 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
     - enhancing logs, especially in a system built up of multiple services
     - integrates effortlessly with logging frameworks like Logback and SLF4J
     - this project uses Logback
+- Flyway
+    - perform database migrations
 - AuditorAware 
     - auditing
     - tracking every insert, update, and delete operation and storing it
