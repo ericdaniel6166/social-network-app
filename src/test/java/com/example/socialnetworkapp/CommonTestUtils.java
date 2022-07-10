@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp;
 
+import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.MasterErrorMessageDTO;
 import com.example.socialnetworkapp.dto.MasterMessageDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -10,12 +11,15 @@ import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CommonTestUtils {
 
@@ -30,6 +34,8 @@ public class CommonTestUtils {
     public static final String TITLE = "title";
 
     public static final String SEARCH = "name==*red*";
+
+    public static final String TEMPLATE = "template";
 
     public static SimpleResponseDTO buildSimpleResponseDTO() {
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
@@ -87,4 +93,19 @@ public class CommonTestUtils {
         return CommonUtils.buildPageable(page, size, direction, properties);
     }
 
+    public static EmailDTO buildEmailDTO(String subject, String recipient) {
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setSubject(subject);
+        emailDTO.setRecipient(recipient);
+        emailDTO.setBody(RandomStringUtils.random(10));
+        return emailDTO;
+    }
+
+    public static List<MasterErrorMessage> buildMasterErrorMessageList(MasterErrorCode... masterErrorCodes) {
+        List<MasterErrorMessage> masterErrorMessageList = new ArrayList<>();
+        for (MasterErrorCode masterErrorCode: masterErrorCodes){
+            masterErrorMessageList.add(buildMasterErrorMessage(masterErrorCode));
+        }
+        return masterErrorMessageList;
+    }
 }

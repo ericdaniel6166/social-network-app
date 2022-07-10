@@ -2,6 +2,18 @@ package com.example.socialnetworkapp.utils;
 
 public final class Constants {
 
+    public static final String MAIL_TEMPLATE_NAME = "mailTemplate";
+
+    public static final String MAIL_VARIABLE_NAME = "message";
+
+    public static final String VERIFICATION_EMAIL = "verification@socialnetworkapp.com";
+
+    //TODO move to master_general_parameter
+    public static final String VERIFICATION_EMAIL_SUBJECT = "Please verify your email address";
+
+    //TODO move to master_general_parameter
+    public static final String VERIFICATION_URL = "http://localhost:8080/auth/verifyAccount/";
+
     public static final String SORT_DIRECTION_ASC = "ASC";
 
     public static final String SORT_DIRECTION_DESC = "DESC";

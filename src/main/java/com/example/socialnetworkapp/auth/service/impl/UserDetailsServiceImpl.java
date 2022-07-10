@@ -1,7 +1,8 @@
-package com.example.socialnetworkapp.service.impl;
+package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.UserService;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

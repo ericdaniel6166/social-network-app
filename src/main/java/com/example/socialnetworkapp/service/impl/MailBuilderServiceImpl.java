@@ -2,6 +2,7 @@ package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.service.MailBuilderService;
 import com.example.socialnetworkapp.service.TemplateService;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,14 +10,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MailBuilderServiceImpl implements MailBuilderService {
 
-    private static final String TEMPLATE_NAME = "mailTemplate";
-
-    private static final String VARIABLE_NAME = "message";
-
     private final TemplateService templateService;
 
     @Override
     public String buildMail(String message) {
-        return templateService.build(TEMPLATE_NAME, VARIABLE_NAME, message);
+        return templateService.build(Constants.MAIL_TEMPLATE_NAME, Constants.MAIL_VARIABLE_NAME, message);
     }
 }

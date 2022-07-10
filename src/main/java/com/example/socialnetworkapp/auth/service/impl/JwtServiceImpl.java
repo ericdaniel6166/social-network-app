@@ -1,7 +1,7 @@
-package com.example.socialnetworkapp.service.impl;
+package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
-import com.example.socialnetworkapp.service.JwtService;
+import com.example.socialnetworkapp.auth.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

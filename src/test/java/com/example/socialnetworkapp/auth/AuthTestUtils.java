@@ -8,6 +8,11 @@ import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.model.VerificationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthTestUtils {
 
@@ -59,18 +64,27 @@ public class AuthTestUtils {
 
     public static VerificationToken buildVerificationToken() {
         VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setAppUser(buildAppUser());
+        verificationToken.setAppUser(buildAppUser(AppRoleName.ROLE_USER));
         verificationToken.setToken(TOKEN);
         return verificationToken;
     }
 
-    public static AppUser buildAppUser() {
+    public static AppUser buildAppUser(AppRoleName... roleNames) {
         AppUser appUser = new AppUser();
         appUser.setUsername(USERNAME);
         appUser.setEmail(EMAIL);
         appUser.setPassword(ENCRYPTED_PASSWORD);
         appUser.setActive(true);
+        appUser.setRoles(buildAppRoleList(roleNames));
         return appUser;
+    }
+
+    private static List<AppRole> buildAppRoleList(AppRoleName[] roleNames) {
+        List<AppRole> appRoleList = new ArrayList<>();
+        for (AppRoleName roleName: roleNames){
+            appRoleList.add(buildAppRole(roleName));
+        }
+        return appRoleList;
     }
 
     public static AppRole buildAppRole(AppRoleName roleName) {
@@ -84,6 +98,18 @@ public class AuthTestUtils {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken(TOKEN);
         return refreshToken;
+    }
+
+    public static List<GrantedAuthority> buildAuthorityList(AppRoleName... roleNames) {
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+        for (AppRoleName roleName: roleNames){
+            authorityList.add(buildAuthority(roleName));
+        }
+        return authorityList;
+    }
+
+    public static GrantedAuthority buildAuthority(AppRoleName roleName) {
+        return new SimpleGrantedAuthority(roleName.name());
     }
 
 

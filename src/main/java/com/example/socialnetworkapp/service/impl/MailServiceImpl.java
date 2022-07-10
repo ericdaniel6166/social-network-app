@@ -8,6 +8,7 @@ import com.example.socialnetworkapp.service.MailBuilderService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringEscapeUtils;
@@ -23,8 +24,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
-    private static final String VERIFICATION_EMAIL = "verification@socialnetworkapp.com";
-
     private final MailBuilderService mailBuilderService;
 
     private final JavaMailSender javaMailSender;
@@ -35,7 +34,7 @@ public class MailServiceImpl implements MailService {
     public void sendMail(EmailDTO emailDTO) throws SocialNetworkAppException {
         MimeMessagePreparator mimeMessagePreparator = mimeMessage -> {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-            mimeMessageHelper.setFrom(VERIFICATION_EMAIL);
+            mimeMessageHelper.setFrom(Constants.VERIFICATION_EMAIL);
             mimeMessageHelper.setTo(emailDTO.getRecipient());
             mimeMessageHelper.setSubject(emailDTO.getSubject());
             mimeMessageHelper.setText(mailBuilderService.buildMail(emailDTO.getBody()));
@@ -43,7 +42,7 @@ public class MailServiceImpl implements MailService {
         try {
             javaMailSender.send(mimeMessagePreparator);
         } catch (MailException e) {
-            log.error("Send mail fail, error message: {}, subject: {}, from: {}, to: {}", e.getMessage(), emailDTO.getSubject(), VERIFICATION_EMAIL, emailDTO.getRecipient(), e);
+            log.error("Send mail fail, error message: {}, subject: {}, from: {}, to: {}", e.getMessage(), emailDTO.getSubject(), Constants.VERIFICATION_EMAIL, emailDTO.getRecipient(), e);
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.SEND_MAIL_ERROR);
             String errorMessage = StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage());
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, MasterErrorCode.SEND_MAIL_ERROR.name()

@@ -87,3 +87,5 @@ default port: 8080
 ![Jacoco_Step2](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/jacoco_step2.png)
 
 - Preview Jacoco report
+
+![Jacoco_preview](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/jacoco_preview.png)

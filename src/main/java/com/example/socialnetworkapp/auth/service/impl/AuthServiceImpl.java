@@ -25,8 +25,8 @@ import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.model.MasterMessage;
-import com.example.socialnetworkapp.service.EncryptionService;
-import com.example.socialnetworkapp.service.JwtService;
+import com.example.socialnetworkapp.auth.service.EncryptionService;
+import com.example.socialnetworkapp.auth.service.JwtService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
@@ -58,12 +58,6 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-
-    //TODO move to master_general_parameter
-    private static final String VERIFICATION_EMAIL_SUBJECT = "Please verify your email address";
-
-    //TODO move to master_general_parameter
-    private static final String VERIFICATION_URL = "http://localhost:8080/auth/verifyAccount/";
 
     private final ModelMapper modelMapper;
 
@@ -142,8 +136,8 @@ public class AuthServiceImpl implements AuthService {
         appUser = userService.saveAndFlush(appUser);
         String token = generateVerificationToken(appUser);
         EmailDTO emailDTO = new EmailDTO();
-        emailDTO.setSubject(VERIFICATION_EMAIL_SUBJECT);
-        emailDTO.setBody(VERIFICATION_URL + token);
+        emailDTO.setSubject(Constants.VERIFICATION_EMAIL_SUBJECT);
+        emailDTO.setBody(Constants.VERIFICATION_URL + token);
         emailDTO.setRecipient(appUser.getEmail());
         mailService.sendMail(emailDTO);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
