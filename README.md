@@ -78,7 +78,11 @@ default port: 8080
 2. Preview Jacoco report
 
 - Run maven clean test
+
 ![Jacoco_Step1](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/jacoco_step1.png)
+
 - Open report by a browser, destination: target/site/jacoco/index.html
+
 ![Jacoco_Step2](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/jacoco_step2.png)
+
 - Preview Jacoco report
