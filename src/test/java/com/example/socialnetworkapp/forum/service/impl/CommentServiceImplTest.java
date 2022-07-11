@@ -73,7 +73,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Mockito.when(commentRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
-        Page<CommentDTO> actual = commentService.findAll(pageable, search);
+        Page<CommentDTO> actual = commentService.getAll(pageable, search);
 
         Assertions.assertEquals(expected, actual);
 
@@ -90,7 +90,41 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Mockito.when(commentRepository.findAll(pageable)).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
-        Page<CommentDTO> actual = commentService.findAll(pageable, search);
+        Page<CommentDTO> actual = commentService.getAll(pageable, search);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenGetByPostId_thenReturnCommentDTOPage() throws SocialNetworkAppException {
+        CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
+        AppComment appComment = ForumTestUtils.buildAppComment();
+        Long id = commentDTO.getPostId();
+        Pageable pageable = CommonTestUtils.buildPageable();
+        Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
+        Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
+        Mockito.when(commentRepository.findAllByPost_Id(id, pageable)).thenReturn(commentPage);
+        Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
+
+        Page<CommentDTO> actual = commentService.getByPostId(id, pageable);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenGetByCreatedBy_thenReturnCommentDTOPage() throws SocialNetworkAppException {
+        CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
+        AppComment appComment = ForumTestUtils.buildAppComment();
+        Pageable pageable = CommonTestUtils.buildPageable();
+        String username = AuthTestUtils.USERNAME;
+        Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
+        Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
+        Mockito.when(commentRepository.findAllByCreatedBy(username, pageable)).thenReturn(commentPage);
+        Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
+
+        Page<CommentDTO> actual = commentService.getByCreatedBy(username, pageable);
 
         Assertions.assertEquals(expected, actual);
 

@@ -73,7 +73,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException {
+    public Page<PostDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Post> postPage;
         if (StringUtils.isBlank(search)) {
             postPage = postRepository.findAll(pageable);
@@ -81,6 +81,10 @@ public class PostServiceImpl implements PostService {
             Specification<Post> spec = (Specification<Post>) CommonUtils.buildSpecification(search);
             postPage = postRepository.findAll(spec, pageable);
         }
+        return buildPostDTOPage(postPage, pageable);
+    }
+
+    private Page<PostDTO> buildPostDTOPage(Page<Post> postPage, Pageable pageable) {
         PostDTO postDTO;
         List<PostDTO> postDTOList = new ArrayList<>();
         for (Post post : postPage) {
@@ -96,5 +100,24 @@ public class PostServiceImpl implements PostService {
         log.debug("Find post by id, id: {}", id);
         return postRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.POST + ", id:" + id));
+    }
+
+    @Override
+    public PostDTO getById(Long id) throws ResourceNotFoundException {
+        return modelMapper.map(this.findById(id), PostDTO.class);
+    }
+
+    @Override
+    public Page<PostDTO> getByCreatedBy(String username, Pageable pageable) {
+        log.debug("Find post created by username, username: {}", username);
+        Page<Post> postPage = postRepository.findAllByCreatedBy(username, pageable);
+        return buildPostDTOPage(postPage, pageable);
+    }
+
+    @Override
+    public Page<PostDTO> getByForumId(Long id, Pageable pageable) {
+        log.debug("Find post by forum id, id: {}", id);
+        Page<Post> postPage = postRepository.findAllByForum_Id(id, pageable);
+        return buildPostDTOPage(postPage, pageable);
     }
 }

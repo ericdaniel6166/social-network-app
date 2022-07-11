@@ -12,6 +12,9 @@ public interface CommentService {
 
     AppComment saveAndFlush(AppComment appComment);
 
-    Page<CommentDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException;
+    Page<CommentDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException;
 
+    Page<CommentDTO> getByPostId(Long id, Pageable pageable);
+
+    Page<CommentDTO> getByCreatedBy(String username, Pageable pageable);
 }

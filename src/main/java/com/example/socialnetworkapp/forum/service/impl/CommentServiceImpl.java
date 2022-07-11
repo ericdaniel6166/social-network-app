@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Page<CommentDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException {
+    public Page<CommentDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<AppComment> commentPage;
         if (StringUtils.isBlank(search)) {
             commentPage = commentRepository.findAll(pageable);
@@ -49,6 +49,10 @@ public class CommentServiceImpl implements CommentService {
             Specification<AppComment> spec = (Specification<AppComment>) CommonUtils.buildSpecification(search);
             commentPage = commentRepository.findAll(spec, pageable);
         }
+        return buildCommentDTOPage(commentPage, pageable);
+    }
+
+    private Page<CommentDTO> buildCommentDTOPage(Page<AppComment> commentPage, Pageable pageable) {
         CommentDTO commentDTO;
         List<CommentDTO> commentDTOList = new ArrayList<>();
         for (AppComment appComment : commentPage) {
@@ -58,6 +62,20 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return new PageImpl<>(commentDTOList, pageable, commentPage.getTotalElements());
+    }
+
+    @Override
+    public Page<CommentDTO> getByPostId(Long id, Pageable pageable) {
+        log.debug("Find comment by post id, id: {}", id);
+        Page<AppComment> commentPage = commentRepository.findAllByPost_Id(id, pageable);
+        return buildCommentDTOPage(commentPage, pageable);
+    }
+
+    @Override
+    public Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) {
+        log.debug("Find comment created by username, username: {}", username);
+        Page<AppComment> commentPage = commentRepository.findAllByCreatedBy(username, pageable);
+        return buildCommentDTOPage(commentPage, pageable);
     }
 
     @Override

@@ -86,7 +86,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Mockito.when(postRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
-        Page<PostDTO> actual = postService.findAll(pageable, search);
+        Page<PostDTO> actual = postService.getAll(pageable, search);
 
         Assertions.assertEquals(expected, actual);
 
@@ -103,7 +103,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Mockito.when(postRepository.findAll(pageable)).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
-        Page<PostDTO> actual = postService.findAll(pageable, search);
+        Page<PostDTO> actual = postService.getAll(pageable, search);
 
         Assertions.assertEquals(expected, actual);
 
@@ -162,5 +162,56 @@ class PostServiceImplTest extends AbstractServiceTest {
 
 
     }
+
+    @Test
+    void whenGetById_thenReturnForumDTO() throws ResourceNotFoundException {
+        Post post = ForumTestUtils.buildPost();
+        PostDTO expected = ForumTestUtils.buildPostDTO();
+        Long id = post.getId();
+        Mockito.when(postRepository.findById(id)).thenReturn(Optional.of(post));
+        Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(expected);
+
+        PostDTO actual = postService.getById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenGetByForumId_thenReturnForumDTOPage() throws ResourceNotFoundException {
+        Post post = ForumTestUtils.buildPost();
+        PostDTO postDTO = ForumTestUtils.buildPostDTO();
+        Long id = postDTO.getForumId();
+        Pageable pageable = CommonTestUtils.buildPageable();
+        Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
+        Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
+
+        Mockito.when(postRepository.findAllByForum_Id(id, pageable)).thenReturn(postPage);
+        Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
+
+        Page<PostDTO> actual = postService.getByForumId(id, pageable);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenGetByCreatedBy_thenReturnForumDTOPage() throws ResourceNotFoundException {
+        Post post = ForumTestUtils.buildPost();
+        PostDTO postDTO = ForumTestUtils.buildPostDTO();
+        String username = AuthTestUtils.USERNAME;
+        Pageable pageable = CommonTestUtils.buildPageable();
+        Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
+        Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
+
+        Mockito.when(postRepository.findAllByCreatedBy(username, pageable)).thenReturn(postPage);
+        Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
+
+        Page<PostDTO> actual = postService.getByCreatedBy(username, pageable);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
 
 }

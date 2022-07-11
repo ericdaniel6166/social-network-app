@@ -1,12 +1,12 @@
 package com.example.socialnetworkapp.forum.controller;
 
 import com.example.socialnetworkapp.AbstractApiTest;
+import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.forum.ForumTestUtils;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -19,8 +19,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -57,11 +55,11 @@ public class CommentApiControllerTest extends AbstractApiTest {
     }
 
     @Test
-    void whenFindAll_thenReturnOK() throws Exception {
+    void whenGetAll_thenReturnOK() throws Exception {
         Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
         Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
         Sort.Direction direction = Sort.Direction.DESC;
-        String[] properties = ArrayUtils.toArray(Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE,RandomStringUtils.random(10));
+        String[] properties = ArrayUtils.toArray(Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE, RandomStringUtils.random(10));
         String search = RandomStringUtils.random(10);
 
         long totalElement = RandomUtils.nextLong();
@@ -69,7 +67,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
         CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
         Page<CommentDTO> commentDTOPage = new PageImpl<>(Collections.singletonList(commentDTO), pageable, totalElement);
 
-        Mockito.when(commentService.findAll(pageable, search)).thenReturn(commentDTOPage);
+        Mockito.when(commentService.getAll(pageable, search)).thenReturn(commentDTOPage);
 
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
@@ -90,6 +88,75 @@ public class CommentApiControllerTest extends AbstractApiTest {
         Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
 
     }
+
+    @Test
+    void whenGetByPostId_thenReturnOK() throws Exception {
+        Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
+        Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
+        Sort.Direction direction = Sort.Direction.DESC;
+        String[] properties = ArrayUtils.toArray(Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE, RandomStringUtils.random(10));
+
+        long totalElement = RandomUtils.nextLong();
+        Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
+        CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
+        Long id = commentDTO.getPostId();
+        Page<CommentDTO> commentDTOPage = new PageImpl<>(Collections.singletonList(commentDTO), pageable, totalElement);
+
+        Mockito.when(commentService.getByPostId(id, pageable)).thenReturn(commentDTOPage);
+
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/post/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .param("page", page.toString())
+                .param("size", size.toString())
+                .param("direction", direction.name())
+                .param("properties", properties);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
+
+    }
+
+    @Test
+    void whenGetByCreatedBy_thenReturnOK() throws Exception {
+        Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
+        Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
+        Sort.Direction direction = Sort.Direction.DESC;
+        String[] properties = ArrayUtils.toArray(Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE, RandomStringUtils.random(10));
+
+        long totalElement = RandomUtils.nextLong();
+        Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
+        CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
+        String username = AuthTestUtils.USERNAME;
+        Page<CommentDTO> commentDTOPage = new PageImpl<>(Collections.singletonList(commentDTO), pageable, totalElement);
+
+        Mockito.when(commentService.getByCreatedBy(username, pageable)).thenReturn(commentDTOPage);
+
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/createdBy/" + username)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .param("page", page.toString())
+                .param("size", size.toString())
+                .param("direction", direction.name())
+                .param("properties", properties);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
+
+    }
+
 
     @Test
     void whenCreate_givenValidCommentDTO_thenReturnOK() throws Exception {
@@ -126,8 +193,5 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 Objects.requireNonNull(actual.getResolvedException()));
 
     }
-
-
-
 
 }

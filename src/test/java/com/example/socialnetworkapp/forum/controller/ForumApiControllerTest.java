@@ -157,10 +157,10 @@ public class ForumApiControllerTest extends AbstractApiTest {
     @Test
     void whenGetById_thenReturnOK() throws Exception {
         ForumDTO forumDTO = ForumTestUtils.buildForumDTO();
-        Long id = RandomUtils.nextLong();
+        Long id = forumDTO.getId();
         Mockito.when(forumService.getById(id)).thenReturn(forumDTO);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
-                .get(URL_TEMPLATE+"/"+id)
+                .get(URL_TEMPLATE + "/" + id)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8);

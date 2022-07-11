@@ -2,10 +2,9 @@ package com.example.socialnetworkapp.forum.controller;
 
 import com.example.socialnetworkapp.AbstractApiTest;
 import com.example.socialnetworkapp.CommonTestUtils;
+import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
-import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.ForumTestUtils;
-import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
 import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.utils.CommonUtils;
@@ -118,7 +117,7 @@ class PostApiControllerTest extends AbstractApiTest {
     }
 
     @Test
-    void whenFindAll_thenReturnOK() throws Exception {
+    void whenGetAll_thenReturnOK() throws Exception {
         Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
         Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
         Sort.Direction direction = Sort.Direction.DESC;
@@ -129,7 +128,7 @@ class PostApiControllerTest extends AbstractApiTest {
         PostDTO forumDTO = ForumTestUtils.buildPostDTO();
         Page<PostDTO> postDTOPage = new PageImpl<>(Collections.singletonList(forumDTO), pageable, totalElement);
 
-        Mockito.when(postService.findAll(pageable, search)).thenReturn(postDTOPage);
+        Mockito.when(postService.getAll(pageable, search)).thenReturn(postDTOPage);
 
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
@@ -150,4 +149,82 @@ class PostApiControllerTest extends AbstractApiTest {
         Assertions.assertEquals(CommonUtils.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
 
     }
+
+    @Test
+    void whenGetById_thenReturnOK() throws Exception {
+        PostDTO postDTO = ForumTestUtils.buildPostDTO();
+        Long id = RandomUtils.nextLong();
+        Mockito.when(postService.getById(id)).thenReturn(postDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTO), actual.getResponse().getContentAsString());
+    }
+
+    @Test
+    void whenGetByForumId_thenReturnOK() throws Exception {
+        Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
+        Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
+        Sort.Direction direction = Sort.Direction.DESC;
+        String[] properties = ArrayUtils.toArray(Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE, RandomStringUtils.random(10));
+        long totalElement = RandomUtils.nextLong();
+        PostDTO postDTO = ForumTestUtils.buildPostDTO();
+        Long id = postDTO.getForumId();
+        Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
+        Page<PostDTO> postDTOPage = new PageImpl<>(Collections.singletonList(postDTO), pageable, totalElement);
+        Mockito.when(postService.getByForumId(id, pageable)).thenReturn(postDTOPage);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/forum/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .param("page", page.toString())
+                .param("size", size.toString())
+                .param("direction", direction.name())
+                .param("properties", properties);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
+    }
+
+    @Test
+    void whenGetByCreatedBy_thenReturnOK() throws Exception {
+        Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
+        Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
+        Sort.Direction direction = Sort.Direction.DESC;
+        String[] properties = ArrayUtils.toArray(Constants.PAGE_REQUEST_PROPERTIES_LAST_MODIFIED_DATE, RandomStringUtils.random(10));
+        long totalElement = RandomUtils.nextLong();
+        PostDTO postDTO = ForumTestUtils.buildPostDTO();
+        String createdBy = AuthTestUtils.USERNAME;
+        Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
+        Page<PostDTO> postDTOPage = new PageImpl<>(Collections.singletonList(postDTO), pageable, totalElement);
+        Mockito.when(postService.getByCreatedBy(createdBy, pageable)).thenReturn(postDTOPage);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/createdBy/" + createdBy)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .param("page", page.toString())
+                .param("size", size.toString())
+                .param("direction", direction.name())
+                .param("properties", properties);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
+    }
+
+
 }
