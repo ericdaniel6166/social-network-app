@@ -37,7 +37,7 @@ class UserDetailsServiceImplTest extends AbstractServiceTest {
     void whenLoadUserByUsername_thenReturnUserDetails() throws ResourceNotFoundException {
         AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER, AppRoleName.ROLE_ADMIN);
         Mockito.when(userService.findByUsername(appUser.getUsername())).thenReturn(appUser);
-        User expected = new User(appUser.getUsername(), appUser.getPassword(), appUser.isActive(),
+        User expected = new User(appUser.getUsername(), appUser.getPassword(), appUser.getIsActive(),
                 true, true, true, AuthTestUtils.buildAuthorityList(AppRoleName.ROLE_USER, AppRoleName.ROLE_ADMIN));
         UserDetails actual = userDetailsService.loadUserByUsername(appUser.getUsername());
 

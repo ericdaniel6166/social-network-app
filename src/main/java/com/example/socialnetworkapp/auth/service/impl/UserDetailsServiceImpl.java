@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         appUser.getRoles().forEach(appRole -> authorityList.add(new SimpleGrantedAuthority(appRole.getRoleName().name())));
 
         return new User(appUser.getUsername(), appUser.getPassword(),
-                appUser.isActive(), true, true,
+                appUser.getIsActive(), true, true,
                 true, authorityList);
     }
 

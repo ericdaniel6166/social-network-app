@@ -44,7 +44,7 @@ public class AppUser extends Auditable<String> implements Serializable {
     private String email;
 
     @Column
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

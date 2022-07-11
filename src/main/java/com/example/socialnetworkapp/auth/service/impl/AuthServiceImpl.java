@@ -91,13 +91,13 @@ public class AuthServiceImpl implements AuthService {
         log.debug("Verify account, token: {}", token);
         VerificationToken verificationToken = verificationTokenService.findByToken(token);
         AppUser appUser = verificationToken.getAppUser();
-        if (appUser.isActive()) {
+        if (appUser.getIsActive()) {
             log.error("Account has been already activated, username: {}", appUser.getUsername());
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR);
             throw new SocialNetworkAppException(HttpStatus.BAD_REQUEST, MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR.name(), StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage()), null);
         }
-        appUser.setActive(true);
-        userService.saveAndFlush(appUser);
+        appUser.setIsActive(true);
+        appUser = userService.saveAndFlush(appUser);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.VERIFY_ACCOUNT_SUCCESS);
         simpleResponseDTO.setTitle(StringEscapeUtils.unescapeJava(masterMessage.getTitle()));
@@ -130,7 +130,7 @@ public class AuthServiceImpl implements AuthService {
 
         signUpRequestDTO.setPassword(encryptedPassword);
         AppUser appUser = modelMapper.map(signUpRequestDTO, AppUser.class);
-        appUser.setActive(false);
+        appUser.setIsActive(false);
         AppRole appRole = roleService.findByRoleName(AppRoleName.ROLE_USER);
         appUser.setRoles(Collections.singletonList(appRole));
         appUser = userService.saveAndFlush(appUser);

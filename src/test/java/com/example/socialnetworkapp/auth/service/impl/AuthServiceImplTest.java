@@ -106,7 +106,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
         String token = AuthTestUtils.TOKEN;
         VerificationToken verificationToken = AuthTestUtils.buildVerificationToken();
         AppUser appUser = verificationToken.getAppUser();
-        appUser.setActive(false);
+        appUser.setIsActive(false);
         Mockito.when(verificationTokenService.findByToken(token)).thenReturn(verificationToken);
         Mockito.when(userService.saveAndFlush(appUser)).thenReturn(appUser);
         MasterMessage masterMessage = new MasterMessage();
@@ -128,7 +128,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
         String token = AuthTestUtils.TOKEN;
         VerificationToken verificationToken = AuthTestUtils.buildVerificationToken();
         AppUser appUser = verificationToken.getAppUser();
-        appUser.setActive(true);
+        appUser.setIsActive(true);
         Mockito.when(verificationTokenService.findByToken(token)).thenReturn(verificationToken);
         MasterErrorMessage masterErrorMessage = CommonTestUtils.buildMasterErrorMessage(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR);
         Mockito.when(masterErrorMessageService.findByErrorCode(MasterErrorCode.ACCOUNT_ALREADY_ACTIVATED_ERROR)).thenReturn(masterErrorMessage);

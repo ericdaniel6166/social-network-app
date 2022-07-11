@@ -76,7 +76,7 @@ class UserServiceImplTest extends AbstractServiceTest {
     void whenFindByUsername_givenNotEmptyAppUser_thenReturnAppUser() throws ResourceNotFoundException {
         AppUser expected = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
         String username = expected.getUsername();
-        Mockito.when(userRepository.findByUsername(username)).thenReturn(Optional.of(expected));
+        Mockito.when(userRepository.findByIsActiveTrueAndUsername(username)).thenReturn(Optional.of(expected));
 
         AppUser actual = userService.findByUsername(username);
 
@@ -87,7 +87,7 @@ class UserServiceImplTest extends AbstractServiceTest {
     void whenFindByUsername_givenEmptyAppUser_thenThrowResourceNotFoundException() {
         AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
         String username = appUser.getUsername();
-        Mockito.when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+        Mockito.when(userRepository.findByIsActiveTrueAndUsername(username)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException("username " + username);
 
         try {
@@ -105,7 +105,7 @@ class UserServiceImplTest extends AbstractServiceTest {
         Mockito.when(authentication.getPrincipal()).thenReturn(jwt);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
-        Mockito.when(userRepository.findByUsername(username)).thenReturn(Optional.of(expected));
+        Mockito.when(userRepository.findByIsActiveTrueAndUsername(username)).thenReturn(Optional.of(expected));
 
         AppUser actual = userService.getCurrentUser();
 
