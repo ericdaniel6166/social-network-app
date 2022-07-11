@@ -137,6 +137,32 @@ class PostServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    void whenDeleteById_thenReturnSimpleResponseDTO() throws SocialNetworkAppException {
+        Post post = ForumTestUtils.buildPost();
+        Long id = post.getId();
+        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(post));
+        MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.DELETE_SUCCESS);
+        Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS)).thenReturn(masterMessage);
+        String title = CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getTitle()),
+                Constants.POST.toUpperCase()
+        );
+        String message = CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getMessage()),
+                Constants.POST.toLowerCase(),
+                post.getName()
+        );
+        SimpleResponseDTO expected = new SimpleResponseDTO(title, message);
+
+        SimpleResponseDTO actual = postService.deleteById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+
+
+    @Test
     void whenFindById_givenNotEmptyPost_thenReturnForum() throws SocialNetworkAppException {
         Post expected = ForumTestUtils.buildPost();
         Long id = expected.getId();

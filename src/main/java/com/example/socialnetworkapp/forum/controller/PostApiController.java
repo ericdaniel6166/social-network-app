@@ -43,7 +43,7 @@ public class PostApiController implements PostApi {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
         SimpleResponseDTO simpleResponseDTO = postService.deleteById(id);
-        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.NO_CONTENT);
     }
 
     @Override

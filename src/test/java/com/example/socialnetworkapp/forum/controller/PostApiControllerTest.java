@@ -77,6 +77,27 @@ class PostApiControllerTest extends AbstractApiTest {
     }
 
     @Test
+    void whenDeleteById_thenReturnNoContent() throws Exception {
+//        PostDTO postDTO = ForumTestUtils.buildPostDTO();
+        Long id = RandomUtils.nextLong();
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        Mockito.when(postService.deleteById(id)).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .delete(URL_TEMPLATE + "/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+
+    }
+
+
+    @Test
     void whenCreate_givenBlankName_thenThrowMethodArgumentNotValidException() throws Exception {
         PostDTO postDTO = ForumTestUtils.buildPostDTO();
         postDTO.setName(StringUtils.SPACE);
