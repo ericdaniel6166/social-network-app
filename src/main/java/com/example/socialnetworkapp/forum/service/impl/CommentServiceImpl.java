@@ -1,6 +1,7 @@
 package com.example.socialnetworkapp.forum.service.impl;
 
 import com.example.socialnetworkapp.auth.service.UserService;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.model.AppComment;
@@ -8,6 +9,7 @@ import com.example.socialnetworkapp.forum.repository.CommentRepository;
 import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -79,6 +81,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public CommentDTO getById(Long id) throws ResourceNotFoundException {
+        return modelMapper.map(this.findById(id), CommentDTO.class);
+    }
+
+    @Override
+    public AppComment findById(Long id) throws ResourceNotFoundException {
+        log.debug("Find comment by id, id: {}", id);
+        return commentRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(Constants.Comment + ", id:" + id));
+    }
+
+    @Override
     @Transactional
     public void create(CommentDTO commentDTO) throws SocialNetworkAppException {
         AppComment appComment = modelMapper.map(commentDTO, AppComment.class);
@@ -86,7 +100,6 @@ public class CommentServiceImpl implements CommentService {
         appComment.setPost(postService.findById(commentDTO.getPostId()));
         appComment.setIsActive(true);
         saveAndFlush(appComment);
-
 
     }
 

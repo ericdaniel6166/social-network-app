@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.forum.service;
 
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.model.AppComment;
@@ -12,9 +13,13 @@ public interface CommentService {
 
     AppComment saveAndFlush(AppComment appComment);
 
+    AppComment findById(Long id) throws ResourceNotFoundException;
+
     Page<CommentDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException;
 
     Page<CommentDTO> getByPostId(Long id, Pageable pageable);
 
     Page<CommentDTO> getByCreatedBy(String username, Pageable pageable);
+
+    CommentDTO getById(Long id) throws ResourceNotFoundException;
 }

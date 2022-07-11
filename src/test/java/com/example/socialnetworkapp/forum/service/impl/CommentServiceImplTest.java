@@ -6,6 +6,7 @@ import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.auth.enums.AppRoleName;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.UserService;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.ForumTestUtils;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
@@ -13,6 +14,8 @@ import com.example.socialnetworkapp.forum.model.AppComment;
 import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.CommentRepository;
 import com.example.socialnetworkapp.forum.service.PostService;
+import com.example.socialnetworkapp.utils.Constants;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -25,6 +28,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.util.Optional;
 
 class CommentServiceImplTest extends AbstractServiceTest {
 
@@ -129,6 +134,47 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Assertions.assertEquals(expected, actual);
 
     }
+
+    @Test
+    void whenFindById_givenNotEmptyAppComment_thenReturnAppComment() throws SocialNetworkAppException {
+        AppComment expected = ForumTestUtils.buildAppComment();
+        Long id = expected.getId();
+        Mockito.when(commentRepository.findById(id)).thenReturn(Optional.of(expected));
+
+        AppComment actual = commentService.findById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenFindById_givenEmptyAppComment_thenReturnAppComment() {
+        Long id = RandomUtils.nextLong();
+        Mockito.when(commentRepository.findById(id)).thenReturn(Optional.empty());
+        ResourceNotFoundException expected = new ResourceNotFoundException(Constants.Comment + ", id:" + id);
+
+        try {
+            commentService.findById(id);
+        } catch (ResourceNotFoundException e) {
+            Assertions.assertEquals(expected, e);
+        }
+
+    }
+
+    @Test
+    void whenGetById_thenReturnCommentDTO() throws ResourceNotFoundException {
+        AppComment appComment = ForumTestUtils.buildAppComment();
+        CommentDTO expected = ForumTestUtils.buildCommentDTO();
+        Long id = appComment.getId();
+        Mockito.when(commentRepository.findById(id)).thenReturn(Optional.of(appComment));
+        Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(expected);
+
+        CommentDTO actual = commentService.getById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
 
     @Test
     void whenCreate_givenValidCommentDTO_thenSuccess() throws SocialNetworkAppException {

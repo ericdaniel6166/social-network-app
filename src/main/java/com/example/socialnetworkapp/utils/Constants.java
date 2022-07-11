@@ -28,6 +28,8 @@ public final class Constants {
 
     public static final String POST = "Post";
 
+    public static final String Comment = "Comment";
+
     public static final String EMAIL = "Email";
 
     public static final String USERNAME = "Username";

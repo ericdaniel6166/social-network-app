@@ -55,6 +55,14 @@ public class CommentApiController implements CommentApi {
     }
 
     @Override
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) throws SocialNetworkAppException {
+        CommentDTO commentDTO = commentService.getById(id);
+        return new ResponseEntity<>(commentDTO, HttpStatus.OK);
+    }
+
+
+    @Override
     @GetMapping("/createdBy/{username}")
     public ResponseEntity<?> getByCreatedBy(@PathVariable String username,
                                             @RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,

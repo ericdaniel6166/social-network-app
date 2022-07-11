@@ -124,6 +124,28 @@ public class CommentApiControllerTest extends AbstractApiTest {
     }
 
     @Test
+    void whenGetById_thenReturnOK() throws Exception {
+
+        CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
+        Long id = commentDTO.getPostId();
+        Mockito.when(commentService.getById(id)).thenReturn(commentDTO);
+
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTO), actual.getResponse().getContentAsString());
+
+    }
+
+    @Test
     void whenGetByCreatedBy_thenReturnOK() throws Exception {
         Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
         Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
