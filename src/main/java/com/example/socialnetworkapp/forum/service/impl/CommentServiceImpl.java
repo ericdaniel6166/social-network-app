@@ -46,10 +46,10 @@ public class CommentServiceImpl implements CommentService {
     public Page<CommentDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<AppComment> commentPage;
         if (StringUtils.isBlank(search)) {
-            commentPage = commentRepository.findAll(pageable);
+            commentPage = commentRepository.findAllByIsActiveTrue(pageable);
         } else {
             Specification<AppComment> spec = (Specification<AppComment>) CommonUtils.buildSpecification(search);
-            commentPage = commentRepository.findAll(spec, pageable);
+            commentPage = commentRepository.findAllByIsActiveTrue(spec, pageable);
         }
         return buildCommentDTOPage(commentPage, pageable);
     }
@@ -69,14 +69,14 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Page<CommentDTO> getByPostId(Long id, Pageable pageable) {
         log.debug("Find comment by post id, id: {}", id);
-        Page<AppComment> commentPage = commentRepository.findAllByPost_Id(id, pageable);
+        Page<AppComment> commentPage = commentRepository.findAllByIsActiveTrueAndPost_Id(id, pageable);
         return buildCommentDTOPage(commentPage, pageable);
     }
 
     @Override
     public Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) {
         log.debug("Find comment created by username, username: {}", username);
-        Page<AppComment> commentPage = commentRepository.findAllByCreatedBy(username, pageable);
+        Page<AppComment> commentPage = commentRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable);
         return buildCommentDTOPage(commentPage, pageable);
     }
 
@@ -88,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public AppComment findById(Long id) throws ResourceNotFoundException {
         log.debug("Find comment by id, id: {}", id);
-        return commentRepository.findById(id).orElseThrow(
+        return commentRepository.findByIsActiveTrueAndId(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.Comment + ", id:" + id));
     }
 

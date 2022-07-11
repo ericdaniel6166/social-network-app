@@ -79,7 +79,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<Forum> forumPage = (Page<Forum>) CommonTestUtils.buildPage(forum, forum);
         Page<ForumDTO> expected = (Page<ForumDTO>) CommonTestUtils.buildPage(forumDTO, forumDTO);
-        Mockito.when(forumRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(forumPage);
+        Mockito.when(forumRepository.findAllByIsActiveTrue(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(forumPage);
         Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(forumDTO);
 
         Page<ForumDTO> actual = forumService.getAll(pageable, search);
@@ -96,7 +96,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<Forum> forumPage = (Page<Forum>) CommonTestUtils.buildPage(forum, forum);
         Page<ForumDTO> expected = (Page<ForumDTO>) CommonTestUtils.buildPage(forumDTO, forumDTO);
-        Mockito.when(forumRepository.findAll(pageable)).thenReturn(forumPage);
+        Mockito.when(forumRepository.findAllByIsActiveTrue(pageable)).thenReturn(forumPage);
         Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(forumDTO);
 
         Page<ForumDTO> actual = forumService.getAll(pageable, search);
@@ -135,7 +135,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
     void whenFindById_givenNotEmptyForum_thenReturnForum() throws SocialNetworkAppException {
         Forum expected = ForumTestUtils.buildForum();
         Long id = expected.getId();
-        Mockito.when(forumRepository.findById(id)).thenReturn(Optional.of(expected));
+        Mockito.when(forumRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(expected));
 
         Forum actual = forumService.findById(id);
 
@@ -146,7 +146,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
     @Test
     void whenFindById_givenEmptyForum_thenThrowResourceNotFoundException() {
         Long id = RandomUtils.nextLong();
-        Mockito.when(forumRepository.findById(id)).thenReturn(Optional.empty());
+        Mockito.when(forumRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException(Constants.FORUM + ", id:" + id);
 
         try {
@@ -163,7 +163,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         Forum forum = ForumTestUtils.buildForum();
         ForumDTO expected = ForumTestUtils.buildForumDTO();
         Long id = forum.getId();
-        Mockito.when(forumRepository.findById(id)).thenReturn(Optional.of(forum));
+        Mockito.when(forumRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(forum));
         Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(expected);
 
         ForumDTO actual = forumService.getById(id);

@@ -75,7 +75,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
-        Mockito.when(commentRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(commentPage);
+        Mockito.when(commentRepository.findAllByIsActiveTrue(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
         Page<CommentDTO> actual = commentService.getAll(pageable, search);
@@ -92,7 +92,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
-        Mockito.when(commentRepository.findAll(pageable)).thenReturn(commentPage);
+        Mockito.when(commentRepository.findAllByIsActiveTrue(pageable)).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
         Page<CommentDTO> actual = commentService.getAll(pageable, search);
@@ -109,7 +109,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
-        Mockito.when(commentRepository.findAllByPost_Id(id, pageable)).thenReturn(commentPage);
+        Mockito.when(commentRepository.findAllByIsActiveTrueAndPost_Id(id, pageable)).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
         Page<CommentDTO> actual = commentService.getByPostId(id, pageable);
@@ -126,7 +126,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         String username = AuthTestUtils.USERNAME;
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
-        Mockito.when(commentRepository.findAllByCreatedBy(username, pageable)).thenReturn(commentPage);
+        Mockito.when(commentRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable)).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
         Page<CommentDTO> actual = commentService.getByCreatedBy(username, pageable);
@@ -139,7 +139,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
     void whenFindById_givenNotEmptyAppComment_thenReturnAppComment() throws SocialNetworkAppException {
         AppComment expected = ForumTestUtils.buildAppComment();
         Long id = expected.getId();
-        Mockito.when(commentRepository.findById(id)).thenReturn(Optional.of(expected));
+        Mockito.when(commentRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(expected));
 
         AppComment actual = commentService.findById(id);
 
@@ -150,7 +150,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
     @Test
     void whenFindById_givenEmptyAppComment_thenReturnAppComment() {
         Long id = RandomUtils.nextLong();
-        Mockito.when(commentRepository.findById(id)).thenReturn(Optional.empty());
+        Mockito.when(commentRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException(Constants.Comment + ", id:" + id);
 
         try {
@@ -166,7 +166,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         AppComment appComment = ForumTestUtils.buildAppComment();
         CommentDTO expected = ForumTestUtils.buildCommentDTO();
         Long id = appComment.getId();
-        Mockito.when(commentRepository.findById(id)).thenReturn(Optional.of(appComment));
+        Mockito.when(commentRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(appComment));
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(expected);
 
         CommentDTO actual = commentService.getById(id);

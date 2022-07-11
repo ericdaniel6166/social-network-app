@@ -49,7 +49,7 @@ public class ForumServiceImpl implements ForumService {
     @Override
     public Forum findById(Long id) throws ResourceNotFoundException {
         log.debug("Find forum by id, id: {}", id);
-        return forumRepository.findById(id).orElseThrow(
+        return forumRepository.findByIsActiveTrueAndId(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.FORUM + ", id:" + id));
     }
 
@@ -62,10 +62,10 @@ public class ForumServiceImpl implements ForumService {
     public Page<ForumDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Forum> forumPage;
         if (StringUtils.isBlank(search)) {
-            forumPage = forumRepository.findAll(pageable);
+            forumPage = forumRepository.findAllByIsActiveTrue(pageable);
         } else {
             Specification<Forum> spec = (Specification<Forum>) CommonUtils.buildSpecification(search);
-            forumPage = forumRepository.findAll(spec, pageable);
+            forumPage = forumRepository.findAllByIsActiveTrue(spec, pageable);
         }
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))
