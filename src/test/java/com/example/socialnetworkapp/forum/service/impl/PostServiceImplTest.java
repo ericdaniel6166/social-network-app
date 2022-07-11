@@ -83,7 +83,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
-        Mockito.when(postRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(postPage);
+        Mockito.when(postRepository.findAllByIsActiveTrue(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
         Page<PostDTO> actual = postService.getAll(pageable, search);
@@ -100,7 +100,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
-        Mockito.when(postRepository.findAll(pageable)).thenReturn(postPage);
+        Mockito.when(postRepository.findAllByIsActiveTrue(pageable)).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
         Page<PostDTO> actual = postService.getAll(pageable, search);
@@ -140,7 +140,7 @@ class PostServiceImplTest extends AbstractServiceTest {
     void whenFindById_givenNotEmptyPost_thenReturnForum() throws SocialNetworkAppException {
         Post expected = ForumTestUtils.buildPost();
         Long id = expected.getId();
-        Mockito.when(postRepository.findById(id)).thenReturn(Optional.of(expected));
+        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(expected));
 
         Post actual = postService.findById(id);
 
@@ -151,7 +151,7 @@ class PostServiceImplTest extends AbstractServiceTest {
     @Test
     void whenFindById_givenEmptyPost_thenThrowResourceNotFoundException() {
         Long id = RandomUtils.nextLong();
-        Mockito.when(postRepository.findById(id)).thenReturn(Optional.empty());
+        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException(Constants.POST + ", id:" + id);
 
         try {
@@ -168,7 +168,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Post post = ForumTestUtils.buildPost();
         PostDTO expected = ForumTestUtils.buildPostDTO();
         Long id = post.getId();
-        Mockito.when(postRepository.findById(id)).thenReturn(Optional.of(post));
+        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(post));
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(expected);
 
         PostDTO actual = postService.getById(id);
@@ -186,7 +186,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
 
-        Mockito.when(postRepository.findAllByForum_Id(id, pageable)).thenReturn(postPage);
+        Mockito.when(postRepository.findAllByIsActiveTrueAndForum_Id(id, pageable)).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
         Page<PostDTO> actual = postService.getByForumId(id, pageable);
@@ -204,7 +204,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
 
-        Mockito.when(postRepository.findAllByCreatedBy(username, pageable)).thenReturn(postPage);
+        Mockito.when(postRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable)).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
         Page<PostDTO> actual = postService.getByCreatedBy(username, pageable);

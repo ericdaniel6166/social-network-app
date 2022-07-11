@@ -68,6 +68,26 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException {
+        log.debug("Delete post by id, id: {}", id);
+        Post post = this.findById(id);
+        post.setIsActive(false);
+        this.saveAndFlush(post);
+        MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS);
+        SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
+        simpleResponseDTO.setTitle(CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getTitle()),
+                Constants.POST.toUpperCase()
+        ));
+        simpleResponseDTO.setMessage(CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getMessage()),
+                Constants.POST.toLowerCase(),
+                post.getName()
+        ));
+        return simpleResponseDTO;
+    }
+
+    @Override
     public Post saveAndFlush(Post post) {
         return postRepository.saveAndFlush(post);
     }
@@ -76,10 +96,10 @@ public class PostServiceImpl implements PostService {
     public Page<PostDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Post> postPage;
         if (StringUtils.isBlank(search)) {
-            postPage = postRepository.findAll(pageable);
+            postPage = postRepository.findAllByIsActiveTrue(pageable);
         } else {
             Specification<Post> spec = (Specification<Post>) CommonUtils.buildSpecification(search);
-            postPage = postRepository.findAll(spec, pageable);
+            postPage = postRepository.findAllByIsActiveTrue(spec, pageable);
         }
         return buildPostDTOPage(postPage, pageable);
     }
@@ -98,7 +118,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post findById(Long id) throws ResourceNotFoundException {
         log.debug("Find post by id, id: {}", id);
-        return postRepository.findById(id).orElseThrow(
+        return postRepository.findByIsActiveTrueAndId(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.POST + ", id:" + id));
     }
 
@@ -110,14 +130,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getByCreatedBy(String username, Pageable pageable) {
         log.debug("Find post created by username, username: {}", username);
-        Page<Post> postPage = postRepository.findAllByCreatedBy(username, pageable);
+        Page<Post> postPage = postRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable);
         return buildPostDTOPage(postPage, pageable);
     }
 
     @Override
     public Page<PostDTO> getByForumId(Long id, Pageable pageable) {
         log.debug("Find post by forum id, id: {}", id);
-        Page<Post> postPage = postRepository.findAllByForum_Id(id, pageable);
+        Page<Post> postPage = postRepository.findAllByIsActiveTrueAndForum_Id(id, pageable);
         return buildPostDTOPage(postPage, pageable);
     }
 }

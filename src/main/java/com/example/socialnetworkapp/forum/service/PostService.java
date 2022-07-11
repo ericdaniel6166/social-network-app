@@ -23,4 +23,6 @@ public interface PostService {
     Page<PostDTO> getByForumId(Long id, Pageable pageable);
 
     Page<PostDTO> getByCreatedBy(String username, Pageable pageable);
+
+    SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException;
 }
