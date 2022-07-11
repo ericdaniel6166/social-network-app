@@ -82,7 +82,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         Mockito.when(forumRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(forumPage);
         Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(forumDTO);
 
-        Page<ForumDTO> actual = forumService.findAll(pageable, search);
+        Page<ForumDTO> actual = forumService.getAll(pageable, search);
 
         Assertions.assertEquals(expected, actual);
 
@@ -99,7 +99,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         Mockito.when(forumRepository.findAll(pageable)).thenReturn(forumPage);
         Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(forumDTO);
 
-        Page<ForumDTO> actual = forumService.findAll(pageable, search);
+        Page<ForumDTO> actual = forumService.getAll(pageable, search);
 
         Assertions.assertEquals(expected, actual);
 
@@ -158,4 +158,17 @@ class ForumServiceImplTest extends AbstractServiceTest {
 
     }
 
+    @Test
+    void whenGetById_thenReturnForumDTO() throws ResourceNotFoundException {
+        Forum forum = ForumTestUtils.buildForum();
+        ForumDTO expected = ForumTestUtils.buildForumDTO();
+        Long id = forum.getId();
+        Mockito.when(forumRepository.findById(id)).thenReturn(Optional.of(forum));
+        Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(expected);
+
+        ForumDTO actual = forumService.getById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
 }

@@ -14,7 +14,9 @@ public interface ForumService {
 
     Forum saveAndFlush(Forum forum);
 
-    Page<ForumDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException;
+    Page<ForumDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException;
 
     Forum findById(Long id) throws ResourceNotFoundException;
+
+    ForumDTO getById(Long id) throws ResourceNotFoundException;
 }

@@ -4,9 +4,7 @@ import com.example.socialnetworkapp.AbstractApiTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.forum.ForumTestUtils;
-import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.dto.ForumDTO;
-import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
@@ -60,7 +58,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
     }
 
     @Test
-    void whenFindAll_thenReturnOK() throws Exception {
+    void whenGetAll_thenReturnOK() throws Exception {
         Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
         Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);
         Sort.Direction direction = Sort.Direction.DESC;
@@ -71,7 +69,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
         ForumDTO forumDTO = ForumTestUtils.buildForumDTO();
         Page<ForumDTO> forumDTOPage = new PageImpl<>(Collections.singletonList(forumDTO), pageable, totalElement);
 
-        Mockito.when(forumService.findAll(pageable, search)).thenReturn(forumDTOPage);
+        Mockito.when(forumService.getAll(pageable, search)).thenReturn(forumDTOPage);
 
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
@@ -156,8 +154,21 @@ public class ForumApiControllerTest extends AbstractApiTest {
     }
 
 
+    @Test
+    void whenGetById_thenReturnOK() throws Exception {
+        ForumDTO forumDTO = ForumTestUtils.buildForumDTO();
+        Long id = RandomUtils.nextLong();
+        Mockito.when(forumService.getById(id)).thenReturn(forumDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE+"/"+id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
 
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
 
-
-
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(forumDTO), actual.getResponse().getContentAsString());
+    }
 }

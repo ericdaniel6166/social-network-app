@@ -121,7 +121,7 @@ public class RestExceptionHandler {
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
-    @ExceptionHandler({IllegalArgumentException.class, MethodArgumentTypeMismatchException.class})
+    @ExceptionHandler({IllegalArgumentException.class, MethodArgumentTypeMismatchException.class, NumberFormatException.class})
     public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest httpServletRequest) {
         String errorMessage = getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);

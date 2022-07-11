@@ -54,7 +54,12 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public Page<ForumDTO> findAll(Pageable pageable, String search) throws SocialNetworkAppException {
+    public ForumDTO getById(Long id) throws ResourceNotFoundException {
+        return modelMapper.map(this.findById(id), ForumDTO.class);
+    }
+
+    @Override
+    public Page<ForumDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Forum> forumPage;
         if (StringUtils.isBlank(search)) {
             forumPage = forumRepository.findAll(pageable);
@@ -75,7 +80,7 @@ public class ForumServiceImpl implements ForumService {
         Forum forum = modelMapper.map(forumDTO, Forum.class);
         forum.setAppUser(userService.getCurrentUser());
         forum.setIsActive(true);
-        saveAndFlush(forum);
+        this.saveAndFlush(forum);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         simpleResponseDTO.setTitle(CommonUtils.formatString(
