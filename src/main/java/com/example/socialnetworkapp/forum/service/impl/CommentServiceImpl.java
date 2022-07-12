@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
             commentPage = commentRepository.findAllByIsActiveTrue(pageable);
         } else {
             Specification<AppComment> spec = (Specification<AppComment>) CommonUtils.buildSpecification(search);
-            commentPage = commentRepository.findAllByIsActiveTrue(spec, pageable);
+            commentPage = commentRepository.findAll(spec, pageable);
         }
         return buildCommentDTOPage(commentPage, pageable);
     }

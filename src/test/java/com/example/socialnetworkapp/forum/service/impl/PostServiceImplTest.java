@@ -83,7 +83,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
-        Mockito.when(postRepository.findAllByIsActiveTrue(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(postPage);
+        Mockito.when(postRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
         Page<PostDTO> actual = postService.getAll(pageable, search);

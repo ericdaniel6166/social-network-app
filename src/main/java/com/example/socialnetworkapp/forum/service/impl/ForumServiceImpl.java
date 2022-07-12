@@ -65,7 +65,7 @@ public class ForumServiceImpl implements ForumService {
             forumPage = forumRepository.findAllByIsActiveTrue(pageable);
         } else {
             Specification<Forum> spec = (Specification<Forum>) CommonUtils.buildSpecification(search);
-            forumPage = forumRepository.findAllByIsActiveTrue(spec, pageable);
+            forumPage = forumRepository.findAll(spec, pageable);
         }
         List<ForumDTO> forumDTOList = forumPage.stream()
                 .map(forum -> modelMapper.map(forum, ForumDTO.class))

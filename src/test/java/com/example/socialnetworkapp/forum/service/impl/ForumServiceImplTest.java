@@ -79,7 +79,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<Forum> forumPage = (Page<Forum>) CommonTestUtils.buildPage(forum, forum);
         Page<ForumDTO> expected = (Page<ForumDTO>) CommonTestUtils.buildPage(forumDTO, forumDTO);
-        Mockito.when(forumRepository.findAllByIsActiveTrue(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(forumPage);
+        Mockito.when(forumRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(forumPage);
         Mockito.when(modelMapper.map(forum, ForumDTO.class)).thenReturn(forumDTO);
 
         Page<ForumDTO> actual = forumService.getAll(pageable, search);

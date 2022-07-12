@@ -21,7 +21,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 class JwtServiceImplTest extends AbstractServiceTest {
 

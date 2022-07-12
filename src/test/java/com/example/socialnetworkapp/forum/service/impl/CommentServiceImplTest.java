@@ -75,7 +75,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
-        Mockito.when(commentRepository.findAllByIsActiveTrue(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(commentPage);
+        Mockito.when(commentRepository.findAll(Mockito.any(Specification.class), Mockito.eq(pageable))).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
         Page<CommentDTO> actual = commentService.getAll(pageable, search);

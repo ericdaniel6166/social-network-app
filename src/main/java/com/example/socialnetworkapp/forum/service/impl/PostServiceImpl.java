@@ -99,7 +99,7 @@ public class PostServiceImpl implements PostService {
             postPage = postRepository.findAllByIsActiveTrue(pageable);
         } else {
             Specification<Post> spec = (Specification<Post>) CommonUtils.buildSpecification(search);
-            postPage = postRepository.findAllByIsActiveTrue(spec, pageable);
+            postPage = postRepository.findAll(spec, pageable);
         }
         return buildPostDTOPage(postPage, pageable);
     }
