@@ -2,6 +2,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
 import com.example.socialnetworkapp.auth.service.JwtService;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -36,7 +37,7 @@ public class JwtServiceImpl implements JwtService {
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()))
                 .subject(user.getUsername())
-                .claim("scope", getAuthorityList(user))
+                .claim(Constants.SCOPE.toLowerCase(), getAuthorityList(user))
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

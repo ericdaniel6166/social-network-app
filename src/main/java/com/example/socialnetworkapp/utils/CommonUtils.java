@@ -1,10 +1,14 @@
 package com.example.socialnetworkapp.utils;
 
+import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.configuration.rsql.CustomRSQLOperators;
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.RSQLOperators;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -15,10 +19,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 
 @Slf4j
 public final class CommonUtils {
@@ -26,6 +33,9 @@ public final class CommonUtils {
     private static final String REGEX_MASKING_EMAIL = "(?<=.)[^@](?=[^@]*?[^@]@)|(?:(?<=@.)|(?!^)\\G(?=[^@]*$)).(?=.*[^@]\\.)";
 
     private static final String CHARACTER_ASTERISK = "*";
+
+    private static final String IS_ACTIVE_TRUE = "isActive=bool=true";
+    private static final String IS_ACTIVE_FALSE = "isActive=bool=false";
 
     public static String maskEmail(String email) {
         return email.replaceAll(REGEX_MASKING_EMAIL, CHARACTER_ASTERISK);
@@ -55,9 +65,27 @@ public final class CommonUtils {
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
+    /***
+     * Only Admin role can search item with isActive = False
+     * By default, All search queries are added isActive = True
+     *
+     * @param search
+     * @return
+     */
     public static Specification<?> buildSpecification(String search) {
         log.debug("Build specification, search: {}", search);
-        Node rootNode = new RSQLParser().parse(search);
+        if (StringUtils.containsIgnoreCase(search, IS_ACTIVE_FALSE)) {
+            Collection<GrantedAuthority> authorities = getAuthorities();
+            if (authorities == null || !authorities.contains(AppRoleName.ROLE_ADMIN.name())) {
+                log.error("Argument is inappropriate, {}", IS_ACTIVE_FALSE);
+                throw new IllegalArgumentException("Argument is inappropriate, " + IS_ACTIVE_FALSE);
+            }
+        } else if (!StringUtils.containsIgnoreCase(search, IS_ACTIVE_TRUE)) {
+            search += Constants.SEMICOLON + IS_ACTIVE_TRUE;
+        }
+        Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
+        operators.add(CustomRSQLOperators.BOOLEAN);
+        Node rootNode = new RSQLParser(operators).parse(search);
         return rootNode.accept(new CustomRsqlVisitor<>());
     }
 
@@ -67,6 +95,16 @@ public final class CommonUtils {
             return (Jwt) authentication.getPrincipal();
         }
         return null;
+
+    }
+
+    public static Collection<GrantedAuthority> getAuthorities() {
+        Jwt principal = getJwt();
+        Collection<GrantedAuthority> authorities = null;
+        if (principal != null) {
+            authorities = (Collection<GrantedAuthority>) principal.getClaims().get(Constants.SCOPE.toLowerCase());
+        }
+        return authorities;
 
     }
 

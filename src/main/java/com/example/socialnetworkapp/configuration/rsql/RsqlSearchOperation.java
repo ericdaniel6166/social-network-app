@@ -6,6 +6,7 @@ import cz.jirutka.rsql.parser.ast.RSQLOperators;
 import java.util.Arrays;
 
 public enum RsqlSearchOperation {
+    BOOLEAN(CustomRSQLOperators.BOOLEAN),
     EQUAL(RSQLOperators.EQUAL),
     NOT_EQUAL(RSQLOperators.NOT_EQUAL),
     GREATER_THAN(RSQLOperators.GREATER_THAN),

@@ -1,6 +1,8 @@
 package com.example.socialnetworkapp.configuration.rsql;
 
+import com.example.socialnetworkapp.utils.Constants;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,6 +12,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class GenericRsqlSpecification<T> implements Specification<T> {
 
     private final String property;
@@ -28,6 +31,16 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
         final List<Object> args = castArguments(root);
         final Object argument = args.get(0);
         switch (RsqlSearchOperation.getSimpleOperator(this.operator)) {
+
+            case BOOLEAN:
+                if (Constants.TRUE.equalsIgnoreCase(argument.toString())) {
+                    return builder.isTrue(root.get(this.property).as(Boolean.class));
+                } else if (Constants.FALSE.equalsIgnoreCase(argument.toString())) {
+                    return builder.isFalse(root.get(this.property).as(Boolean.class));
+                } else {
+                    log.error("Argument value is inappropriate, property: {}, operator:{}, argument: {}", this.property, this.operator, argument.toString());
+                    throw new IllegalArgumentException("Argument value is inappropriate, property: " + this.property + ", operator: " + this.operator + ", argument: " + argument.toString());
+                }
 
             case EQUAL: {
                 if (argument instanceof String) {

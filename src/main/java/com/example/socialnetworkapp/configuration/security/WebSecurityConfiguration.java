@@ -1,6 +1,7 @@
 package com.example.socialnetworkapp.configuration.security;
 
 import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.utils.Constants;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -94,7 +95,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.GET, PERMIT_GET_LIST)
                         .permitAll()
                         .antMatchers(ADMIN_ROLE_LIST)
-                        .hasAuthority(SCOPE + AppRoleName.ROLE_ADMIN.name())
+                        .hasAuthority(Constants.SCOPE.toUpperCase() + Constants.UNDERSCORE + AppRoleName.ROLE_ADMIN.name())
                         .anyRequest()
                         .authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
