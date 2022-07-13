@@ -14,15 +14,17 @@ public interface PostService {
 
     Post saveAndFlush(Post post);
 
+    boolean existsById(Long id);
+
     Page<PostDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException;
 
     Post findById(Long id) throws ResourceNotFoundException;
 
     PostDTO getById(Long id) throws ResourceNotFoundException;
 
-    Page<PostDTO> getByForumId(Long id, Pageable pageable);
+    Page<PostDTO> getByForumId(Long id, Pageable pageable) throws ResourceNotFoundException;
 
-    Page<PostDTO> getByCreatedBy(String username, Pageable pageable);
+    Page<PostDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException;
 
     SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException;
 }

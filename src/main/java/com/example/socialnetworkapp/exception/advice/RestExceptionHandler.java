@@ -106,27 +106,33 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception e, HttpServletRequest httpServletRequest) {
-        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
+        log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), httpServletRequest, null);
+                errorMessage,
+                httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<Object> handleBadCredentialsException(AuthenticationException e, HttpServletRequest httpServletRequest) {
-        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
+    public ResponseEntity<Object> handleAuthenticationException(AuthenticationException e, HttpServletRequest httpServletRequest) {
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
+        log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.name(),
-                HttpStatus.UNAUTHORIZED.getReasonPhrase(), httpServletRequest, null);
+                errorMessage,
+                httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest httpServletRequest) {
-        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
+        log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.name(),
-                HttpStatus.FORBIDDEN.getReasonPhrase(), httpServletRequest, null);
+                errorMessage,
+                httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
     }
@@ -137,7 +143,8 @@ public class RestExceptionHandler {
         String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
-                HttpStatus.BAD_REQUEST.getReasonPhrase(), httpServletRequest, null);
+                errorMessage,
+                httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
     }

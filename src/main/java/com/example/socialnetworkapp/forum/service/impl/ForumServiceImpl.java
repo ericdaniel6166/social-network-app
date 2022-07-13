@@ -47,6 +47,11 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return forumRepository.existsById(id);
+    }
+
+    @Override
     public Forum findById(Long id) throws ResourceNotFoundException {
         log.debug("Find forum by id, id: {}", id);
         return forumRepository.findByIsActiveTrueAndId(id).orElseThrow(

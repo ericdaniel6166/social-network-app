@@ -72,6 +72,18 @@ class ForumServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    void whenExistsById_thenReturnTrue() {
+        Long id = RandomUtils.nextLong();
+        Mockito.when(forumRepository.existsById(id)).thenReturn(true);
+
+        boolean actual = forumService.existsById(id);
+
+        Assertions.assertTrue(actual);
+    }
+
+
+
+    @Test
     void whenFindAll_givenNotBlankSearch_thenReturnForumDTOPage() throws SocialNetworkAppException {
         String search = CommonTestUtils.SEARCH;
         ForumDTO forumDTO = ForumTestUtils.buildForumDTO();

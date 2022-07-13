@@ -67,15 +67,21 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Page<CommentDTO> getByPostId(Long id, Pageable pageable) {
+    public Page<CommentDTO> getByPostId(Long id, Pageable pageable) throws ResourceNotFoundException {
         log.debug("Find comment by post id, id: {}", id);
+        if (!postService.existsById(id)){
+            throw new ResourceNotFoundException(Constants.POST + ", id:" + id);
+        }
         Page<AppComment> commentPage = commentRepository.findAllByIsActiveTrueAndPost_Id(id, pageable);
         return buildCommentDTOPage(commentPage, pageable);
     }
 
     @Override
-    public Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) {
+    public Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException {
         log.debug("Find comment created by username, username: {}", username);
+        if (!userService.existsByUsername(username)){
+            throw new ResourceNotFoundException("username " + username);
+        }
         Page<AppComment> commentPage = commentRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable);
         return buildCommentDTOPage(commentPage, pageable);
     }

@@ -15,6 +15,7 @@ import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.CommentRepository;
 import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.utils.Constants;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -102,13 +103,14 @@ class CommentServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    void whenGetByPostId_thenReturnCommentDTOPage() throws SocialNetworkAppException {
+    void whenGetByPostId_givenFoundPost_thenReturnCommentDTOPage() throws SocialNetworkAppException {
         CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
         AppComment appComment = ForumTestUtils.buildAppComment();
         Long id = commentDTO.getPostId();
         Pageable pageable = CommonTestUtils.buildPageable();
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
+        Mockito.when(postService.existsById(id)).thenReturn(true);
         Mockito.when(commentRepository.findAllByIsActiveTrueAndPost_Id(id, pageable)).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
@@ -119,13 +121,31 @@ class CommentServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    void whenGetByCreatedBy_thenReturnCommentDTOPage() throws SocialNetworkAppException {
+    void whenGetByPostId_givenNotFoundPost_thenThrowResourceNotFoundException() {
+        Long id = RandomUtils.nextLong();
+        Pageable pageable = CommonTestUtils.buildPageable();
+        Mockito.when(postService.existsById(id)).thenReturn(false);
+        ResourceNotFoundException expected = new ResourceNotFoundException(Constants.POST + ", id:" + id);
+
+        try {
+            commentService.getByPostId(id, pageable);
+        } catch (ResourceNotFoundException e) {
+            Assertions.assertEquals(expected, e);
+        }
+
+
+    }
+
+
+    @Test
+    void whenGetByCreatedBy_givenUsernameExists_thenReturnCommentDTOPage() throws SocialNetworkAppException {
         CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
         AppComment appComment = ForumTestUtils.buildAppComment();
         Pageable pageable = CommonTestUtils.buildPageable();
         String username = AuthTestUtils.USERNAME;
         Page<AppComment> commentPage = (Page<AppComment>) CommonTestUtils.buildPage(appComment, appComment);
         Page<CommentDTO> expected = (Page<CommentDTO>) CommonTestUtils.buildPage(commentDTO, commentDTO);
+        Mockito.when(userService.existsByUsername(username)).thenReturn(true);
         Mockito.when(commentRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable)).thenReturn(commentPage);
         Mockito.when(modelMapper.map(appComment, CommentDTO.class)).thenReturn(commentDTO);
 
@@ -134,6 +154,22 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Assertions.assertEquals(expected, actual);
 
     }
+
+    @Test
+    void whenGetByCreatedBy_givenUsernameNotExists_thenReturnCommentDTOPage() {
+        String username = RandomStringUtils.random(10);
+        Pageable pageable = CommonTestUtils.buildPageable();
+        ResourceNotFoundException expected = new ResourceNotFoundException("username " + username);
+
+        try {
+            commentService.getByCreatedBy(username, pageable);
+        } catch (ResourceNotFoundException e) {
+            Assertions.assertEquals(expected, e);
+        }
+
+    }
+
+
 
     @Test
     void whenFindById_givenNotEmptyAppComment_thenReturnAppComment() throws SocialNetworkAppException {

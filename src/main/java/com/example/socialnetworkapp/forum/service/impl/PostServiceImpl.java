@@ -93,6 +93,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return postRepository.existsById(id);
+    }
+
+    @Override
     public Page<PostDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Post> postPage;
         if (StringUtils.isBlank(search)) {
@@ -128,15 +133,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getByCreatedBy(String username, Pageable pageable) {
+    public Page<PostDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException {
         log.debug("Find post created by username, username: {}", username);
+        if (!userService.existsByUsername(username)){
+            throw new ResourceNotFoundException("username " + username);
+        }
         Page<Post> postPage = postRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable);
         return buildPostDTOPage(postPage, pageable);
     }
 
     @Override
-    public Page<PostDTO> getByForumId(Long id, Pageable pageable) {
+    public Page<PostDTO> getByForumId(Long id, Pageable pageable) throws ResourceNotFoundException {
         log.debug("Find post by forum id, id: {}", id);
+        if (!forumService.existsById(id)){
+            throw new ResourceNotFoundException(Constants.FORUM + ", id:" + id);
+        }
         Page<Post> postPage = postRepository.findAllByIsActiveTrueAndForum_Id(id, pageable);
         return buildPostDTOPage(postPage, pageable);
     }

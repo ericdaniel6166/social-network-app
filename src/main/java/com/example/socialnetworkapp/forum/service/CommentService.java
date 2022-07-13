@@ -17,9 +17,9 @@ public interface CommentService {
 
     Page<CommentDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException;
 
-    Page<CommentDTO> getByPostId(Long id, Pageable pageable);
+    Page<CommentDTO> getByPostId(Long id, Pageable pageable) throws ResourceNotFoundException;
 
-    Page<CommentDTO> getByCreatedBy(String username, Pageable pageable);
+    Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException;
 
     CommentDTO getById(Long id) throws ResourceNotFoundException;
 }
