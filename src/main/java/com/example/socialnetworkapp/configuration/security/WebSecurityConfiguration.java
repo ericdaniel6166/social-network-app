@@ -65,11 +65,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             //  Authentication
             "/auth/**"
     };
-    private static final String[] ADMIN_ROLE_LIST = {
-            "/admin/**"
-    };
-
-    private static final String SCOPE = "SCOPE_";
 
     private final UserDetailsService userDetailsService;
 
@@ -100,8 +95,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .permitAll()
                         .antMatchers(HttpMethod.GET, PERMIT_GET_LIST)
                         .permitAll()
-                        .antMatchers(ADMIN_ROLE_LIST)
-                        .hasAuthority("SCOPE_ROLE_ADMIN")
                         .anyRequest()
                         .authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
