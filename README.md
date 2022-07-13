@@ -62,6 +62,8 @@ P@ssw0rd
 - Junit 5
 - Jacoco 
     - Code coverage reports generator for Java projects.
+- CI (Using GitHub Actions)
+    - jacoco-badge-generator
 - Spring Cloud Sleuth
     - provides Spring Boot auto-configuration for distributed tracing.
     - enhancing logs, especially in a system built up of multiple services
