@@ -8,18 +8,19 @@ import com.example.socialnetworkapp.enums.ErrorCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
+import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
 @RequiredArgsConstructor
@@ -45,7 +46,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
-        log.error("Handle {}, error message: {}", e.getClass(), getRootCauseMessage(e), e);
+        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNPROCESSABLE_ENTITY,
                 ErrorCode.VALIDATION_ERROR.name(), null, httpServletRequest, null);
 
@@ -61,7 +62,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Object> handleValidationException(ValidationException e, HttpServletRequest httpServletRequest) {
-        String errorMessage = getRootCauseMessage(e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getHttpStatus(),
                 ErrorCode.VALIDATION_ERROR.name(), errorMessage, httpServletRequest, e.getErrorDetails());
@@ -76,7 +77,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Object> handleResponseStatusException(ResponseStatusException e, HttpServletRequest httpServletRequest) {
-        String errorMessage = getRootCauseMessage(e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getStatus(), e.getStatus().name(),
                 errorMessage, httpServletRequest, null);
@@ -85,7 +86,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(SocialNetworkAppException.class)
     public ResponseEntity<Object> handleSocialNetworkAppException(SocialNetworkAppException e, HttpServletRequest httpServletRequest) {
-        String errorMessage = getRootCauseMessage(e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getHttpStatus(), e.getError(),
                 errorMessage, httpServletRequest, e.getErrorDetails());
@@ -95,7 +96,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException e, HttpServletRequest httpServletRequest) {
-        String errorMessage = getRootCauseMessage(e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.NOT_FOUND, e.getError(),
                 errorMessage, httpServletRequest, e.getErrorDetails());
@@ -105,7 +106,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception e, HttpServletRequest httpServletRequest) {
-        log.error("Handle {}, error message: {}", e.getClass(), getRootCauseMessage(e), e);
+        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), httpServletRequest, null);
 
@@ -114,25 +115,31 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleBadCredentialsException(AuthenticationException e, HttpServletRequest httpServletRequest) {
-        log.error("Handle {}, error message: {}", e.getClass(), getRootCauseMessage(e), e);
+        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.name(),
                 HttpStatus.UNAUTHORIZED.getReasonPhrase(), httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest httpServletRequest) {
+        log.error("Handle {}, error message: {}", e.getClass(), CommonUtils.getRootCauseMessage(e), e);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.name(),
+                HttpStatus.FORBIDDEN.getReasonPhrase(), httpServletRequest, null);
+
+        return buildResponseExceptionEntity(errorResponseDTO);
+    }
+
+
     @ExceptionHandler({IllegalArgumentException.class, MethodArgumentTypeMismatchException.class, NumberFormatException.class})
     public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest httpServletRequest) {
-        String errorMessage = getRootCauseMessage(e);
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(), httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
-    }
-
-    private String getRootCauseMessage(Exception e) {
-        return ExceptionUtils.getRootCause(e).getMessage();
     }
 
 

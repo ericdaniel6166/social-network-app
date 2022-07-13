@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class ErrorResponseDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private ZonedDateTime timestamp;
+    private Date timestamp;
 
     private int status;
 
@@ -38,7 +39,7 @@ public class ErrorResponseDTO implements Serializable {
     private List<ErrorDetail> errorDetails;
 
     public ErrorResponseDTO() {
-        this.timestamp = ZonedDateTime.now();
+        this.timestamp = Date.from(Instant.now());
     }
 
     public ErrorResponseDTO(HttpStatus httpStatus, String error, String message, HttpServletRequest httpServletRequest, List<ErrorDetail> errorDetails) {
