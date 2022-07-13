@@ -37,7 +37,7 @@ public class JwtServiceImpl implements JwtService {
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()))
                 .subject(user.getUsername())
-                .claim(Constants.SCOPE.toLowerCase(), getAuthorityList(user))
+                .claim("scope", getAuthorityList(user))
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

@@ -40,7 +40,4 @@ public final class Constants {
 
     public static final String FALSE = "False";
 
-    public static final String SCOPE = "Scope";
-
-    public static final String UNDERSCORE = "_";
 }

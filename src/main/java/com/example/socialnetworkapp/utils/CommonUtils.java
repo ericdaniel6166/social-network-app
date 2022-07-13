@@ -103,7 +103,7 @@ public final class CommonUtils {
         Jwt principal = getJwt();
         Collection<GrantedAuthority> authorities = null;
         if (principal != null) {
-            authorities = (Collection<GrantedAuthority>) principal.getClaims().get(Constants.SCOPE.toLowerCase());
+            authorities = (Collection<GrantedAuthority>) principal.getClaims().get("scope");
         }
         return authorities;
 

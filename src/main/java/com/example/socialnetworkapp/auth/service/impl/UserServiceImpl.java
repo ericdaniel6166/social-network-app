@@ -4,10 +4,9 @@ import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.repository.UserRepository;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
+import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,8 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public AppUser getCurrentUser() throws ResourceNotFoundException {
-        Jwt principal = (Jwt) SecurityContextHolder.
-                getContext().getAuthentication().getPrincipal();
-        return findByUsername(principal.getSubject());
+        return findByUsername(CommonUtils.getCurrentUsername());
+
     }
 }

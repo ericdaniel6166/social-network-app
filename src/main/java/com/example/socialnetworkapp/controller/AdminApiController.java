@@ -20,7 +20,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class AdminApiController implements AdminApi {
-    //TODO: implement ROLE_ADMIN
 
     private final MasterMessageService masterMessageService;
 

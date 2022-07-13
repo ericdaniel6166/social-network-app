@@ -46,7 +46,7 @@ public class ForumApiController implements ForumApi {
 
     @Override
     @PostMapping
-    @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_MODERATOR')")
     public ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
         SimpleResponseDTO simpleResponseDTO = forumService.create(forumDTO);
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);

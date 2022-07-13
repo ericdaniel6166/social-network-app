@@ -1,8 +1,13 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   jackson:
     default-property-inclusion: non_null
     date-format: yyyy-MM-dd HH:mm:ss Z
     time-zone: Asia/Ho_Chi_Minh
+#    time-zone: Europe/Berlin
+#    time-zone: Singapore
+#    time-zone: America/New_York
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
