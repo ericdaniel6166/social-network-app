@@ -48,9 +48,13 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 5. Account with a ROLE_ADMIN
 
-"username": "admin"
+username: 
 
-"password": "P@ssw0rd"
+admin
+
+password:
+ 
+P@ssw0rd
 
 # Framework/Library
 
