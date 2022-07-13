@@ -46,6 +46,12 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 ![Run_Maven_cmd](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/run_maven_cmd.png)
 
+5. Account with a ROLE_ADMIN
+
+"username": "admin"
+
+"password": "P@ssw0rd"
+
 # Framework/Library
 
 - Spring Boot 2.6.2
