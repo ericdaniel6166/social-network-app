@@ -4,7 +4,7 @@ Link: https://github.com/ericdaniel6166/social-network-app/tree/main/docs/postma
 
 Postman Collections with all apis, environment and example response for certain scenarios
 
-![Preview Postman_Collections](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/Preview_Postman_collections.png)
+![Preview Postman_Collections](/docs/images/Preview_Postman_collections.png)
 
 2. Setup database
 
@@ -12,11 +12,11 @@ Postman Collections with all apis, environment and example response for certain 
 
 - Create a database with name "social_network_app" 
 
-![Database](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/database.png)
+![Database](/docs/images/database.png)
 
 - Config database username and password in src/main/resources/application-local.yml
 
-![Database_config](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/database_config.png)
+![Database_config](/docs/images/database_config.png)
 
 3. Setup mail
 
@@ -24,7 +24,7 @@ Postman Collections with all apis, environment and example response for certain 
 
 - Config mail username and password
 
-![Config_mailtrap](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/config_mailtrap.png)
+![Config_mailtrap](/docs/images/config_mailtrap.png)
 
 4. Running project: 
 
@@ -32,13 +32,13 @@ Please choose active profile = local
 
 - Running with IntelliJ
 
-![Run_Intellij](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/run_intellij.png)
+![Run_Intellij](/docs/images/run_intellij.png)
 
 - Running with Maven cmd 
 
 mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
-![Run_Maven_cmd](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/run_maven_cmd.png)
+![Run_Maven_cmd](/docs/images/run_maven_cmd.png)
 
 5. Account with a ROLE_ADMIN
 
