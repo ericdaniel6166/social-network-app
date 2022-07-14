@@ -9,7 +9,7 @@
     - POST "/forum/**"
         - ROLE_MODERATOR
     - DELETE "/post/**", "/comment/**"
-        - ROLE_USER and username match with post created by
+        - ROLE_USER and username match with post/comment created by
         - ROLE_MODERATOR
     - POST "/comment/**","/post/**"
         - ROLE_USER
