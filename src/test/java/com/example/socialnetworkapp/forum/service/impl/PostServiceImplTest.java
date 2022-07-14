@@ -12,6 +12,7 @@ import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.ForumTestUtils;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
+import com.example.socialnetworkapp.forum.model.AppComment;
 import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.PostRepository;
 import com.example.socialnetworkapp.forum.service.CommentService;
@@ -36,6 +37,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 class PostServiceImplTest extends AbstractServiceTest {
@@ -48,6 +51,9 @@ class PostServiceImplTest extends AbstractServiceTest {
 
     @Mock
     private PostRepository postRepository;
+
+    @Mock
+    private CommentService commentService;
 
     @Mock
     private ModelMapper modelMapper;
@@ -142,6 +148,12 @@ class PostServiceImplTest extends AbstractServiceTest {
     void whenDeleteById_thenReturnSimpleResponseDTO() throws SocialNetworkAppException {
         Post post = ForumTestUtils.buildPost();
         Long id = post.getId();
+        List<AppComment> commentList = Collections.singletonList(ForumTestUtils.buildAppComment());
+        post.setCommentList(commentList);
+        AppComment appComment = ForumTestUtils.buildAppComment();
+        appComment.setIsActive(false);
+        List<AppComment> commentListReturn = Collections.singletonList(appComment);
+        Mockito.when(commentService.setIsActiveList(commentList, false)).thenReturn(commentListReturn);
         Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(post));
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.DELETE_SUCCESS);
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS)).thenReturn(masterMessage);
