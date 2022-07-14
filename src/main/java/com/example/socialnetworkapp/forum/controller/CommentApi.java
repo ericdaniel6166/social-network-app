@@ -54,12 +54,22 @@ public interface CommentApi {
     @ApiOperation(value = "Get comment by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Get comment by id successfully"),
-            @ApiResponse(code = 204, message = "No Content"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
     ResponseEntity<?> getById(Long id) throws SocialNetworkAppException;
+
+    @ApiOperation(value = "Delete comment by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Delete comment by id successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
+    })
+    ResponseEntity<?> deleteById(Long id) throws SocialNetworkAppException;
+
+
 
 
     @ApiOperation(value = "Get comment created by username")

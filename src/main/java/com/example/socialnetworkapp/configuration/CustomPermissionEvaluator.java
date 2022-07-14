@@ -1,7 +1,9 @@
 package com.example.socialnetworkapp.configuration;
 
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
+import com.example.socialnetworkapp.forum.model.AppComment;
 import com.example.socialnetworkapp.forum.model.Post;
+import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,17 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
 
     private final PostService postService;
 
+    private final CommentService commentService;
+
 
     public boolean isMatchedPostCreatedBy(Long id) throws ResourceNotFoundException {
         Post post = postService.findById(id);
         return post.getCreatedBy().equalsIgnoreCase(CommonUtils.getCurrentUsername());
+    }
+
+    public boolean isMatchedCommentCreatedBy(Long id) throws ResourceNotFoundException {
+        AppComment appComment = commentService.findById(id);
+        return appComment.getCreatedBy().equalsIgnoreCase(CommonUtils.getCurrentUsername());
     }
 
     @Override
@@ -53,4 +62,5 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         }
         return hasPrivilege(auth, targetType.toUpperCase(), permission.toString().toUpperCase());
     }
+
 }

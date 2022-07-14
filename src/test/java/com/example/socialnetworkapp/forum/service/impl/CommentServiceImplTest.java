@@ -61,6 +61,12 @@ class CommentServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    void whenDeleteById_thenSuccess() {
+        long id = RandomUtils.nextLong();
+        commentService.deleteById(id);
+    }
+
+    @Test
     void whenSaveAndFlush_givenAppComment_thenReturnAppComment() {
         AppComment expected = ForumTestUtils.buildAppComment();
         Mockito.when(commentRepository.saveAndFlush(expected)).thenReturn(expected);
@@ -195,7 +201,6 @@ class CommentServiceImplTest extends AbstractServiceTest {
         }
 
     }
-
 
 
     @Test

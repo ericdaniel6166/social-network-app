@@ -28,4 +28,6 @@ public interface CommentService {
     CommentDTO getById(Long id) throws ResourceNotFoundException;
 
     List<AppComment> setIsActiveList(List<AppComment> commentList, boolean isActive);
+
+    void deleteById(Long id);
 }

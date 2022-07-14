@@ -198,6 +198,22 @@ public class CommentApiControllerTest extends AbstractApiTest {
     }
 
     @Test
+    void whenDeleteById_thenReturnOK() throws Exception {
+        long id = RandomUtils.nextLong();
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .delete(URL_TEMPLATE + "/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+
+    }
+
+    @Test
     void whenCreate_givenBlankContent_thenThrowMethodArgumentNotValidException() throws Exception {
         CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
         commentDTO.setContent(StringUtils.SPACE);
