@@ -60,4 +60,4 @@ default port: 8080
 
 - Preview Jacoco report
 
-![Jacoco_preview](https://github.com/ericdaniel6166/social-network-app/blob/main/docs/images/jacoco_preview.png)
+![Jacoco_preview](docs/images/jacoco_preview.png)
