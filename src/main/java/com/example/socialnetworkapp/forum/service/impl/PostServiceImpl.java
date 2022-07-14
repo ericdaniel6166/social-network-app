@@ -6,8 +6,10 @@ import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
+import com.example.socialnetworkapp.forum.model.AppComment;
 import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.PostRepository;
+import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.model.MasterMessage;
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +36,9 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
+
+    @Autowired
+    private CommentService commentService;
 
     private final PostRepository postRepository;
 
@@ -71,6 +77,8 @@ public class PostServiceImpl implements PostService {
     public SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException {
         log.debug("Delete post by id, id: {}", id);
         Post post = this.findById(id);
+        List<AppComment> commentList = post.getCommentList();
+        commentService.setIsActiveList(commentList, false);
         post.setIsActive(false);
         this.saveAndFlush(post);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS);

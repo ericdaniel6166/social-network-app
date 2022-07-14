@@ -7,11 +7,15 @@ import com.example.socialnetworkapp.forum.model.AppComment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface CommentService {
 
     void create(CommentDTO commentDTO) throws SocialNetworkAppException;
 
     AppComment saveAndFlush(AppComment appComment);
+
+    List<AppComment> saveAllAndFlush(List<AppComment> commentList);
 
     AppComment findById(Long id) throws ResourceNotFoundException;
 
@@ -22,4 +26,6 @@ public interface CommentService {
     Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException;
 
     CommentDTO getById(Long id) throws ResourceNotFoundException;
+
+    List<AppComment> setIsActiveList(List<AppComment> commentList, boolean isActive);
 }

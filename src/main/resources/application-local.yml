@@ -1,6 +1,7 @@
 spring:
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true
   jackson:
     default-property-inclusion: non_null
     date-format: yyyy-MM-dd HH:mm:ss Z

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-    private final PostService postService;
+    @Autowired
+    private PostService postService;
 
     private final CommentRepository commentRepository;
 
@@ -40,6 +42,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public AppComment saveAndFlush(AppComment appComment) {
         return commentRepository.saveAndFlush(appComment);
+    }
+
+    @Override
+    public List<AppComment> saveAllAndFlush(List<AppComment> commentList) {
+        return commentRepository.saveAllAndFlush(commentList);
     }
 
     @Override
@@ -89,6 +96,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDTO getById(Long id) throws ResourceNotFoundException {
         return modelMapper.map(this.findById(id), CommentDTO.class);
+    }
+
+    @Override
+    public List<AppComment> setIsActiveList(List<AppComment> commentList, boolean isActive) {
+        commentList.forEach(appComment -> appComment.setIsActive(isActive));
+        return this.saveAllAndFlush(commentList);
     }
 
     @Override

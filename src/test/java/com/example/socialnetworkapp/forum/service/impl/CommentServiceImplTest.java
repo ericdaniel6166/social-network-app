@@ -30,6 +30,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 class CommentServiceImplTest extends AbstractServiceTest {
@@ -66,6 +68,31 @@ class CommentServiceImplTest extends AbstractServiceTest {
         AppComment actual = commentService.saveAndFlush(expected);
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void whenSetIsActiveList_givenAppCommentList_thenSuccess() {
+        List<AppComment> input = Collections.singletonList(ForumTestUtils.buildAppComment());
+        AppComment appComment = ForumTestUtils.buildAppComment();
+        appComment.setIsActive(false);
+        List<AppComment> expected = Collections.singletonList(appComment);
+        Mockito.when(commentRepository.saveAllAndFlush(input)).thenReturn(expected);
+
+        List<AppComment> actual = commentService.setIsActiveList(input, false);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenSaveAllAndFlush_givenAppCommentList_thenReturnAppCommentList() {
+        List<AppComment> expected = Collections.singletonList(ForumTestUtils.buildAppComment());
+        Mockito.when(commentRepository.saveAllAndFlush(expected)).thenReturn(expected);
+
+        List<AppComment> actual = commentService.saveAllAndFlush(expected);
+
+        Assertions.assertEquals(expected, actual);
+
     }
 
     @Test

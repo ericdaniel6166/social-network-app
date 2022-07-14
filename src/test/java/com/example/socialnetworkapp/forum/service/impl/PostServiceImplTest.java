@@ -14,6 +14,7 @@ import com.example.socialnetworkapp.forum.ForumTestUtils;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
 import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.PostRepository;
+import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
