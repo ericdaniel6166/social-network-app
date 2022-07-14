@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.utils;
 
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.ScopeRole;
 import com.example.socialnetworkapp.configuration.rsql.CustomRSQLOperators;
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,15 +32,8 @@ import java.util.Set;
 @Slf4j
 public final class CommonUtils {
 
-    private static final String REGEX_MASKING_EMAIL = "(?<=.)[^@](?=[^@]*?[^@]@)|(?:(?<=@.)|(?!^)\\G(?=[^@]*$)).(?=.*[^@]\\.)";
-
-    private static final String CHARACTER_ASTERISK = "*";
-
-    private static final String IS_ACTIVE_TRUE = "isActive=bool=true";
-    private static final String IS_ACTIVE_FALSE = "isActive=bool=false";
-
     public static String maskEmail(String email) {
-        return email.replaceAll(REGEX_MASKING_EMAIL, CHARACTER_ASTERISK);
+        return email.replaceAll(Constants.REGEX_MASKING_EMAIL, Constants.CHARACTER_ASTERISK);
     }
 
     public static String formatString(String string, Object... objects) throws SocialNetworkAppException {
@@ -67,31 +61,50 @@ public final class CommonUtils {
     }
 
     /***
-     * Only Admin role can search item with isActive = False
-     * By default, All search queries are added isActive = True
+     * ROLE_MODERATOR can search inactive resource (isActive = false)
+     * By default, all search queries are added isActive = True
      *
      * @param search
      * @return
      */
     public static Specification<?> buildSpecification(String search) {
         log.debug("Build specification, search: {}", search);
-        if (StringUtils.containsIgnoreCase(search, IS_ACTIVE_FALSE)) {
-            Collection<GrantedAuthority> authorities = getAuthorities();
-            if (authorities == null || !authorities.contains(AppRoleName.ROLE_ADMIN.name())) {
-                log.error("Argument is inappropriate, {}", IS_ACTIVE_FALSE);
-                throw new IllegalArgumentException("Argument is inappropriate, " + IS_ACTIVE_FALSE);
+        if (StringUtils.containsIgnoreCase(search, Constants.IS_ACTIVE_FALSE)) {
+            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) getAuthorities();
+            if (!hasAuthority(authorities, ScopeRole.SCOPE_ROLE_MODERATOR)) {
+                log.info("User does not have permission to search inactive resource");
+                throw new AccessDeniedException("User does not have permission to search inactive resource");
             }
-        } else if (!StringUtils.containsIgnoreCase(search, IS_ACTIVE_TRUE)) {
-            search += Constants.SEMICOLON + IS_ACTIVE_TRUE;
+        } else if (!StringUtils.containsIgnoreCase(search, Constants.IS_ACTIVE_TRUE)) {
+            search += Constants.SEMICOLON + Constants.IS_ACTIVE_TRUE;
         }
-        Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
-        operators.add(CustomRSQLOperators.BOOLEAN);
+        Set<ComparisonOperator> operators = buildComparisonOperators();
         Node rootNode = new RSQLParser(operators).parse(search);
         return rootNode.accept(new CustomRsqlVisitor<>());
     }
 
+    public static boolean hasAuthority(Collection<GrantedAuthority> authorities, ScopeRole scopeRoleCompare) {
+        if (authorities == null) {
+            return false;
+        }
+        for (GrantedAuthority authority : authorities) {
+            ScopeRole scopeRole = ScopeRole.valueOf(authority.getAuthority());
+            if (scopeRole.getValue() >= scopeRoleCompare.getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Set<ComparisonOperator> buildComparisonOperators() {
+        Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
+        operators.add(CustomRSQLOperators.BOOLEAN);
+        return operators;
+    }
+
+
     private static Jwt getJwt() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Jwt) {
             return (Jwt) authentication.getPrincipal();
         }
@@ -99,13 +112,12 @@ public final class CommonUtils {
 
     }
 
-    public static Collection<GrantedAuthority> getAuthorities() {
-        Jwt principal = getJwt();
-        Collection<GrantedAuthority> authorities = null;
-        if (principal != null) {
-            authorities = (Collection<GrantedAuthority>) principal.getClaims().get("scope");
+    public static Collection<? extends GrantedAuthority> getAuthorities() {
+        Authentication authentication = getAuthentication();
+        if (authentication != null) {
+            return authentication.getAuthorities();
         }
-        return authorities;
+        return null;
 
     }
 
@@ -118,6 +130,10 @@ public final class CommonUtils {
         }
         return null;
 
+    }
+
+    private static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
 
 

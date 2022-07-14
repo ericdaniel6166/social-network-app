@@ -40,4 +40,13 @@ public final class Constants {
 
     public static final String FALSE = "False";
 
+    public static final String SCOPE_ROLE_MANAGER = "SCOPE_ROLE_MANAGER";
+
+    public static final String REGEX_MASKING_EMAIL = "(?<=.)[^@](?=[^@]*?[^@]@)|(?:(?<=@.)|(?!^)\\G(?=[^@]*$)).(?=.*[^@]\\.)";
+
+    public static final String CHARACTER_ASTERISK = "*";
+
+    public static final String IS_ACTIVE_TRUE = "isActive=bool=true";
+
+    public static final String IS_ACTIVE_FALSE = "isActive=bool=false";
 }
