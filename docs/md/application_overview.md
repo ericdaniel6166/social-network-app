@@ -8,6 +8,8 @@
         - ROLE_ADMIN
     - POST "/forum/**"
         - ROLE_MODERATOR
-    - POST "/post/**"
+    - DELETE "/post/**", "/comment/**"
         - ROLE_USER and username match with post created by
         - ROLE_MODERATOR
+    - POST "/comment/**","/post/**"
+        - ROLE_USER
