@@ -42,7 +42,7 @@ public final class CommonUtils {
             formattedString = String.format(string, objects);
         } catch (Exception e) {
             log.error("Error format string, string: {}, arguments: {}", string, Arrays.asList(objects), e);
-            throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), null);
+            throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.name(), getRootCauseMessage(e), null);
         }
         return formattedString;
     }
@@ -61,11 +61,11 @@ public final class CommonUtils {
     }
 
     /***
-     * ROLE_MODERATOR can search inactive resource (isActive = false)
+     * ROLE_MODERATOR can search inactive/delete resource (isActive = false)
      * By default, all search queries are added isActive = True
      *
      * @param search
-     * @return
+     * @return Specification
      */
     public static Specification<?> buildSpecification(String search) {
         log.debug("Build specification, search: {}", search);

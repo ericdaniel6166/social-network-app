@@ -42,7 +42,7 @@ public class MailServiceImpl implements MailService {
         try {
             javaMailSender.send(mimeMessagePreparator);
         } catch (MailException e) {
-            log.error("Send mail fail, error message: {}, subject: {}, from: {}, to: {}", e.getMessage(), emailDTO.getSubject(), Constants.VERIFICATION_EMAIL, emailDTO.getRecipient(), e);
+            log.error("Send mail fail, error message: {}, subject: {}, from: {}, to: {}", CommonUtils.getRootCauseMessage(e), emailDTO.getSubject(), Constants.VERIFICATION_EMAIL, emailDTO.getRecipient(), e);
             MasterErrorMessage masterErrorMessage = masterErrorMessageService.findByErrorCode(MasterErrorCode.SEND_MAIL_ERROR);
             String errorMessage = StringEscapeUtils.unescapeJava(masterErrorMessage.getErrorMessage());
             throw new SocialNetworkAppException(HttpStatus.INTERNAL_SERVER_ERROR, MasterErrorCode.SEND_MAIL_ERROR.name()
