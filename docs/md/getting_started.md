@@ -1,8 +1,8 @@
 1. Download and import Postman collections and environment: 
 
-Link: https://github.com/ericdaniel6166/social-network-app/tree/main/docs/postman
+- [Link](/docs/postman)
 
-Postman Collections with all apis, environment and example response for certain scenarios
+- Postman Collections with all apis, environment and example response for certain scenarios
 
 ![Preview Postman_Collections](/docs/images/Preview_Postman_collections.png)
 
