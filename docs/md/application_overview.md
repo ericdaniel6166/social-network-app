@@ -8,5 +8,6 @@
         - ROLE_ADMIN
     - POST "/forum/**"
         - ROLE_MODERATOR
-    - POST "/**"
-        - ROLE_USER
+    - POST "/post/**"
+        - ROLE_USER and username match with post created by
+        - ROLE_MODERATOR
