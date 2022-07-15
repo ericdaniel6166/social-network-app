@@ -1,7 +1,7 @@
 package com.example.socialnetworkapp.forum;
 
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
@@ -49,7 +49,7 @@ public class ForumTestUtils {
     public static AppComment buildAppComment() {
         AppComment appComment = new AppComment();
         appComment.setPost(buildPost());
-        appComment.setAppUser(AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER));
+        appComment.setAppUser(AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER));
         appComment.setIsActive(true);
         appComment.setContent(CONTENT);
         appComment.setId(1L);
@@ -61,7 +61,7 @@ public class ForumTestUtils {
         post.setId(1L);
         post.setIsActive(true);
         post.setForum(buildForum());
-        post.setAppUser(AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER));
+        post.setAppUser(AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER));
         post.setContent(CONTENT);
         post.setName(NAME);
         return post;
@@ -71,7 +71,7 @@ public class ForumTestUtils {
         Forum forum = new Forum();
         forum.setId(1L);
         forum.setIsActive(true);
-        forum.setAppUser(AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER));
+        forum.setAppUser(AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER));
         forum.setDescription(DESCRIPTION);
         forum.setName(NAME);
         return forum;

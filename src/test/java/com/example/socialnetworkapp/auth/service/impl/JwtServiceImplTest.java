@@ -2,7 +2,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -56,7 +56,7 @@ class JwtServiceImplTest extends AbstractServiceTest {
     @Test
     void whenGenerateToken_thenReturnToken() {
         String expected = RandomStringUtils.random(10);
-        Collection<GrantedAuthority> authorityList = new ArrayList<>(AuthTestUtils.buildAuthorityList(AppRoleName.ROLE_USER));
+        Collection<GrantedAuthority> authorityList = new ArrayList<>(AuthTestUtils.buildAuthorityList(RoleEnum.ROLE_USER));
         Mockito.when(authentication.getPrincipal()).thenReturn(user);
         Mockito.when(user.getAuthorities()).thenReturn(authorityList);
         Mockito.when(user.getUsername()).thenReturn(AuthTestUtils.USERNAME);

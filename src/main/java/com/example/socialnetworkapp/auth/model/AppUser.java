@@ -16,12 +16,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -52,21 +52,14 @@ public class AppUser extends Auditable<String> implements Serializable, UserDeta
 
     //TODO: implement temporary block, permanent block
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "app_user_role",
-            joinColumns = {@JoinColumn(name = "app_user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "app_role_id")}
-    )
-    private List<AppRole> roles = new ArrayList<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "app_role_id", referencedColumnName = "id")
+    private AppRole appRole;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (AppRole role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName().name()));
-        }
-        return authorities;
+        return Collections.singleton(new SimpleGrantedAuthority(appRole.getRoleName().name()));
+
     }
 
     @Override

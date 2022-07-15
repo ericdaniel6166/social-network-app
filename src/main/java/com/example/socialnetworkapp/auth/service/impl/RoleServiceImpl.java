@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.repository.RoleRepository;
 import com.example.socialnetworkapp.auth.service.RoleService;
@@ -17,9 +17,9 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public AppRole findByRoleName(AppRoleName roleName) throws ResourceNotFoundException {
-        log.debug("Find app role by role name, role name: {}", roleName);
-        return roleRepository.findByRoleName(roleName).orElseThrow(
-                () -> new ResourceNotFoundException("Role name " + roleName));
+    public AppRole findByRoleName(RoleEnum roleEnum) throws ResourceNotFoundException {
+        log.debug("Find app role by role enum, role enum: {}", roleEnum);
+        return roleRepository.findByRoleName(roleEnum).orElseThrow(
+                () -> new ResourceNotFoundException("Role enum " + roleEnum));
     }
 }

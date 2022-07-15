@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.forum.service.impl;
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -122,7 +122,7 @@ class ForumServiceImplTest extends AbstractServiceTest {
         ForumDTO forumDTO = ForumTestUtils.buildForumDTO();
         Forum forum = ForumTestUtils.buildForum();
         Mockito.when(modelMapper.map(forumDTO, Forum.class)).thenReturn(forum);
-        AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
+        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         Mockito.when(userService.getCurrentUser()).thenReturn(appUser);
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.CREATE_SUCCESS);
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS)).thenReturn(masterMessage);

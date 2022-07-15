@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.forum.service.impl;
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -249,7 +249,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         CommentDTO commentDTO = ForumTestUtils.buildCommentDTO();
         AppComment appComment = ForumTestUtils.buildAppComment();
         Post post = appComment.getPost();
-        AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
+        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         Mockito.when(modelMapper.map(commentDTO, AppComment.class)).thenReturn(appComment);
         Mockito.when(userService.getCurrentUser()).thenReturn(appUser);
         Mockito.when(postService.findById(commentDTO.getPostId())).thenReturn(post);

@@ -3,16 +3,21 @@ package com.example.socialnetworkapp.auth;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.model.VerificationToken;
+import com.example.socialnetworkapp.utils.Constants;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AuthTestUtils {
 
@@ -64,32 +69,25 @@ public class AuthTestUtils {
 
     public static VerificationToken buildVerificationToken() {
         VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setAppUser(buildAppUser(AppRoleName.ROLE_USER));
+        verificationToken.setAppUser(buildAppUser(RoleEnum.ROLE_USER));
         verificationToken.setToken(TOKEN);
         return verificationToken;
     }
 
-    public static AppUser buildAppUser(AppRoleName... roleNames) {
+    public static AppUser buildAppUser(RoleEnum roleEnum) {
         AppUser appUser = new AppUser();
         appUser.setUsername(USERNAME);
         appUser.setEmail(EMAIL);
         appUser.setPassword(ENCRYPTED_PASSWORD);
         appUser.setIsActive(true);
-        appUser.setRoles(buildAppRoleList(roleNames));
+        appUser.setAppRole(buildAppRole(roleEnum));
         return appUser;
     }
 
-    private static List<AppRole> buildAppRoleList(AppRoleName[] roleNames) {
-        List<AppRole> appRoleList = new ArrayList<>();
-        for (AppRoleName roleName: roleNames){
-            appRoleList.add(buildAppRole(roleName));
-        }
-        return appRoleList;
-    }
 
-    public static AppRole buildAppRole(AppRoleName roleName) {
+    public static AppRole buildAppRole(RoleEnum roleEnum) {
         AppRole appRole = new AppRole();
-        appRole.setRoleName(roleName);
+        appRole.setRoleName(roleEnum);
         return appRole;
     }
 
@@ -100,17 +98,30 @@ public class AuthTestUtils {
         return refreshToken;
     }
 
-    public static List<GrantedAuthority> buildAuthorityList(AppRoleName... roleNames) {
+    public static List<GrantedAuthority> buildAuthorityList(RoleEnum... roleEnums) {
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (AppRoleName roleName: roleNames){
+        for (RoleEnum roleName: roleEnums){
             authorityList.add(buildAuthority(roleName));
         }
         return authorityList;
     }
 
-    public static GrantedAuthority buildAuthority(AppRoleName roleName) {
-        return new SimpleGrantedAuthority(roleName.name());
+    public static GrantedAuthority buildAuthority(RoleEnum roleEnum) {
+        return new SimpleGrantedAuthority(roleEnum.name());
     }
 
 
+    public static UserDTO buildUserDTO(RoleEnum roleEnum) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(USERNAME);
+        userDTO.setRole(roleEnum);
+        return userDTO;
+    }
+
+    public static Map<String, Object> buildClaims(String... roleEnumNames) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(Constants.SCOPE, Arrays.asList(roleEnumNames));
+        return claims;
+
+    }
 }

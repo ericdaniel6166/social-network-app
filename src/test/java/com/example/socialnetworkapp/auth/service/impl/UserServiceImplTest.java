@@ -2,7 +2,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.repository.UserRepository;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -44,7 +44,7 @@ class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenSaveAndFlush_givenAppUser_thenReturnAppUser() {
-        AppUser expected = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
+        AppUser expected = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         Mockito.when(userRepository.saveAndFlush(expected)).thenReturn(expected);
 
         AppUser actual = userService.saveAndFlush(expected);
@@ -74,7 +74,7 @@ class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenFindByUsername_givenNotEmptyAppUser_thenReturnAppUser() throws ResourceNotFoundException {
-        AppUser expected = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
+        AppUser expected = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         String username = expected.getUsername();
         Mockito.when(userRepository.findByIsActiveTrueAndUsername(username)).thenReturn(Optional.of(expected));
 
@@ -85,7 +85,7 @@ class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenFindByUsername_givenEmptyAppUser_thenThrowResourceNotFoundException() {
-        AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
+        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         String username = appUser.getUsername();
         Mockito.when(userRepository.findByIsActiveTrueAndUsername(username)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException("username " + username);
@@ -100,7 +100,7 @@ class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenGetCurrentUser_givenNotEmptyAppUser_thenReturnAppUser() throws ResourceNotFoundException {
-        AppUser expected = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER);
+        AppUser expected = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         String username = expected.getUsername();
         Mockito.when(authentication.getPrincipal()).thenReturn(jwt);
         SecurityContextHolder.getContext().setAuthentication(authentication);

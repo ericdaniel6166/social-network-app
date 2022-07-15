@@ -2,7 +2,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.repository.RoleRepository;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -34,7 +34,7 @@ class RoleServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenFindByRoleName_givenNotEmptyAppRole_thenReturnAppRole() throws ResourceNotFoundException {
-        AppRole expected = AuthTestUtils.buildAppRole(AppRoleName.ROLE_USER);
+        AppRole expected = AuthTestUtils.buildAppRole(RoleEnum.ROLE_USER);
         Mockito.when(roleRepository.findByRoleName(expected.getRoleName())).thenReturn(Optional.of(expected));
 
         AppRole actual = roleService.findByRoleName(expected.getRoleName());
@@ -45,7 +45,7 @@ class RoleServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenFindByRoleName_givenEmptyAppRole_thenThrowResourceNotFoundException() {
-        AppRoleName roleName = AppRoleName.ROLE_USER;
+        RoleEnum roleName = RoleEnum.ROLE_USER;
         Mockito.when(roleRepository.findByRoleName(roleName)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException("Role name " + roleName);
 

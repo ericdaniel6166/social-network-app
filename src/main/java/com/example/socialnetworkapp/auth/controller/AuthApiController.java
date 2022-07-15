@@ -6,6 +6,7 @@ import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
+import com.example.socialnetworkapp.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

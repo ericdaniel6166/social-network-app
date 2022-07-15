@@ -33,9 +33,10 @@ spring:
       dialect: org.hibernate.dialect.SQLServer2012Dialect
   mail:
     host: smtp.mailtrap.io
-    port: 2525
-    username: d7537128965217
-    password: ff67aef89c5bb6
+#    port: 2525
+    port: 587
+    username: 60a00176f41dd9
+    password: d95809f74f3897
 #    password: ff67aef89c5bb6z
     properties:
       mail:

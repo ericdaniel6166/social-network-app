@@ -2,7 +2,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -35,10 +35,10 @@ class UserDetailsServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenLoadUserByUsername_thenReturnUserDetails() throws ResourceNotFoundException {
-        AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER, AppRoleName.ROLE_ADMIN);
+        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         Mockito.when(userService.findByUsername(appUser.getUsername())).thenReturn(appUser);
         User expected = new User(appUser.getUsername(), appUser.getPassword(), appUser.getIsActive(),
-                true, true, true, AuthTestUtils.buildAuthorityList(AppRoleName.ROLE_USER, AppRoleName.ROLE_ADMIN));
+                true, true, true, AuthTestUtils.buildAuthorityList(RoleEnum.ROLE_USER, RoleEnum.ROLE_ADMIN));
         UserDetails actual = userDetailsService.loadUserByUsername(appUser.getUsername());
 
         Assertions.assertEquals(expected, actual);
@@ -47,7 +47,7 @@ class UserDetailsServiceImplTest extends AbstractServiceTest {
 
     @Test
     void whenLoadUserByUsername_thenReturnUserDetails2() throws ResourceNotFoundException {
-        AppUser appUser = AuthTestUtils.buildAppUser(AppRoleName.ROLE_USER, AppRoleName.ROLE_ADMIN);
+        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         Mockito.when(userService.findByUsername(appUser.getUsername())).thenThrow(ResourceNotFoundException.class);
         try {
             userDetailsService.loadUserByUsername(appUser.getUsername());

@@ -33,11 +33,11 @@ public class JwtServiceImpl implements JwtService {
 
     private String buildToken(User user) {
         JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("self")
+                .issuer(Constants.SELF)
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()))
                 .subject(user.getUsername())
-                .claim("scope", getAuthorityList(user))
+                .claim(Constants.SCOPE, getAuthorityList(user))
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

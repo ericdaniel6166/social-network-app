@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.model;
 
-import com.example.socialnetworkapp.auth.enums.AppRoleName;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.model.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +33,6 @@ public class AppRole extends Auditable<String> implements Serializable {
 
     @Column(unique = true)
     @Enumerated(EnumType.STRING)
-    private AppRoleName roleName;
+    private RoleEnum roleName;
 
 }

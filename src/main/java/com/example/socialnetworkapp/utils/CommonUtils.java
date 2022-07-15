@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.utils;
 
-import com.example.socialnetworkapp.auth.enums.ScopeRole;
+import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.configuration.rsql.CustomRSQLOperators;
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
@@ -27,6 +27,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -70,8 +71,7 @@ public final class CommonUtils {
     public static Specification<?> buildSpecification(String search) {
         log.debug("Build specification, search: {}", search);
         if (StringUtils.containsIgnoreCase(search, Constants.IS_ACTIVE_FALSE)) {
-            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) getAuthorities();
-            if (!hasAuthority(authorities, ScopeRole.SCOPE_ROLE_MODERATOR)) {
+            if (hasAuthority(RoleEnum.ROLE_MODERATOR)) {
                 log.info("User does not have permission to search inactive resource");
                 throw new AccessDeniedException("User does not have permission to search inactive resource");
             }
@@ -83,18 +83,25 @@ public final class CommonUtils {
         return rootNode.accept(new CustomRsqlVisitor<>());
     }
 
-    public static boolean hasAuthority(Collection<GrantedAuthority> authorities, ScopeRole scopeRoleCompare) {
-        if (authorities == null) {
+    public static boolean hasAuthority(RoleEnum roleEnumCompare) {
+        List<String> scope = getScope();
+        if (scope == null){
             return false;
         }
-        for (GrantedAuthority authority : authorities) {
-            ScopeRole scopeRole = ScopeRole.valueOf(authority.getAuthority());
-            if (scopeRole.getValue() >= scopeRoleCompare.getValue()) {
+        RoleEnum roleEnum;
+        for (String roleName : scope) {
+            roleEnum = RoleEnum.valueOf(roleName);
+            if (roleEnum.compareTo(roleEnumCompare) >= 0) {
                 return true;
             }
         }
         return false;
     }
+
+    public static boolean hasAuthority(RoleEnum roleEnum, RoleEnum roleEnumCompare) {
+        return roleEnum.compareTo(roleEnumCompare) >= 0;
+    }
+
 
     private static Set<ComparisonOperator> buildComparisonOperators() {
         Set<ComparisonOperator> operators = RSQLOperators.defaultOperators();
@@ -110,6 +117,14 @@ public final class CommonUtils {
         }
         return null;
 
+    }
+
+    private static List<String> getScope() {
+        Jwt principal = getJwt();
+        if (principal != null) {
+            return (List<String>) principal.getClaims().get(Constants.SCOPE);
+        }
+        return null;
     }
 
     public static Collection<? extends GrantedAuthority> getAuthorities() {

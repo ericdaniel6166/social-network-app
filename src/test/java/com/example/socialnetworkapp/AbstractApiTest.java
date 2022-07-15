@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp;
 
+import com.example.socialnetworkapp.auth.service.AccountService;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.configuration.OperationIdConfiguration;
 import com.example.socialnetworkapp.forum.service.CommentService;
@@ -36,6 +37,11 @@ public abstract class AbstractApiTest {
 
     @MockBean
     private ForumService forumService;
+
+    @MockBean
+    private AccountService accountService;
+
+
 
 
 }
