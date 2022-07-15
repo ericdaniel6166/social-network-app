@@ -1,3 +1,7 @@
+##### [Back to index](/README.md)
+
+##### Getting started
+
 1. Download and import Postman collections and environment: 
 
 - [Link](/docs/postman)
