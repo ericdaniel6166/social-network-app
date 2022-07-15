@@ -44,12 +44,8 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 ![Run_Maven_cmd](/docs/images/run_maven_cmd.png)
 
-5. Account with a ROLE_ADMIN
-
-username: 
+5. Account with a ROLE_ADMIN (username/password)
 
 admin
 
-password:
- 
 P@ssw0rd
