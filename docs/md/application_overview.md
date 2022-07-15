@@ -5,30 +5,24 @@
 2. Details:     
     - "/admin/**": admin api
             - ROLE_ADMIN
-    <br>
     - GET "/comment?search=isActive=bool=false",
-    <br>"/forum?search=isActive=bool=false",
-    <br>"/post?search=isActive=bool=false":
-    <br> read inactive comment, forum, post
+    "/forum?search=isActive=bool=false",
+    "/post?search=isActive=bool=false":
+    read inactive comment, forum, post
     - POST, PUT, DELETE "/forum/**" : create/update/delete forum
         - ROLE_MODERATOR
-    <br>
     - PUT, DELETE "/user/**": update/delete user api
         - ROLE_USER and username match with user   
         - ROLE_MODERATOR
-    <br>
     - PUT, DELETE, "/post/**", "/comment/**": update/delete post,comment
         - ROLE_USER and username match with post/comment created by
         - ROLE_MODERATOR
-    <br>
     - POST "/comment/**","/post/**": create post/comment
         - ROLE_USER
-    <br>  
     - "/auth/**" 
     - GET "/comment/**","/forum/**","/post/**": read active comment, forum, post
         - permit all    
             
-    <br>
         
         
     
