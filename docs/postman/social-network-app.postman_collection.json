@@ -1440,95 +1440,7 @@
 					},
 					"response": [
 						{
-							"name": "200_ROLE_ADMIN",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"forum name 123\",\r\n    \"description\": \"forum description 123\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{domain}}/forum",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"forum"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Sat, 02 Jul 2022 15:49:06 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"title\": \"CREATE FORUM SUCCESS\",\n    \"message\": \"You have create forum \\\"forum name 123\\\" successfully\"\n}"
-						},
-						{
-							"name": "200_ROLE_MODERATOR",
+							"name": "200_>=ROLE_MODERATOR",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
@@ -3718,6 +3630,344 @@
 					]
 				},
 				{
+					"name": "get deleted post - isActive = false",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/post?search=isActive=bool=false",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"post"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "isActive=bool=false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_ROLE_USER",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/post?search=isActive=bool=false",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"post"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "isActive=bool=false"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 15:59:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-14 22:59:10 +0700\",\n    \"status\": 403,\n    \"operationId\": \"f17389b174fcf380\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"User does not have permission to search inactive resource\",\n    \"path\": \"/post\"\n}"
+						},
+						{
+							"name": "200_>=ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/post?search=isActive=bool=false",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"post"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "isActive=bool=false"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:00:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 65,\n            \"name\": \"Arkansas XSS Dynamic Grenada Associate\",\n            \"content\": \"Use the virtual JBOD matrix, then you can compress the redundant card!, I'll copy the multi-byte GB capacitor, that should program the JBOD microchip!, Try to synthesize the RAM hard drive, maybe it will quantify the online system!, Use the optical HDD microchip, then you can transmit the redundant interface!, Use the bluetooth SSL panel, then you can back up the optical capacitor!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:31:08 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 14:31:51 +0700\"\n        },\n        {\n            \"id\": 63,\n            \"name\": \"York hacking Account Customer-focused dedicated\",\n            \"content\": \"compressing the protocol won't do anything, we need to back up the neural XML panel!, We need to input the wireless SMS pixel!, I'll transmit the wireless JSON matrix, that should program the AGP interface!, Try to connect the SQL interface, maybe it will generate the mobile microchip!, We need to input the auxiliary HDD bandwidth!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:22:58 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 14:29:14 +0700\"\n        },\n        {\n            \"id\": 64,\n            \"name\": \"copying Cotton Kids\",\n            \"content\": \"navigating the pixel won't do anything, we need to copy the online SQL interface!, Use the cross-platform AI firewall, then you can back up the virtual sensor!, copying the circuit won't do anything, we need to bypass the wireless SMS sensor!, We need to input the multi-byte THX monitor!, hacking the circuit won't do anything, we need to input the 1080p PCI matrix!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:23:03 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 14:23:45 +0700\"\n        },\n        {\n            \"id\": 61,\n            \"name\": \"24/365 Borders Soap Dollar\",\n            \"content\": \"quantifying the capacitor won't do anything, we need to bypass the back-end SQL hard drive!, Use the back-end EXE sensor, then you can reboot the back-end panel!, I'll quantify the online SQL interface, that should feed the AGP sensor!, We need to input the cross-platform RSS capacitor!, We need to copy the neural THX microchip!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 13:50:41 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 13:53:48 +0700\"\n        },\n        {\n            \"id\": 58,\n            \"name\": \"Granite integrated Berkshire parsing\",\n            \"content\": \"The SDD protocol is down, program the wireless interface so we can override the XSS capacitor!, You can't hack the capacitor without transmitting the redundant SDD monitor!, I'll input the cross-platform AI feed, that should interface the FTP system!, You can't copy the card without backing up the redundant IB microchip!, Use the back-end USB program, then you can navigate the open-source system!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 12:14:11 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 13:12:24 +0700\"\n        },\n        {\n            \"id\": 59,\n            \"name\": \"Product hack indigo Gibraltar\",\n            \"content\": \"We need to override the open-source SAS program!, You can't connect the hard drive without navigating the 1080p SDD bandwidth!, I'll calculate the optical SCSI panel, that should system the USB firewall!, Try to generate the FTP application, maybe it will navigate the mobile microchip!, Use the bluetooth XML port, then you can transmit the open-source panel!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 12:14:12 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 12:35:15 +0700\"\n        },\n        {\n            \"id\": 50,\n            \"name\": \"SQL yellow Pound Tasty architecture\",\n            \"content\": \"Try to override the PNG transmitter, maybe it will transmit the solid state hard drive!, transmitting the card won't do anything, we need to copy the 1080p JSON bus!, We need to copy the virtual SSL pixel!, calculating the array won't do anything, we need to generate the wireless SAS bus!, The RAM transmitter is down, quantify the primary feed so we can override the JBOD interface!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:55:01 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-11 23:03:06 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 7,\n    \"totalPages\": 1,\n    \"last\": true,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 7,\n    \"first\": true,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "No Auth get deleted post - isActive = false Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/post?search=isActive=bool=false",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"post"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "isActive=bool=false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_ROLE_ANONYMOUS",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/post?search=isActive=bool=false",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"post"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "isActive=bool=false"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 15:59:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-14 22:59:10 +0700\",\n    \"status\": 403,\n    \"operationId\": \"f17389b174fcf380\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"User does not have permission to search inactive resource\",\n    \"path\": \"/post\"\n}"
+						}
+					]
+				},
+				{
 					"name": "pageable - page index 2, total page 6",
 					"event": [
 						{
@@ -5694,7 +5944,7 @@
 			]
 		},
 		{
-			"name": "04.05_/post/{{postId}}",
+			"name": "04.05_/post/{{postId}} GET",
 			"item": [
 				{
 					"name": "200",
@@ -5919,7 +6169,7 @@
 			]
 		},
 		{
-			"name": "04.06_/post/{{postId}} DELETE _Not Done",
+			"name": "04.06_/post/{{postId}} DELETE",
 			"item": [
 				{
 					"name": "delete",
@@ -6147,7 +6397,7 @@
 							"body": "{\n    \"title\": \"DELETE POST SUCCESS\",\n    \"message\": \"You have deleted post \\\"York hacking Account Customer-focused dedicated\\\" successfully\"\n}"
 						},
 						{
-							"name": "200_ROLE_MODERATOR and ROLE_ADMIN",
+							"name": "200_>=ROLE_MODERATOR",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
@@ -6238,7 +6488,138 @@
 					]
 				},
 				{
-					"name": "active post with postId not found",
+					"name": "No Auth delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"postId\", 70);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/post/{{postId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"post",
+								"{{postId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/post/{{postId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"post",
+										"{{postId}}"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 17:02:50 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 00:02:50 +0700\",\n    \"status\": 401,\n    \"operationId\": \"0c05b9c829590fbc\",\n    \"error\": \"UNAUTHORIZED\",\n    \"message\": \"Full authentication is required to access this resource\",\n    \"path\": \"/post/70\"\n}"
+						}
+					]
+				},
+				{
+					"name": "inactive post or postId not found",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -6404,7 +6785,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"{{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}\",\r\n    \"postId\": 65\r\n}",
+							"raw": "{\r\n    \"content\": \"{{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}\",\r\n    \"postId\": 17\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6638,7 +7019,7 @@
 					]
 				},
 				{
-					"name": "404",
+					"name": "Post is inactive or Post not found",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -6883,6 +7264,344 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"content\": [\n        {\n            \"id\": 21,\n            \"content\": \"I'll compress the primary FTP driver, that should bus the COM interface!, You can't connect the monitor without hacking the auxiliary SCSI firewall!, Try to compress the SMTP transmitter, maybe it will bypass the wireless bandwidth!, If we bypass the sensor, we can get to the SCSI sensor through the bluetooth HDD system!, You can't parse the application without parsing the haptic SSL program!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:11 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:11 +0700\"\n        },\n        {\n            \"id\": 20,\n            \"content\": \"I'll reboot the virtual USB hard drive, that should bus the SAS array!, Try to reboot the SMS array, maybe it will override the online feed!, Use the bluetooth XML pixel, then you can reboot the optical sensor!, I'll synthesize the wireless FTP feed, that should matrix the JBOD interface!, The JSON transmitter is down, connect the digital port so we can back up the SSL feed!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:11 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:11 +0700\"\n        },\n        {\n            \"id\": 19,\n            \"content\": \"synthesizing the microchip won't do anything, we need to compress the neural AGP matrix!, We need to transmit the digital SMS bus!, If we input the bandwidth, we can get to the RAM array through the mobile SCSI monitor!, The SMTP bus is down, calculate the auxiliary circuit so we can calculate the SMS port!, Try to reboot the TCP firewall, maybe it will back up the primary array!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:10 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:10 +0700\"\n        },\n        {\n            \"id\": 18,\n            \"content\": \"I'll generate the neural XSS bus, that should system the RSS feed!, We need to program the mobile JSON port!, You can't transmit the array without programming the haptic HTTP alarm!, We need to copy the redundant JSON microchip!, I'll calculate the wireless SDD panel, that should card the COM firewall!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:10 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:10 +0700\"\n        },\n        {\n            \"id\": 17,\n            \"content\": \"quantifying the hard drive won't do anything, we need to transmit the solid state XSS driver!, Try to input the SDD application, maybe it will program the redundant monitor!, I'll quantify the digital HDD card, that should microchip the PNG port!, programming the monitor won't do anything, we need to quantify the virtual XSS circuit!, indexing the firewall won't do anything, we need to parse the digital SSL port!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:09 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:09 +0700\"\n        },\n        {\n            \"id\": 16,\n            \"content\": \"I'll calculate the primary AGP transmitter, that should microchip the THX bandwidth!, The SMTP pixel is down, connect the cross-platform monitor so we can hack the JBOD feed!, calculating the protocol won't do anything, we need to generate the haptic IB pixel!, I'll parse the solid state EXE driver, that should sensor the RSS feed!, We need to program the cross-platform ADP bus!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:09 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:09 +0700\"\n        },\n        {\n            \"id\": 15,\n            \"content\": \"You can't index the driver without overriding the primary SMS program!, You can't calculate the feed without compressing the back-end THX card!, We need to reboot the digital AI firewall!, backing up the firewall won't do anything, we need to generate the virtual RAM matrix!, connecting the system won't do anything, we need to calculate the digital AI transmitter!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:08 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:08 +0700\"\n        },\n        {\n            \"id\": 14,\n            \"content\": \"Use the primary EXE port, then you can parse the back-end feed!, connecting the interface won't do anything, we need to bypass the back-end CSS system!, You can't generate the system without hacking the back-end JSON hard drive!, Try to calculate the COM program, maybe it will parse the neural alarm!, The HDD system is down, quantify the bluetooth firewall so we can override the USB system!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:08 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:08 +0700\"\n        },\n        {\n            \"id\": 13,\n            \"content\": \"We need to calculate the solid state FTP card!, I'll connect the digital TCP matrix, that should hard drive the XSS system!, If we index the pixel, we can get to the COM capacitor through the cross-platform AGP transmitter!, We need to quantify the optical GB bandwidth!, Use the open-source HTTP port, then you can parse the wireless transmitter!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:07 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:07 +0700\"\n        },\n        {\n            \"id\": 12,\n            \"content\": \"You can't connect the system without navigating the online XML monitor!, Try to compress the THX hard drive, maybe it will navigate the cross-platform feed!, We need to index the multi-byte SQL transmitter!, overriding the bus won't do anything, we need to parse the back-end XML hard drive!, We need to hack the online XML transmitter!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:07 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:07 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 21,\n    \"last\": false,\n    \"totalPages\": 3,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "search_inactive comment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment?search=isActive=bool=false",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "isActive=bool=false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200_>=ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment?search=isActive=bool=false",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "isActive=bool=false"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:48:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 36,\n            \"content\": \"We need to program the wireless EXE bandwidth!, If we connect the bandwidth, we can get to the CSS bus through the optical AI transmitter!, We need to bypass the auxiliary RAM hard drive!, Use the virtual PCI application, then you can bypass the redundant microchip!, You can't reboot the bandwidth without backing up the multi-byte SAS bandwidth!\",\n            \"postId\": 65,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:31:25 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 14:31:51 +0700\"\n        },\n        {\n            \"id\": 34,\n            \"content\": \"Try to program the HDD port, maybe it will compress the back-end sensor!, Try to calculate the HDD program, maybe it will compress the back-end port!, The HDD panel is down, input the primary panel so we can calculate the SSL feed!, If we reboot the sensor, we can get to the SMS alarm through the auxiliary PNG hard drive!, Use the optical RAM protocol, then you can navigate the online interface!\",\n            \"postId\": 65,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:31:23 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 14:31:51 +0700\"\n        },\n        {\n            \"id\": 35,\n            \"content\": \"You can't override the interface without calculating the redundant ADP protocol!, You can't parse the capacitor without generating the neural HTTP bandwidth!, If we index the monitor, we can get to the RSS sensor through the wireless AI microchip!, I'll parse the auxiliary XML microchip, that should card the RAM panel!, The FTP panel is down, compress the haptic hard drive so we can reboot the GB capacitor!\",\n            \"postId\": 65,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:31:24 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 14:31:51 +0700\"\n        },\n        {\n            \"id\": 33,\n            \"content\": \"I'll program the solid state IB monitor, that should sensor the CSS circuit!, I'll program the optical RSS circuit, that should protocol the COM bandwidth!, We need to transmit the auxiliary SCSI interface!, I'll override the mobile SDD firewall, that should alarm the COM port!, The HTTP sensor is down, input the virtual system so we can parse the SSL protocol!\",\n            \"postId\": 64,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:23:26 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 14:23:45 +0700\"\n        },\n        {\n            \"id\": 32,\n            \"content\": \"Try to synthesize the EXE protocol, maybe it will generate the online panel!, Use the wireless SDD system, then you can quantify the primary system!, navigating the firewall won't do anything, we need to override the redundant IB bus!, We need to transmit the virtual COM array!, You can't connect the card without generating the primary USB matrix!\",\n            \"postId\": 64,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 14:23:24 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 14:23:45 +0700\"\n        },\n        {\n            \"id\": 31,\n            \"content\": \"We need to compress the haptic JBOD feed!, I'll program the redundant SCSI hard drive, that should microchip the HTTP bandwidth!, I'll override the optical SMTP application, that should port the XSS driver!, We need to override the digital JSON feed!, Use the wireless HDD capacitor, then you can program the primary alarm!\",\n            \"postId\": 61,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 13:50:57 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 13:53:48 +0700\"\n        },\n        {\n            \"id\": 30,\n            \"content\": \"I'll program the redundant IB matrix, that should application the USB hard drive!, We need to override the primary RAM port!, I'll quantify the redundant SMS microchip, that should alarm the SMTP circuit!, connecting the capacitor won't do anything, we need to navigate the redundant EXE alarm!, I'll quantify the auxiliary GB interface, that should monitor the USB application!\",\n            \"postId\": 61,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 13:50:56 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 13:53:48 +0700\"\n        },\n        {\n            \"id\": 29,\n            \"content\": \"The HDD panel is down, index the multi-byte matrix so we can parse the HDD transmitter!, Try to transmit the RAM port, maybe it will parse the cross-platform card!, If we back up the alarm, we can get to the TCP system through the cross-platform SAS feed!, parsing the sensor won't do anything, we need to copy the 1080p ADP interface!, quantifying the feed won't do anything, we need to bypass the auxiliary HDD bandwidth!\",\n            \"postId\": 61,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 13:50:54 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-14 13:53:48 +0700\"\n        },\n        {\n            \"id\": 27,\n            \"content\": \"Try to synthesize the TCP panel, maybe it will copy the solid state application!, If we index the application, we can get to the GB array through the 1080p SMS panel!, You can't synthesize the port without compressing the open-source EXE bandwidth!, Use the redundant SMS application, then you can bypass the wireless firewall!, If we generate the pixel, we can get to the SQL application through the solid state CSS bus!\",\n            \"postId\": 58,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 13:12:00 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 13:12:24 +0700\"\n        },\n        {\n            \"id\": 28,\n            \"content\": \"The EXE system is down, synthesize the primary protocol so we can hack the SMS capacitor!, Use the auxiliary RSS driver, then you can reboot the back-end capacitor!, Try to parse the JBOD transmitter, maybe it will index the multi-byte array!, Try to calculate the SAS panel, maybe it will quantify the primary pixel!, Try to program the RSS bus, maybe it will generate the mobile hard drive!\",\n            \"postId\": 58,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-14 13:12:01 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-14 13:12:24 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"sorted\": true,\n            \"unsorted\": false,\n            \"empty\": false\n        },\n        \"pageSize\": 10,\n        \"pageNumber\": 0,\n        \"offset\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 14,\n    \"last\": false,\n    \"totalPages\": 2,\n    \"sort\": {\n        \"sorted\": true,\n        \"unsorted\": false,\n        \"empty\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"size\": 10,\n    \"number\": 0,\n    \"empty\": false\n}"
+						},
+						{
+							"name": "403_ROLE_USER",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment?search=isActive=bool=false",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "isActive=bool=false"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:49:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-14 23:49:28 +0700\",\n    \"status\": 403,\n    \"operationId\": \"b65275e940586816\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"User does not have permission to search inactive resource\",\n    \"path\": \"/comment\"\n}"
+						}
+					]
+				},
+				{
+					"name": "No_Auth_search_inactive comment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment?search=isActive=bool=false",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "isActive=bool=false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment?search=isActive=bool=false",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "isActive=bool=false"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:50:23 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-14 23:50:23 +0700\",\n    \"status\": 403,\n    \"operationId\": \"fadc08b8f4ca9326\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"User does not have permission to search inactive resource\",\n    \"path\": \"/comment\"\n}"
 						}
 					]
 				},
@@ -7943,7 +8662,7 @@
 			]
 		},
 		{
-			"name": "05.05_/comment/{{commentId}}",
+			"name": "05.05_/comment/{{commentId}} GET",
 			"item": [
 				{
 					"name": "200",
@@ -8162,6 +8881,453 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"timestamp\": \"2022-07-13 22:48:06 +0700\",\n    \"status\": 404,\n    \"operationId\": \"558cad18de0a9496\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"Comment, id:999999 not found\",\n    \"path\": \"/comment/999999\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "05.06_/comment/{{commentId}} DELETE",
+			"item": [
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"commentId\", 40);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment/{{commentId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"{{commentId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_ROLE_USER_username does not match comment created by",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment/{{commentId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment",
+										"{{commentId}}"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:55:45 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-14 23:55:45 +0700\",\n    \"status\": 403,\n    \"operationId\": \"ebfa79d9bff89874\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/comment/41\"\n}"
+						},
+						{
+							"name": "200_ROLE_USER_username match comment created by",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment/{{commentId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment",
+										"{{commentId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:56:45 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "200_>=ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment/{{commentId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment",
+										"{{commentId}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 16:57:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "No Auth delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"commentId\", 39);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment/{{commentId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"{{commentId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment/{{commentId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment",
+										"{{commentId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "inactive comment  or comment not found",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"commentId\", 999999);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment/{{commentId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment",
+								"{{commentId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment/{{commentId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment",
+										"{{commentId}}"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Jul 2022 17:08:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 00:08:11 +0700\",\n    \"status\": 400,\n    \"operationId\": \"6b66c8e94d2f386a\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"Comment, id:999999 not found\",\n    \"path\": \"/comment/999999\"\n}"
 						}
 					]
 				}
