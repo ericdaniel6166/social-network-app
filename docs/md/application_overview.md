@@ -4,7 +4,7 @@
         
 2. Details:     
     - "/admin/**": admin api
-            - ROLE_ADMIN
+        - ROLE_ADMIN
     - GET "/comment?search=isActive=bool=false",
     "/forum?search=isActive=bool=false",
     "/post?search=isActive=bool=false":
