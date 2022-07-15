@@ -2,6 +2,8 @@
 
 ![Coverage](.github/badges/jacoco.svg)
 
+##### Index
+
 - [Application Overview](docs/md/application_overview.md)
 
 - [Getting started](docs/md/getting_started.md)
