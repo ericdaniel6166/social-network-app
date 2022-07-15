@@ -1,6 +1,6 @@
-1. Authorization
-    - Role Hierarchy:
-        - ROLE_ADMIN > ROLE_MODERATOR > ROLE_USER
+##### Authorization
+1. Role Hierarchy:
+    - ROLE_ADMIN > ROLE_MODERATOR > ROLE_USER
         
 2. Details:     
     - "/auth/**" 
