@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
     private final MasterMessageService masterMessageService;
 
     /**
-     * user can't set role to itself
+     * user can't set role to himself
      * ROLE_ROOT_ADMIN can:
      * . set any roles to any accounts
      * ROLE_ADMIN can:

@@ -7,6 +7,14 @@
 2. Details:     
     - "/admin/**": admin api
         - ROLE_ADMIN
+    - "/account/updateRole/**": update role
+        - user can't set role to himself
+        - ROLE_ROOT_ADMIN can: 
+            - set any roles to any accounts
+        - ROLE_ADMIN can:
+            - set role less or equal ROLE_MODERATOR to less or equal ROLE_MODERATOR account
+        - less or equal ROLE_MODERATOR:
+            - Forbidden
     - GET "/comment?search=isActive=bool=false",
     "/forum?search=isActive=bool=false",
     "/post?search=isActive=bool=false":
