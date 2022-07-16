@@ -33,5 +33,32 @@ public class AccountApiController implements AccountApi {
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
 
+    /*TODO: implement block account
+    * @PutMapping
+    * @PreAuthorize(hasAuthority('SCOPE_ROLE_MODERATOR')")
+    * user can't block himself
+    * ROLE_MODERATOR can't block greater and equals ROLE_MODERATOR
+    * ROLE_ADMIN can't block greater and equals ROLE_ADMIN
+    * ROLE_ROOT_ADMIN can block any account
+    *
+    * */
+
+    /*TODO: implement view user profile
+    * @GetMapping
+    * if user set profile public, any greater and equals ROLE_USER can read
+    *
+    * if user set profile private, user with username match user profile can read
+    * OR greater than user role
+    * */
+
+    /*TODO: implement update user profile
+    * @PutMapping
+    *
+    * user with username match user profile can update
+    * OR greater than user role
+    * */
+
+
+
 
 }
