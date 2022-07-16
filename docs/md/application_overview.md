@@ -21,7 +21,7 @@
         - ROLE_MODERATOR
     - POST "/comment/**","/post/**": create post/comment
         - ROLE_USER
-    - "/auth/**" 
+    - "/auth/**": sign up, verify account, sign in
     - GET "/comment/**","/forum/**","/post/**": read active comment, forum, post
         - permit all    
             
