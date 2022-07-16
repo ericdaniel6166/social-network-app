@@ -2,7 +2,7 @@
 
 ##### Authorization
 1. Role Hierarchy:
-    - ROLE_ADMIN > ROLE_MODERATOR > ROLE_USER
+    - ROLE_ROOT_ADMIN > ROLE_ADMIN > ROLE_MODERATOR > ROLE_USER
         
 2. Details:     
     - "/admin/**": admin api
