@@ -15,6 +15,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
@@ -138,8 +139,9 @@ public class RestExceptionHandler {
     }
 
 
-    @ExceptionHandler({IllegalArgumentException.class, MethodArgumentTypeMismatchException.class, NumberFormatException.class})
-    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest httpServletRequest) {
+    @ExceptionHandler({IllegalArgumentException.class, MethodArgumentTypeMismatchException.class,
+            NumberFormatException.class})
+    public ResponseEntity<Object> handleBadRequestExceptionWithOriginalErrorMessage(Exception e, HttpServletRequest httpServletRequest) {
         String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
@@ -148,6 +150,19 @@ public class RestExceptionHandler {
 
         return buildResponseExceptionEntity(errorResponseDTO);
     }
+
+    @ExceptionHandler({HttpMessageConversionException.class})
+    public ResponseEntity<Object> handleBadRequestExceptionWithBadRequestErrorMessage(Exception e, HttpServletRequest httpServletRequest) {
+        String errorMessage = CommonUtils.getRootCauseMessage(e);
+        log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                httpServletRequest, null);
+
+        return buildResponseExceptionEntity(errorResponseDTO);
+    }
+
+
 
 
 }

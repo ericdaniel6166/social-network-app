@@ -1,7 +1,6 @@
 package com.example.socialnetworkapp.auth.enums;
 
 public enum RoleEnum {
-    ROLE_ANONYMOUS("ROLE_ANONYMOUS"),
     ROLE_USER("SCOPE_ROLE_USER"),
     ROLE_MODERATOR("SCOPE_ROLE_MODERATOR"),
     ROLE_ADMIN("SCOPE_ROLE_ADMIN"),
