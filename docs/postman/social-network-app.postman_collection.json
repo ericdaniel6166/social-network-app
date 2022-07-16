@@ -10,7 +10,40 @@
 			"name": "01.01_Prepare",
 			"item": [
 				{
-					"name": "Prepare admin account",
+					"name": "Prepare root admin account rootAdmin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
+									"pm.environment.set(\"email\", \"rootAdmin@socialnetwork.com\");\r",
+									"pm.environment.set(\"username\", \"rootAdmin\");\r",
+									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare admin account admin",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -43,7 +76,172 @@
 					"response": []
 				},
 				{
-					"name": "Prepare account ROLE_USER javadev311",
+					"name": "Prepare admin account admin1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
+									"pm.environment.set(\"email\", \"admin@socialnetwork.com\");\r",
+									"pm.environment.set(\"username\", \"admin1\");\r",
+									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare moderator account moderator",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
+									"pm.environment.set(\"email\", \"admin@socialnetwork.com\");\r",
+									"pm.environment.set(\"username\", \"moderator\");\r",
+									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare moderator account moderator1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
+									"pm.environment.set(\"email\", \"admin@socialnetwork.com\");\r",
+									"pm.environment.set(\"username\", \"moderator1\");\r",
+									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare user account user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
+									"pm.environment.set(\"email\", \"admin@socialnetwork.com\");\r",
+									"pm.environment.set(\"username\", \"user\");\r",
+									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare user account user1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
+									"pm.environment.set(\"email\", \"admin@socialnetwork.com\");\r",
+									"pm.environment.set(\"username\", \"user1\");\r",
+									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare account javadev311",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -77,7 +275,7 @@
 					"response": []
 				},
 				{
-					"name": "Prepare account ROLE_USER abc123",
+					"name": "Prepare account aaa123",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -85,8 +283,8 @@
 								"exec": [
 									"pm.environment.set(\"domain\", \"http://localhost:8080\");\r",
 									"/////////////////////////////////////////////////////////////////////////\r",
-									"pm.environment.set(\"email\", \"abc123@abc123.com\");\r",
-									"pm.environment.set(\"username\", \"abc123\");\r",
+									"pm.environment.set(\"email\", \"aaa123@zzz.com\");\r",
+									"pm.environment.set(\"username\", \"aaa123\");\r",
 									"pm.environment.set(\"password\", \"P@ssw0rd\");"
 								],
 								"type": "text/javascript"
@@ -149,15 +347,13 @@
 			"name": "02.01_/auth/signUp",
 			"item": [
 				{
-					"name": "account ROLE_USER",
+					"name": "account from prepare",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"email\", \"javadev311@javadev111.com\");\r",
-									"pm.environment.set(\"username\", \"javadev311\");\r",
-									"pm.environment.set(\"password\", \"P@ssw0rd\");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -621,44 +817,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "account from prepare",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{domain}}/auth/signUp",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"auth",
-								"signUp"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -672,7 +830,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"token\", \"cbe43286-5b04-4a60-add1-8ebd1489c1e6\");"
+									"pm.environment.set(\"token\", \"c1b7d497-28d4-409e-b3f7-7115c185d652\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1394,7 +1552,7 @@
 			"name": "03.01_/forum POST",
 			"item": [
 				{
-					"name": "Auth",
+					"name": "create",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -3258,7 +3416,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.environment.set(\"forumId\", 22);"
 								],
 								"type": "text/javascript"
 							}
@@ -3279,7 +3437,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"content\": \"{{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}\",\r\n    \"forumId\": 48\r\n}",
+							"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"content\": \"{{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}\",\r\n    \"forumId\": {{forumId}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5604,7 +5762,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"javadev111\");"
+									"pm.environment.set(\"createdBy\", \"javadev311\");"
 								],
 								"type": "text/javascript"
 							}
@@ -5828,7 +5986,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"javadev111\");"
+									"pm.environment.set(\"createdBy\", \"javadev311\");"
 								],
 								"type": "text/javascript"
 							}
@@ -6764,7 +6922,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.environment.set(\"postId\", 26);"
 								],
 								"type": "text/javascript"
 							}
@@ -6785,7 +6943,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"{{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}\",\r\n    \"postId\": 17\r\n}",
+							"raw": "{\r\n    \"content\": \"{{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}, {{$randomPhrase}}\",\r\n    \"postId\": {{postId}}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -9328,6 +9486,1450 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"timestamp\": \"2022-07-15 00:08:11 +0700\",\n    \"status\": 400,\n    \"operationId\": \"6b66c8e94d2f386a\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"Comment, id:999999 not found\",\n    \"path\": \"/comment/999999\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "08.01_/account/updateRole PUT",
+			"item": [
+				{
+					"name": "update role moderator",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"javadev311\");\r",
+									"pm.environment.set(\"roleUpdate\", \"ROLE_MODERATOR\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_<=ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 15:37:02 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 22:37:02 +0700\",\n    \"status\": 403,\n    \"operationId\": \"abee1ad3a44c1f19\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/account/updateRole\"\n}"
+						},
+						{
+							"name": "200_>=ROLE_ADMIN",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:35:31 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"UPDATE ROLE SUCCESS\",\n    \"message\": \"You have updated role ROLE_MODERATOR to user javadev311 successfully\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:47:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 23:47:47 +0700\",\n    \"status\": 400,\n    \"operationId\": \"6a6c14a24ee9395a\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"This user has already had this role\",\n    \"path\": \"/account/updateRole\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update role user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"javadev311\");\r",
+									"pm.environment.set(\"roleUpdate\", \"ROLE_USER\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_<=_ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:49:37 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 23:49:37 +0700\",\n    \"status\": 403,\n    \"operationId\": \"1324c1421503ecf9\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/account/updateRole\"\n}"
+						},
+						{
+							"name": "200_>=ROLE_ADMIN_update account <=ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:36:12 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"UPDATE ROLE SUCCESS\",\n    \"message\": \"You have updated role ROLE_USER to user javadev311 successfully\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:48:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 23:48:25 +0700\",\n    \"status\": 400,\n    \"operationId\": \"878fcb3671ebd794\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"This user has already had this role\",\n    \"path\": \"/account/updateRole\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update role admin",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"javadev311\");\r",
+									"pm.environment.set(\"roleUpdate\", \"ROLE_ADMIN\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_<=ROLE_ADMIN",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:51:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 23:51:10 +0700\",\n    \"status\": 403,\n    \"operationId\": \"35e74c892c17df7c\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"You don't have permission to set this role\",\n    \"path\": \"/account/updateRole\"\n}"
+						},
+						{
+							"name": "200_ROLE_ROOT_ADMIN",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:57:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-15 23:57:51 +0700\",\n    \"status\": 400,\n    \"operationId\": \"e123d0c92ec5c857\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"This user has already had this role\",\n    \"path\": \"/account/updateRole\"\n}"
+						}
+					]
+				},
+				{
+					"name": "ROLE_ADMIN update role to >=ROLE_ADMIN account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"rootAdmin\");\r",
+									"pm.environment.set(\"roleUpdate\", \"ROLE_USER\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 17:01:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-16 00:01:40 +0700\",\n    \"status\": 403,\n    \"operationId\": \"1420df6052e5ab7b\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"You don't have permission to set role to this user\",\n    \"path\": \"/account/updateRole\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update role to itself",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"admin\");\r",
+									"pm.environment.set(\"roleUpdate\", \"ROLE_USER\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 17:07:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-16 00:07:25 +0700\",\n    \"status\": 403,\n    \"operationId\": \"3b285b0cede8d4dc\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"You can't set role to yourself\",\n    \"path\": \"/account/updateRole\"\n}"
+						}
+					]
+				},
+				{
+					"name": "ROLE wrong value",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"javadev311\");\r",
+									"pm.environment.set(\"roleUpdate\", \"abcxyz\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Jul 2022 04:30:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-16 11:30:47 +0700\",\n    \"status\": 400,\n    \"operationId\": \"756edff7c7b4e7a8\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"Bad Request\",\n    \"path\": \"/account/updateRole\"\n}"
+						}
+					]
+				},
+				{
+					"name": "username not found",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"usernameUpdate\", \"wrongusername\");\r",
+									"pm.environment.set(\"roleUpdate\", \"ROLE_MODERATOR\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/account/updateRole",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"account",
+								"updateRole"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Jul 2022 04:34:41 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-16 11:34:41 +0700\",\n    \"status\": 404,\n    \"operationId\": \"67d96614278f4891\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"username wrongusername not found\",\n    \"path\": \"/account/updateRole\"\n}"
 						}
 					]
 				}
