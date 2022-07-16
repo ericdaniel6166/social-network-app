@@ -4,6 +4,7 @@ import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.service.RoleService;
@@ -13,7 +14,6 @@ import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
-import com.example.socialnetworkapp.utils.Constants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +64,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
         UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
-        AccessDeniedException expected = new AccessDeniedException(Constants.ERROR_MESSAGE_SET_ROLE_YOURSELF);
+        AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_SET_ROLE_YOURSELF.getErrorMessage());
 
         try {
             accountService.updateRole(userDTO);
@@ -87,7 +87,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
         UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
         userDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
-        AccessDeniedException expected = new AccessDeniedException(Constants.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER);
+        AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER.getErrorMessage());
 
         try {
             accountService.updateRole(userDTO);
@@ -110,7 +110,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
         UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
         userDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
-        AccessDeniedException expected = new AccessDeniedException(Constants.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE);
+        AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE.getErrorMessage());
 
         try {
             accountService.updateRole(userDTO);
@@ -133,7 +133,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
         UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_MODERATOR);
         userDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
-        AccessDeniedException expected = new AccessDeniedException(Constants.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE);
+        AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage());
 
         try {
             accountService.updateRole(userDTO);
@@ -185,7 +185,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
         UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_MODERATOR);
         userDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
-        AccessDeniedException expected = new AccessDeniedException(Constants.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE);
+        AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage());
 
         try {
             accountService.updateRole(userDTO);

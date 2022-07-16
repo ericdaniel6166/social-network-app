@@ -50,13 +50,5 @@ public final class Constants {
 
     public static final String SCOPE = "scope";
 
-    public static final String ERROR_MESSAGE_SET_ROLE_YOURSELF = "You can't set role to yourself";
-
-    public static final String ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER = "You don't have permission to set role to this user";
-
-    public static final String ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE = "You don't have permission to set this role";
-
-    public static final String ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE = "This user has already had this role";
-
     public static final String SELF = "self";
 }
