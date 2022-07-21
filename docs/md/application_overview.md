@@ -59,7 +59,7 @@
         - GET /forum: Get all forum
         - POST /forum: Create forum
         - PUT /forum/{id}: Update forum by id (Updating)
-        - DELETE /forum/{id}: Delete forum by id (Updating)
+        - DELETE /forum/{id}: Delete forum by id
         - GET /forum/{id}: Get forum by id
         - GET /forum/createdBy/{username}: Get all forum created by username (Updating)
 2. Notice:
@@ -86,7 +86,7 @@
             - , : OR
         - Other:
             - *: %
-                - ex: name==*red -> name like '%red'
+                - ex: name==*red -> name LIKE '%red'
         
              
             

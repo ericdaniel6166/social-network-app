@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.utils;
 
+import com.example.socialnetworkapp.auth.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.configuration.rsql.CustomRSQLOperators;
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
@@ -71,9 +72,9 @@ public final class CommonUtils {
     public static Specification<?> buildSpecification(String search) {
         log.debug("Build specification, search: {}", search);
         if (StringUtils.containsIgnoreCase(search, Constants.IS_ACTIVE_FALSE)) {
-            if (hasAuthority(RoleEnum.ROLE_MODERATOR)) {
-                log.info("User does not have permission to search inactive resource");
-                throw new AccessDeniedException("User does not have permission to search inactive resource");
+            if (!hasAuthority(RoleEnum.ROLE_MODERATOR)) {
+                log.error(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SEARCH_INACTIVE_RESOURCE.getErrorMessage());
+                throw new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SEARCH_INACTIVE_RESOURCE.getErrorMessage());
             }
         } else if (!StringUtils.containsIgnoreCase(search, Constants.IS_ACTIVE_TRUE)) {
             search += Constants.SEMICOLON + Constants.IS_ACTIVE_TRUE;

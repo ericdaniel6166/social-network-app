@@ -53,23 +53,23 @@ public class AccountServiceImpl implements AccountService {
         String usernameUpdate = userDTO.getUsername();
         String currentUsername = CommonUtils.getCurrentUsername();
         if (StringUtils.equals(currentUsername, usernameUpdate)) {
-            log.info(ErrorMessageEnum.ERROR_MESSAGE_SET_ROLE_YOURSELF.getErrorMessage());
+            log.error(ErrorMessageEnum.ERROR_MESSAGE_SET_ROLE_YOURSELF.getErrorMessage());
             throw new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_SET_ROLE_YOURSELF.getErrorMessage());
         }
         AppUser appUserUpdate = userService.findByUsername(usernameUpdate);
         AppRole appRoleOld = appUserUpdate.getAppRole();
         if (!CommonUtils.hasAuthority(RoleEnum.ROLE_ROOT_ADMIN)) {
             if (appRoleOld.getRoleName().compareTo(RoleEnum.ROLE_ADMIN) >= 0) {
-                log.info(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER.getErrorMessage());
+                log.error(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER.getErrorMessage());
                 throw new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER.getErrorMessage());
             }
             if (roleEnumNew.compareTo(RoleEnum.ROLE_ADMIN) >= 0) {
-                log.info(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE.getErrorMessage());
+                log.error(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE.getErrorMessage());
                 throw new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE.getErrorMessage());
             }
         }
         if (roleEnumNew.compareTo(appRoleOld.getRoleName()) == 0) {
-            log.info(ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage());
+            log.error(ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage());
             throw new SocialNetworkAppException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
                     ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage(), null);
         }
