@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
 import com.example.socialnetworkapp.auth.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
@@ -63,11 +63,11 @@ class AccountServiceImplTest extends AbstractServiceTest {
         Mockito.when(authentication.getPrincipal()).thenReturn(jwt);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
-        UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
+        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
         AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_SET_ROLE_YOURSELF.getErrorMessage());
 
         try {
-            accountService.updateRole(userDTO);
+            accountService.updateRole(userRoleUpdateDTO);
         } catch (AccessDeniedException e){
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
         }
@@ -84,13 +84,13 @@ class AccountServiceImplTest extends AbstractServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
         Mockito.when(jwt.getClaims()).thenReturn(AuthTestUtils.buildClaims(RoleEnum.ROLE_ADMIN.name()));
-        UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
-        userDTO.setUsername(usernameUpdate);
+        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
+        userRoleUpdateDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
         AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_ROLE_THIS_USER.getErrorMessage());
 
         try {
-            accountService.updateRole(userDTO);
+            accountService.updateRole(userRoleUpdateDTO);
         } catch (AccessDeniedException e){
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
         }
@@ -107,13 +107,13 @@ class AccountServiceImplTest extends AbstractServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
         Mockito.when(jwt.getClaims()).thenReturn(AuthTestUtils.buildClaims(RoleEnum.ROLE_ADMIN.name()));
-        UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
-        userDTO.setUsername(usernameUpdate);
+        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_ADMIN);
+        userRoleUpdateDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
         AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_NOT_HAVE_PERMISSION_SET_THIS_ROLE.getErrorMessage());
 
         try {
-            accountService.updateRole(userDTO);
+            accountService.updateRole(userRoleUpdateDTO);
         } catch (AccessDeniedException e){
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
         }
@@ -130,13 +130,13 @@ class AccountServiceImplTest extends AbstractServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
         Mockito.when(jwt.getClaims()).thenReturn(AuthTestUtils.buildClaims(RoleEnum.ROLE_ADMIN.name()));
-        UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_MODERATOR);
-        userDTO.setUsername(usernameUpdate);
+        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_MODERATOR);
+        userRoleUpdateDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
         AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage());
 
         try {
-            accountService.updateRole(userDTO);
+            accountService.updateRole(userRoleUpdateDTO);
         } catch (SocialNetworkAppException e){
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
             Assertions.assertEquals(HttpStatus.BAD_REQUEST.name(), e.getError());
@@ -156,15 +156,15 @@ class AccountServiceImplTest extends AbstractServiceTest {
         Mockito.when(jwt.getSubject()).thenReturn(username);
         Mockito.when(jwt.getClaims()).thenReturn(AuthTestUtils.buildClaims(RoleEnum.ROLE_ADMIN.name()));
         RoleEnum roleEnumNew = RoleEnum.ROLE_USER;
-        UserDTO userDTO = AuthTestUtils.buildUserDTO(roleEnumNew);
-        userDTO.setUsername(usernameUpdate);
+        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(roleEnumNew);
+        userRoleUpdateDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
-        Mockito.when(roleService.findByRoleName(userDTO.getRole())).thenReturn(AuthTestUtils.buildAppRole(roleEnumNew));
+        Mockito.when(roleService.findByRoleName(userRoleUpdateDTO.getRole())).thenReturn(AuthTestUtils.buildAppRole(roleEnumNew));
         SimpleResponseDTO expected = CommonTestUtils.buildSimpleResponseDTO();
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.UPDATE_ROLE_SUCCESS);
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.UPDATE_ROLE_SUCCESS)).thenReturn(masterMessage);
 
-        SimpleResponseDTO actual = accountService.updateRole(userDTO);
+        SimpleResponseDTO actual = accountService.updateRole(userRoleUpdateDTO);
 
         Assertions.assertEquals(expected, actual);
     }
@@ -182,13 +182,13 @@ class AccountServiceImplTest extends AbstractServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Mockito.when(jwt.getSubject()).thenReturn(username);
         Mockito.when(jwt.getClaims()).thenReturn(AuthTestUtils.buildClaims(RoleEnum.ROLE_ROOT_ADMIN.name()));
-        UserDTO userDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_MODERATOR);
-        userDTO.setUsername(usernameUpdate);
+        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_MODERATOR);
+        userRoleUpdateDTO.setUsername(usernameUpdate);
         Mockito.when(userService.findByUsername(usernameUpdate)).thenReturn(appUserUpdate);
         AccessDeniedException expected = new AccessDeniedException(ErrorMessageEnum.ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE.getErrorMessage());
 
         try {
-            accountService.updateRole(userDTO);
+            accountService.updateRole(userRoleUpdateDTO);
         } catch (SocialNetworkAppException e){
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
             Assertions.assertEquals(HttpStatus.BAD_REQUEST.name(), e.getError());

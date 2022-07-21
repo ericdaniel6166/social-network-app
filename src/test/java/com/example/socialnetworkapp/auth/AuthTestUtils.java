@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.auth;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
-import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.model.AppUser;
@@ -111,11 +111,11 @@ public class AuthTestUtils {
     }
 
 
-    public static UserDTO buildUserDTO(RoleEnum roleEnum) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(USERNAME);
-        userDTO.setRole(roleEnum);
-        return userDTO;
+    public static UserRoleUpdateDTO buildUserDTO(RoleEnum roleEnum) {
+        UserRoleUpdateDTO userRoleUpdateDTO = new UserRoleUpdateDTO();
+        userRoleUpdateDTO.setUsername(USERNAME);
+        userRoleUpdateDTO.setRole(roleEnum);
+        return userRoleUpdateDTO;
     }
 
     public static Map<String, Object> buildClaims(String... roleEnumNames) {

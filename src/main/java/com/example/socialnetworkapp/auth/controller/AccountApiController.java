@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.controller;
 
-import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
 import com.example.socialnetworkapp.auth.service.AccountService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
@@ -28,8 +28,8 @@ public class AccountApiController implements AccountApi {
     @Override
     @PutMapping("/updateRole")
     @PreAuthorize("hasAuthority('SCOPE_ROLE_ADMIN')")
-    public ResponseEntity<?> updateRole(@RequestBody @Valid UserDTO userDTO) throws SocialNetworkAppException {
-        SimpleResponseDTO simpleResponseDTO = accountService.updateRole(userDTO);
+    public ResponseEntity<?> updateRole(@RequestBody @Valid UserRoleUpdateDTO userRoleUpdateDTO) throws SocialNetworkAppException {
+        SimpleResponseDTO simpleResponseDTO = accountService.updateRole(userRoleUpdateDTO);
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
 

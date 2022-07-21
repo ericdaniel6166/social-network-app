@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.controller;
 
-import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +22,7 @@ public interface AccountApi {
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> updateRole(@RequestBody @Valid UserDTO userDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> updateRole(@RequestBody @Valid UserRoleUpdateDTO userRoleUpdateDTO) throws SocialNetworkAppException;
 
 
 }

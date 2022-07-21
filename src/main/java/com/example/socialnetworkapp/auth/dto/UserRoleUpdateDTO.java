@@ -15,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class UserDTO implements Serializable {
+public class UserRoleUpdateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 

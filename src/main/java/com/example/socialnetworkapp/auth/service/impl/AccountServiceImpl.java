@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
-import com.example.socialnetworkapp.auth.dto.UserDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
 import com.example.socialnetworkapp.auth.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
@@ -44,13 +44,13 @@ public class AccountServiceImpl implements AccountService {
      * less or equal ROLE_MODERATOR:
      * . Forbidden
      *
-     * @param userDTO
+     * @param userRoleUpdateDTO
      * @throws ResourceNotFoundException
      */
     @Override
-    public SimpleResponseDTO updateRole(UserDTO userDTO) throws SocialNetworkAppException {
-        RoleEnum roleEnumNew = userDTO.getRole();
-        String usernameUpdate = userDTO.getUsername();
+    public SimpleResponseDTO updateRole(UserRoleUpdateDTO userRoleUpdateDTO) throws SocialNetworkAppException {
+        RoleEnum roleEnumNew = userRoleUpdateDTO.getRole();
+        String usernameUpdate = userRoleUpdateDTO.getUsername();
         String currentUsername = CommonUtils.getCurrentUsername();
         if (StringUtils.equals(currentUsername, usernameUpdate)) {
             log.error(ErrorMessageEnum.ERROR_MESSAGE_SET_ROLE_YOURSELF.getErrorMessage());
