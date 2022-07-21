@@ -61,7 +61,7 @@
     - Syntax
         - Comparison Operator
             - =bool= : EQUAL (boolean)
-            - ==: EQUAL (string, number)
+            - ==: EQUAL/LIKE (string), EQUAL (number)
             - !=: NOT_EQUAL
             - =gt= Or >: GREATER_THAN 
             - =ge= Or >=: GREATER_THAN_OR_EQUAL
