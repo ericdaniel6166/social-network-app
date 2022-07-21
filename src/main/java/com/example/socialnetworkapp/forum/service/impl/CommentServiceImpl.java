@@ -105,8 +105,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        commentRepository.deleteById(id);
+    public AppComment setIsActive(Long id, boolean isActive) throws ResourceNotFoundException {
+        AppComment appComment = this.findById(id);
+        appComment.setIsActive(isActive);
+        return this.saveAndFlush(appComment);
     }
 
     @Override

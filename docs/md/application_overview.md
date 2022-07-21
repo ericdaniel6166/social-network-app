@@ -28,6 +28,10 @@
         - POST /auth/signUp: sign up
         - GET /auth/verifyAccount/{token}: Verify account
     - Comment API
+        - GET /comment/**:
+            - permit all
+        - POST, PUT, DELETE /comment/**:
+            - has authority ROLE_USER and username match with comment created by, OR has authority ROLE_MODERATOR at least
         - GET /comment: Get all comment
         - POST /comment: Create comment
         - PUT /comment/{id}: Update comment by id (Updating)
@@ -36,6 +40,10 @@
         - GET /comment/createdBy/{username}: Get all comment created by username
         - GET /comment/post/{id}: Get all comment by post id
     - Post API
+        - GET /post/**:
+            - permit all
+        - POST, PUT, DELETE /post/**:
+            - has authority ROLE_USER and username match with post created by, OR has authority ROLE_MODERATOR at least
         - GET /post: Get all post
         - POST /post: Create post
         - PUT /post/{id}: Update post by id (Updating)
@@ -44,6 +52,10 @@
         - GET /post/createdBy/{username}: Get all post created by username
         - GET /post/forum/{id}: Get all post by forum id
     - Forum API
+        - GET /forum/**:
+            - permit all
+        - POST, PUT, DELETE /forum/**:
+            - has authority ROLE_MODERATOR at least
         - GET /forum: Get all forum
         - POST /forum: Create forum
         - PUT /forum/{id}: Update forum by id (Updating)
