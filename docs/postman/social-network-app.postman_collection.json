@@ -1552,7 +1552,7 @@
 			"name": "03.01_/forum POST",
 			"item": [
 				{
-					"name": "create",
+					"name": "create forum",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2046,7 +2046,7 @@
 			"name": "03.02_/forum GET",
 			"item": [
 				{
-					"name": "with no params",
+					"name": "get forum",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -2150,6 +2150,85 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"content\": [\n        {\n            \"id\": 48,\n            \"name\": \"Implemented maximize sensor deposit productivity\",\n            \"description\": \"Try to parse the EXE firewall, maybe it will hack the open-source transmitter!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:18 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:18 +0700\"\n        },\n        {\n            \"id\": 47,\n            \"name\": \"Planner responsive Division digital productize\",\n            \"description\": \"The SAS driver is down, synthesize the back-end protocol so we can input the PCI sensor!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:17 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:17 +0700\"\n        },\n        {\n            \"id\": 46,\n            \"name\": \"program bandwidth Cross-group Bacon Mandatory\",\n            \"description\": \"Try to program the AI microchip, maybe it will copy the redundant panel!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:16 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:16 +0700\"\n        },\n        {\n            \"id\": 45,\n            \"name\": \"multi-byte primary toolset\",\n            \"description\": \"The SMTP panel is down, program the digital bandwidth so we can back up the CSS bandwidth!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:16 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:16 +0700\"\n        },\n        {\n            \"id\": 44,\n            \"name\": \"transmitting synergies\",\n            \"description\": \"bypassing the microchip won't do anything, we need to copy the haptic JSON application!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:15 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:15 +0700\"\n        },\n        {\n            \"id\": 43,\n            \"name\": \"boliviano pixel Washington\",\n            \"description\": \"Try to index the SMTP protocol, maybe it will compress the optical program!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:14 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:14 +0700\"\n        },\n        {\n            \"id\": 42,\n            \"name\": \"Credit Hills applications structure\",\n            \"description\": \"If we index the transmitter, we can get to the JSON array through the open-source XSS feed!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:14 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:14 +0700\"\n        },\n        {\n            \"id\": 41,\n            \"name\": \"auxiliary Fresh Greece Wyoming\",\n            \"description\": \"If we synthesize the bus, we can get to the XML microchip through the bluetooth AI card!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:13 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:13 +0700\"\n        },\n        {\n            \"id\": 40,\n            \"name\": \"Polarised Incredible\",\n            \"description\": \"Use the bluetooth RAM bus, then you can bypass the wireless protocol!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:12 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:12 +0700\"\n        },\n        {\n            \"id\": 39,\n            \"name\": \"system invoice Handcrafted synthesize Card\",\n            \"description\": \"Use the back-end SAS circuit, then you can back up the open-source transmitter!\",\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:28:12 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:28:12 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 26,\n    \"totalPages\": 3,\n    \"last\": false,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+						},
+						{
+							"name": "200 2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/forum",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"forum"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Jul 2022 15:23:47 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 24,\n            \"name\": \"Music Avon back ROI bluetooth\",\n            \"description\": \"You can't index the program without generating the open-source PNG matrix!\",\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:21:19 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:21:19 +0700\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"Health Cloned Functionality TCP metrics\",\n            \"description\": \"backing up the capacitor won't do anything, we need to generate the multi-byte EXE capacitor!\",\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 17:49:10 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 17:49:10 +0700\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Fresh Rubber\",\n            \"description\": \"You can't override the matrix without calculating the digital HDD alarm!\",\n            \"createdBy\": \"moderator1\",\n            \"createdDate\": \"2022-07-15 23:07:49 +0700\",\n            \"lastModifiedBy\": \"moderator1\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:49 +0700\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Brazilian Outdoors copy e-services\",\n            \"description\": \"You can't index the card without programming the auxiliary RAM bandwidth!\",\n            \"createdBy\": \"moderator1\",\n            \"createdDate\": \"2022-07-15 23:07:48 +0700\",\n            \"lastModifiedBy\": \"moderator1\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:48 +0700\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"maroon Investment\",\n            \"description\": \"backing up the circuit won't do anything, we need to copy the 1080p SMS driver!\",\n            \"createdBy\": \"admin\",\n            \"createdDate\": \"2022-07-15 23:07:29 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:29 +0700\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"quantifying Personal Orchestrator viral\",\n            \"description\": \"You can't override the array without parsing the optical ADP monitor!\",\n            \"createdBy\": \"admin\",\n            \"createdDate\": \"2022-07-15 23:07:28 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:28 +0700\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"radical silver Bike\",\n            \"description\": \"We need to connect the wireless THX pixel!\",\n            \"createdBy\": \"admin\",\n            \"createdDate\": \"2022-07-15 23:07:27 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:27 +0700\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"Hollow Organic Fundamental Dollar\",\n            \"description\": \"I'll transmit the mobile JBOD program, that should application the SDD circuit!\",\n            \"createdBy\": \"admin\",\n            \"createdDate\": \"2022-07-15 23:07:27 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:27 +0700\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"lavender matrix Chips\",\n            \"description\": \"copying the feed won't do anything, we need to hack the neural ADP alarm!\",\n            \"createdBy\": \"admin\",\n            \"createdDate\": \"2022-07-15 23:07:26 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:26 +0700\"\n        },\n        {\n            \"id\": 15,\n            \"name\": \"Track Ergonomic\",\n            \"description\": \"I'll override the online RAM bus, that should feed the XSS interface!\",\n            \"createdBy\": \"admin\",\n            \"createdDate\": \"2022-07-15 23:07:25 +0700\",\n            \"lastModifiedBy\": \"admin\",\n            \"lastModifiedDate\": \"2022-07-15 23:07:25 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageSize\": 10,\n        \"pageNumber\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 24,\n    \"totalPages\": 3,\n    \"last\": false,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
 						}
 					]
 				},
@@ -3407,16 +3486,361 @@
 			]
 		},
 		{
-			"name": "04.01_/post POST",
+			"name": "03.06_",
 			"item": [
 				{
-					"name": "200",
+					"name": "delete forum",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"forumId\", 22);"
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"description\": \"{{$randomPhrase}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/forum/:id",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"forum",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "24"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403_<=ROLE_USER",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"description\": \"{{$randomPhrase}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/forum/:id",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"forum",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "24"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Jul 2022 15:26:47 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-21 22:26:47 +0700\",\n    \"status\": 403,\n    \"operationId\": \"72ca30904eb33b9e\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/forum/24\"\n}"
+						},
+						{
+							"name": "200_>=ROLE_MODERATOR",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"description\": \"{{$randomPhrase}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/forum/:id",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"forum",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "24"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Jul 2022 15:27:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"DELETE FORUM SUCCESS\",\n    \"message\": \"You have deleted forum \\\"Music Avon back ROI bluetooth\\\" successfully\"\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"description\": \"{{$randomPhrase}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/forum/:id",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"forum",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "24"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Jul 2022 15:29:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-21 22:29:00 +0700\",\n    \"status\": 404,\n    \"operationId\": \"14a38c22e81b1077\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"Forum, id:24 not found\",\n    \"path\": \"/forum/24\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "04.01_/post POST",
+			"item": [
+				{
+					"name": "create post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"forumId\", 24);"
 								],
 								"type": "text/javascript"
 							}
@@ -3784,6 +4208,85 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"content\": [\n        {\n            \"id\": 17,\n            \"name\": \"Tasty Frozen artificial\",\n            \"content\": \"Try to bypass the USB pixel, maybe it will generate the haptic port!, I'll compress the back-end GB sensor, that should card the SAS system!, We need to copy the auxiliary FTP application!, You can't program the sensor without connecting the optical FTP firewall!, The CSS monitor is down, index the digital sensor so we can hack the XSS feed!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:33:44 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:33:44 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 1,\n    \"totalPages\": 1,\n    \"last\": true,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 1,\n    \"first\": true,\n    \"empty\": false\n}"
+						},
+						{
+							"name": "200 2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/post",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"post"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Jul 2022 15:24:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 33,\n            \"name\": \"facilitate Bike Brand\",\n            \"content\": \"Use the mobile CSS program, then you can input the 1080p card!, compressing the feed won't do anything, we need to back up the cross-platform SAS matrix!, overriding the bus won't do anything, we need to connect the solid state SAS transmitter!, You can't hack the transmitter without navigating the cross-platform GB bandwidth!, copying the sensor won't do anything, we need to quantify the digital HTTP protocol!\",\n            \"forumId\": 24,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:22:20 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:22:20 +0700\"\n        },\n        {\n            \"id\": 32,\n            \"name\": \"Plastic Games mesh\",\n            \"content\": \"Use the primary PNG protocol, then you can synthesize the multi-byte program!, Use the optical HDD firewall, then you can copy the auxiliary program!, Try to program the XSS monitor, maybe it will bypass the wireless microchip!, You can't connect the feed without quantifying the primary JSON application!, calculating the capacitor won't do anything, we need to compress the digital FTP panel!\",\n            \"forumId\": 24,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:22:19 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:22:19 +0700\"\n        },\n        {\n            \"id\": 31,\n            \"name\": \"engage Fish Steel\",\n            \"content\": \"Use the multi-byte RAM monitor, then you can synthesize the redundant sensor!, If we quantify the microchip, we can get to the SMTP microchip through the optical SMTP hard drive!, We need to reboot the wireless HTTP hard drive!, compressing the pixel won't do anything, we need to connect the optical XSS interface!, I'll compress the online GB pixel, that should transmitter the GB transmitter!\",\n            \"forumId\": 24,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:22:18 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:22:18 +0700\"\n        },\n        {\n            \"id\": 30,\n            \"name\": \"Arkansas Bike Account Azerbaijan\",\n            \"content\": \"Use the multi-byte ADP protocol, then you can hack the online pixel!, If we input the card, we can get to the SMS program through the cross-platform IB matrix!, Try to transmit the PCI application, maybe it will compress the wireless port!, Try to index the JSON driver, maybe it will bypass the virtual bandwidth!, We need to compress the primary IB driver!\",\n            \"forumId\": 24,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:22:17 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:22:17 +0700\"\n        },\n        {\n            \"id\": 29,\n            \"name\": \"Bedfordshire Concrete Walks Avon Philippine\",\n            \"content\": \"Use the digital EXE monitor, then you can parse the haptic feed!, You can't synthesize the card without synthesizing the online XSS firewall!, Use the solid state COM feed, then you can input the cross-platform pixel!, We need to input the redundant SQL firewall!, The RAM transmitter is down, hack the multi-byte monitor so we can calculate the FTP panel!\",\n            \"forumId\": 23,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 17:50:40 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 17:50:40 +0700\"\n        },\n        {\n            \"id\": 28,\n            \"name\": \"Executive Virgin quantify Dinar Handcrafted\",\n            \"content\": \"You can't connect the sensor without parsing the mobile FTP interface!, We need to parse the redundant USB protocol!, We need to parse the multi-byte THX firewall!, The PCI alarm is down, override the bluetooth sensor so we can navigate the PNG driver!, If we calculate the alarm, we can get to the EXE pixel through the neural SCSI card!\",\n            \"forumId\": 23,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 17:50:39 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 17:50:39 +0700\"\n        },\n        {\n            \"id\": 27,\n            \"name\": \"Quality Fish Kip SMTP\",\n            \"content\": \"Use the neural AI card, then you can navigate the redundant capacitor!, If we navigate the firewall, we can get to the XML port through the online HTTP pixel!, We need to hack the haptic EXE bandwidth!, If we connect the alarm, we can get to the FTP feed through the optical TCP hard drive!, If we bypass the alarm, we can get to the AI capacitor through the 1080p CSS microchip!\",\n            \"forumId\": 23,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 17:50:38 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 17:50:38 +0700\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Metal Ergonomic cross-platform Multi-layered invoice\",\n            \"content\": \"The SAS card is down, copy the wireless feed so we can input the CSS pixel!, We need to parse the primary SDD microchip!, The PCI port is down, override the wireless feed so we can generate the FTP array!, The THX circuit is down, index the primary alarm so we can input the JBOD sensor!, I'll navigate the multi-byte SQL firewall, that should matrix the RAM program!\",\n            \"forumId\": 22,\n            \"createdBy\": \"moderator1\",\n            \"createdDate\": \"2022-07-15 23:14:10 +0700\",\n            \"lastModifiedBy\": \"moderator1\",\n            \"lastModifiedDate\": \"2022-07-15 23:14:10 +0700\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Practical redefine\",\n            \"content\": \"I'll input the solid state RSS sensor, that should hard drive the SMTP matrix!, transmitting the bandwidth won't do anything, we need to back up the virtual RAM program!, Use the bluetooth HTTP interface, then you can synthesize the digital bus!, If we compress the interface, we can get to the RAM driver through the virtual USB circuit!, Use the cross-platform SMTP port, then you can transmit the redundant sensor!\",\n            \"forumId\": 22,\n            \"createdBy\": \"moderator1\",\n            \"createdDate\": \"2022-07-15 23:14:09 +0700\",\n            \"lastModifiedBy\": \"moderator1\",\n            \"lastModifiedDate\": \"2022-07-15 23:14:09 +0700\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"withdrawal bypassing Metal Peso\",\n            \"content\": \"You can't back up the interface without compressing the open-source SAS panel!, calculating the circuit won't do anything, we need to parse the haptic JBOD microchip!, We need to transmit the online SMS transmitter!, I'll synthesize the optical IB hard drive, that should protocol the XML firewall!, The THX panel is down, input the solid state system so we can index the SDD alarm!\",\n            \"forumId\": 22,\n            \"createdBy\": \"moderator1\",\n            \"createdDate\": \"2022-07-15 23:14:09 +0700\",\n            \"lastModifiedBy\": \"moderator1\",\n            \"lastModifiedDate\": \"2022-07-15 23:14:09 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageSize\": 10,\n        \"pageNumber\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 33,\n    \"totalPages\": 4,\n    \"last\": false,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
 						}
 					]
 				},
@@ -6916,13 +7419,13 @@
 			"name": "05.01_/comment POST",
 			"item": [
 				{
-					"name": "200",
+					"name": "create comment",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 26);"
+									"pm.environment.set(\"postId\", 33);"
 								],
 								"type": "text/javascript"
 							}
@@ -7318,7 +7821,7 @@
 			"name": "05.02_/comment GET",
 			"item": [
 				{
-					"name": "200",
+					"name": "get comment default",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -7422,6 +7925,85 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"content\": [\n        {\n            \"id\": 21,\n            \"content\": \"I'll compress the primary FTP driver, that should bus the COM interface!, You can't connect the monitor without hacking the auxiliary SCSI firewall!, Try to compress the SMTP transmitter, maybe it will bypass the wireless bandwidth!, If we bypass the sensor, we can get to the SCSI sensor through the bluetooth HDD system!, You can't parse the application without parsing the haptic SSL program!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:11 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:11 +0700\"\n        },\n        {\n            \"id\": 20,\n            \"content\": \"I'll reboot the virtual USB hard drive, that should bus the SAS array!, Try to reboot the SMS array, maybe it will override the online feed!, Use the bluetooth XML pixel, then you can reboot the optical sensor!, I'll synthesize the wireless FTP feed, that should matrix the JBOD interface!, The JSON transmitter is down, connect the digital port so we can back up the SSL feed!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:11 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:11 +0700\"\n        },\n        {\n            \"id\": 19,\n            \"content\": \"synthesizing the microchip won't do anything, we need to compress the neural AGP matrix!, We need to transmit the digital SMS bus!, If we input the bandwidth, we can get to the RAM array through the mobile SCSI monitor!, The SMTP bus is down, calculate the auxiliary circuit so we can calculate the SMS port!, Try to reboot the TCP firewall, maybe it will back up the primary array!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:10 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:10 +0700\"\n        },\n        {\n            \"id\": 18,\n            \"content\": \"I'll generate the neural XSS bus, that should system the RSS feed!, We need to program the mobile JSON port!, You can't transmit the array without programming the haptic HTTP alarm!, We need to copy the redundant JSON microchip!, I'll calculate the wireless SDD panel, that should card the COM firewall!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:10 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:10 +0700\"\n        },\n        {\n            \"id\": 17,\n            \"content\": \"quantifying the hard drive won't do anything, we need to transmit the solid state XSS driver!, Try to input the SDD application, maybe it will program the redundant monitor!, I'll quantify the digital HDD card, that should microchip the PNG port!, programming the monitor won't do anything, we need to quantify the virtual XSS circuit!, indexing the firewall won't do anything, we need to parse the digital SSL port!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:09 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:09 +0700\"\n        },\n        {\n            \"id\": 16,\n            \"content\": \"I'll calculate the primary AGP transmitter, that should microchip the THX bandwidth!, The SMTP pixel is down, connect the cross-platform monitor so we can hack the JBOD feed!, calculating the protocol won't do anything, we need to generate the haptic IB pixel!, I'll parse the solid state EXE driver, that should sensor the RSS feed!, We need to program the cross-platform ADP bus!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:09 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:09 +0700\"\n        },\n        {\n            \"id\": 15,\n            \"content\": \"You can't index the driver without overriding the primary SMS program!, You can't calculate the feed without compressing the back-end THX card!, We need to reboot the digital AI firewall!, backing up the firewall won't do anything, we need to generate the virtual RAM matrix!, connecting the system won't do anything, we need to calculate the digital AI transmitter!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:08 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:08 +0700\"\n        },\n        {\n            \"id\": 14,\n            \"content\": \"Use the primary EXE port, then you can parse the back-end feed!, connecting the interface won't do anything, we need to bypass the back-end CSS system!, You can't generate the system without hacking the back-end JSON hard drive!, Try to calculate the COM program, maybe it will parse the neural alarm!, The HDD system is down, quantify the bluetooth firewall so we can override the USB system!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:08 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:08 +0700\"\n        },\n        {\n            \"id\": 13,\n            \"content\": \"We need to calculate the solid state FTP card!, I'll connect the digital TCP matrix, that should hard drive the XSS system!, If we index the pixel, we can get to the COM capacitor through the cross-platform AGP transmitter!, We need to quantify the optical GB bandwidth!, Use the open-source HTTP port, then you can parse the wireless transmitter!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:07 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:07 +0700\"\n        },\n        {\n            \"id\": 12,\n            \"content\": \"You can't connect the system without navigating the online XML monitor!, Try to compress the THX hard drive, maybe it will navigate the cross-platform feed!, We need to index the multi-byte SQL transmitter!, overriding the bus won't do anything, we need to parse the back-end XML hard drive!, We need to hack the online XML transmitter!\",\n            \"postId\": 17,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:57:07 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:57:07 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 21,\n    \"last\": false,\n    \"totalPages\": 3,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+						},
+						{
+							"name": "200 2",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 21 Jul 2022 15:24:20 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": [\n        {\n            \"id\": 30,\n            \"content\": \"quantifying the pixel won't do anything, we need to program the auxiliary PNG bandwidth!, You can't connect the port without backing up the haptic HTTP microchip!, calculating the feed won't do anything, we need to override the redundant HDD pixel!, Try to back up the TCP microchip, maybe it will synthesize the wireless hard drive!, We need to parse the primary JBOD circuit!\",\n            \"postId\": 33,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:23:05 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:23:05 +0700\"\n        },\n        {\n            \"id\": 29,\n            \"content\": \"I'll back up the 1080p SQL matrix, that should microchip the THX protocol!, Use the 1080p SQL pixel, then you can calculate the virtual feed!, copying the feed won't do anything, we need to parse the 1080p TCP capacitor!, The PNG array is down, back up the optical panel so we can quantify the JSON pixel!, If we quantify the bus, we can get to the RAM sensor through the open-source TCP pixel!\",\n            \"postId\": 33,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:23:04 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:23:04 +0700\"\n        },\n        {\n            \"id\": 28,\n            \"content\": \"Use the online CSS program, then you can parse the cross-platform panel!, navigating the application won't do anything, we need to index the virtual IB port!, Try to transmit the XML alarm, maybe it will navigate the cross-platform microchip!, Use the open-source CSS program, then you can input the open-source monitor!, You can't program the bandwidth without programming the virtual FTP monitor!\",\n            \"postId\": 33,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:23:03 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:23:03 +0700\"\n        },\n        {\n            \"id\": 27,\n            \"content\": \"calculating the program won't do anything, we need to copy the digital HDD circuit!, You can't override the card without indexing the solid state ADP card!, Use the multi-byte COM card, then you can compress the online card!, copying the capacitor won't do anything, we need to program the virtual GB firewall!, The SQL alarm is down, hack the virtual panel so we can input the AI protocol!\",\n            \"postId\": 33,\n            \"createdBy\": \"admin1\",\n            \"createdDate\": \"2022-07-21 22:23:02 +0700\",\n            \"lastModifiedBy\": \"admin1\",\n            \"lastModifiedDate\": \"2022-07-21 22:23:02 +0700\"\n        },\n        {\n            \"id\": 26,\n            \"content\": \"Use the neural TCP circuit, then you can index the back-end firewall!, If we bypass the array, we can get to the AGP program through the cross-platform EXE firewall!, transmitting the bandwidth won't do anything, we need to calculate the cross-platform SSL driver!, If we compress the card, we can get to the SMS system through the mobile USB driver!, You can't bypass the matrix without compressing the optical SCSI monitor!\",\n            \"postId\": 26,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-15 23:16:36 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-15 23:16:36 +0700\"\n        },\n        {\n            \"id\": 25,\n            \"content\": \"You can't parse the bandwidth without programming the multi-byte ADP panel!, You can't copy the bandwidth without compressing the digital HDD circuit!, If we back up the firewall, we can get to the JBOD pixel through the neural PCI bus!, I'll navigate the optical SAS firewall, that should feed the SCSI panel!, You can't synthesize the capacitor without indexing the digital SMS transmitter!\",\n            \"postId\": 26,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-15 23:16:35 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-15 23:16:35 +0700\"\n        },\n        {\n            \"id\": 24,\n            \"content\": \"You can't quantify the monitor without generating the 1080p SMTP protocol!, The JSON matrix is down, connect the neural card so we can copy the SAS panel!, Try to bypass the JSON sensor, maybe it will quantify the mobile hard drive!, You can't compress the application without backing up the wireless CSS card!, If we override the driver, we can get to the EXE bandwidth through the primary RAM interface!\",\n            \"postId\": 26,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-15 23:16:34 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-15 23:16:34 +0700\"\n        },\n        {\n            \"id\": 23,\n            \"content\": \"quantifying the system won't do anything, we need to parse the primary RAM feed!, We need to hack the auxiliary AI firewall!, If we compress the capacitor, we can get to the XSS pixel through the solid state ADP monitor!, If we transmit the bandwidth, we can get to the RAM hard drive through the neural PCI feed!, synthesizing the driver won't do anything, we need to reboot the redundant TCP microchip!\",\n            \"postId\": 26,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-15 23:16:34 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-15 23:16:34 +0700\"\n        },\n        {\n            \"id\": 22,\n            \"content\": \"Try to reboot the PCI hard drive, maybe it will navigate the multi-byte sensor!, You can't parse the hard drive without quantifying the digital XML program!, Try to connect the PCI bus, maybe it will quantify the bluetooth circuit!, We need to index the cross-platform PNG matrix!, I'll calculate the 1080p CSS feed, that should bandwidth the SMTP program!\",\n            \"postId\": 26,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-15 23:16:33 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-15 23:16:33 +0700\"\n        },\n        {\n            \"id\": 21,\n            \"content\": \"indexing the hard drive won't do anything, we need to navigate the haptic THX capacitor!, If we reboot the driver, we can get to the ADP panel through the auxiliary XSS feed!, Try to back up the SCSI card, maybe it will hack the primary array!, I'll quantify the primary THX microchip, that should capacitor the SQL circuit!, Use the redundant TCP panel, then you can reboot the solid state card!\",\n            \"postId\": 26,\n            \"createdBy\": \"javadev311\",\n            \"createdDate\": \"2022-07-15 23:16:32 +0700\",\n            \"lastModifiedBy\": \"javadev311\",\n            \"lastModifiedDate\": \"2022-07-15 23:16:32 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageSize\": 10,\n        \"pageNumber\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 30,\n    \"totalPages\": 3,\n    \"last\": false,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
 						}
 					]
 				},
@@ -10036,6 +10618,95 @@
 							"body": "{\n    \"title\": \"UPDATE ROLE SUCCESS\",\n    \"message\": \"You have updated role ROLE_USER to user javadev311 successfully\"\n}"
 						},
 						{
+							"name": "200_ROLE_ROOT_ADMIN_update account ROLE_ADMIN",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 15 Jul 2022 16:36:12 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"UPDATE ROLE SUCCESS\",\n    \"message\": \"You have updated role ROLE_USER to user javadev311 successfully\"\n}"
+						},
+						{
 							"name": "400",
 							"originalRequest": {
 								"method": "PUT",
@@ -10119,6 +10790,95 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"timestamp\": \"2022-07-15 23:48:25 +0700\",\n    \"status\": 400,\n    \"operationId\": \"878fcb3671ebd794\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"This user has already had this role\",\n    \"path\": \"/account/updateRole\"\n}"
+						},
+						{
+							"name": "403 _update role to admin account",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/account/updateRole",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"account",
+										"updateRole"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 16 Jul 2022 05:05:22 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-16 12:05:22 +0700\",\n    \"status\": 403,\n    \"operationId\": \"2ba208df8ff5013a\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"You don't have permission to set role to this user\",\n    \"path\": \"/account/updateRole\"\n}"
 						}
 					]
 				},
@@ -10259,36 +11019,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"timestamp\": \"2022-07-15 23:51:10 +0700\",\n    \"status\": 403,\n    \"operationId\": \"35e74c892c17df7c\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"You don't have permission to set this role\",\n    \"path\": \"/account/updateRole\"\n}"
-						},
-						{
-							"name": "200_ROLE_ROOT_ADMIN",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"{{usernameUpdate}}\",\r\n    \"role\": \"{{roleUpdate}}\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{domain}}/account/updateRole",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"account",
-										"updateRole"
-									]
-								}
-							},
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": null
 						},
 						{
 							"name": "400",
