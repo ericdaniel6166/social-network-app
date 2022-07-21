@@ -14,7 +14,7 @@ import javax.validation.Valid;
 @Api(value = "AccountAPI", tags = "Account API")
 public interface AccountApi {
 
-    @ApiOperation(value = "Update role admin")
+    @ApiOperation(value = "Update role")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Sign up successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),

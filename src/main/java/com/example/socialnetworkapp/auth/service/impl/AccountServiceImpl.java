@@ -36,6 +36,7 @@ public class AccountServiceImpl implements AccountService {
 
     /**
      * user can't set role to himself
+     * user can't set role to account which has already had that role (ex: error set ROLE_MODERATOR to account has ROLE_MODERATOR)
      * ROLE_ROOT_ADMIN can:
      * . set any roles to any accounts
      * ROLE_ADMIN can:

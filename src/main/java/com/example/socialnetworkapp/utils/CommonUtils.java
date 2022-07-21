@@ -62,7 +62,7 @@ public final class CommonUtils {
     }
 
     /***
-     * ROLE_MODERATOR can search inactive/delete resource (isActive = false)
+     * ROLE_MODERATOR can search inactive resource (isActive = false)
      * By default, all search queries are added isActive = True
      *
      * @param search

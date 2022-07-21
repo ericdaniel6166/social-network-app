@@ -1,4 +1,4 @@
-##### [Back to index](/README.md)
+##### [Back to README](/README.md)
 
 ##### Getting started
 

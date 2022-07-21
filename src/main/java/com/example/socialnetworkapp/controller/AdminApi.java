@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 @Api(value = "AdminAPI", tags = "Admin API")
 public interface AdminApi {
 
-    @ApiOperation(value = "Find all master message")
+    @ApiOperation(value = "Get all master message")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Find all master message successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
@@ -19,7 +19,7 @@ public interface AdminApi {
     })
     ResponseEntity<?> findAllMasterMessage() throws SocialNetworkAppException;
 
-    @ApiOperation(value = "Find all master error message")
+    @ApiOperation(value = "Get all master error message")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Find all master error message successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
