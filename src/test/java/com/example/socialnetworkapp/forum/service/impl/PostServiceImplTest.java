@@ -150,11 +150,15 @@ class PostServiceImplTest extends AbstractServiceTest {
         Long id = post.getId();
         List<AppComment> commentList = Collections.singletonList(ForumTestUtils.buildAppComment());
         post.setCommentList(commentList);
-        AppComment appComment = ForumTestUtils.buildAppComment();
-        appComment.setIsActive(false);
-        List<AppComment> commentListReturn = Collections.singletonList(appComment);
-        Mockito.when(commentService.setIsActiveList(commentList, false)).thenReturn(commentListReturn);
+        AppComment appCommentReturn = ForumTestUtils.buildAppComment();
+        appCommentReturn.setIsActive(false);
+        Post postReturn = ForumTestUtils.buildPost();
+        postReturn.setIsActive(false);
+        List<AppComment> commentListReturn = Collections.singletonList(appCommentReturn);
+        postReturn.setCommentList(commentList);
         Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(post));
+        Mockito.when(commentService.setIsActiveList(commentList, false)).thenReturn(commentListReturn);
+        Mockito.when(postRepository.saveAndFlush(postReturn)).thenReturn(postReturn);
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.DELETE_SUCCESS);
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS)).thenReturn(masterMessage);
         String title = CommonUtils.formatString(
@@ -174,8 +178,6 @@ class PostServiceImplTest extends AbstractServiceTest {
 
     }
 
-
-
     @Test
     void whenFindById_givenNotEmptyPost_thenReturnForum() throws SocialNetworkAppException {
         Post expected = ForumTestUtils.buildPost();
@@ -183,6 +185,21 @@ class PostServiceImplTest extends AbstractServiceTest {
         Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(expected));
 
         Post actual = postService.findById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenSetIsActiveList_thenReturnPostList() {
+        Post post = ForumTestUtils.buildPost();
+        List<Post> input = Collections.singletonList(post);
+        Post postReturn = ForumTestUtils.buildPost();
+        postReturn.setIsActive(false);
+        List<Post> expected = Collections.singletonList(postReturn);
+        Mockito.when(postRepository.saveAllAndFlush(expected)).thenReturn(expected);
+
+        List<Post> actual = postService.setIsActiveList(input, false);
 
         Assertions.assertEquals(expected, actual);
 

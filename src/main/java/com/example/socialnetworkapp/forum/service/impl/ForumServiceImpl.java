@@ -7,8 +7,11 @@ import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.model.Forum;
+import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.ForumRepository;
+import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.ForumService;
+import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
@@ -18,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +45,12 @@ public class ForumServiceImpl implements ForumService {
 
     private final MasterMessageService masterMessageService;
 
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private PostService postService;
+
     @Override
     public Forum saveAndFlush(Forum forum) {
         return forumRepository.saveAndFlush(forum);
@@ -56,6 +66,35 @@ public class ForumServiceImpl implements ForumService {
         log.debug("Find forum by id, id: {}", id);
         return forumRepository.findByIsActiveTrueAndId(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.FORUM + ", id:" + id));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException {
+        log.debug("Delete forum by id, id: {}", id);
+        Forum forum = this.setIsActive(id, false);
+        List<Post> postList = forum.getPostList();
+        postService.setIsActiveList(postList, false);
+        postList.forEach(post -> commentService.setIsActiveList(post.getCommentList(), false));
+        MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS);
+        SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
+        simpleResponseDTO.setTitle(CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getTitle()),
+                Constants.FORUM.toUpperCase()
+        ));
+        simpleResponseDTO.setMessage(CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getMessage()),
+                Constants.FORUM.toLowerCase(),
+                forum.getName()
+        ));
+        return simpleResponseDTO;
+    }
+
+    @Override
+    public Forum setIsActive(Long id, boolean isActive) throws SocialNetworkAppException {
+        Forum forum = this.findById(id);
+        forum.setIsActive(isActive);
+        return forumRepository.saveAndFlush(forum);
     }
 
     @Override
@@ -79,7 +118,7 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public SimpleResponseDTO create(ForumDTO forumDTO) throws SocialNetworkAppException {
         log.debug("Create forum, forum name: {}", forumDTO.getName());
         Forum forum = modelMapper.map(forumDTO, Forum.class);

@@ -112,6 +112,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(Long id) throws ResourceNotFoundException {
+        this.setIsActive(id, false);
+    }
+
+    @Override
     public AppComment findById(Long id) throws ResourceNotFoundException {
         log.debug("Find comment by id, id: {}", id);
         return commentRepository.findByIsActiveTrueAndId(id).orElseThrow(
@@ -119,13 +125,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void create(CommentDTO commentDTO) throws SocialNetworkAppException {
         AppComment appComment = modelMapper.map(commentDTO, AppComment.class);
         appComment.setAppUser(userService.getCurrentUser());
         appComment.setPost(postService.findById(commentDTO.getPostId()));
         appComment.setIsActive(true);
-        saveAndFlush(appComment);
+        this.saveAndFlush(appComment);
 
     }
 

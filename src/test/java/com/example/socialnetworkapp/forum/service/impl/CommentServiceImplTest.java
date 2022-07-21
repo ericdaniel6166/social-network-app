@@ -61,7 +61,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    void whenSetIsActive_thenSuccess() throws ResourceNotFoundException {
+    void whenDeleteById_thenReturnSuccess() throws ResourceNotFoundException {
         AppComment input = ForumTestUtils.buildAppComment();
         AppComment expected = ForumTestUtils.buildAppComment();
         expected.setIsActive(false);
@@ -69,9 +69,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
         Mockito.when(commentRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(input));
         Mockito.when(commentRepository.saveAndFlush(expected)).thenReturn(expected);
 
-        AppComment actual = commentService.setIsActive(id, false);
-
-        Assertions.assertEquals(expected, actual);
+        commentService.deleteById(id);
     }
 
     @Test

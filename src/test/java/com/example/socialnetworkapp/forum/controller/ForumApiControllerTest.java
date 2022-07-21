@@ -58,6 +58,25 @@ public class ForumApiControllerTest extends AbstractApiTest {
     }
 
     @Test
+    void whenDeleteById_thenReturnOK() throws Exception{
+        Long id = RandomUtils.nextLong();
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        Mockito.when(forumService.deleteById(id)).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .delete(URL_TEMPLATE + "/" + id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+    }
+
+
+    @Test
     void whenGetAll_thenReturnOK() throws Exception {
         Integer page = Integer.parseInt(Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT);
         Integer size = Integer.parseInt(Constants.PAGE_REQUEST_SIZE_DEFAULT);

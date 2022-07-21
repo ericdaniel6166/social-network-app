@@ -14,8 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -42,4 +44,7 @@ public class Forum extends Auditable<String> implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_user_id", referencedColumnName = "id")
     private AppUser appUser;
+
+    @OneToMany(mappedBy = "forum")
+    private List<Post> postList;
 }

@@ -46,19 +46,20 @@ public class PostServiceImpl implements PostService {
 
     private final UserService userService;
 
-    private final ForumService forumService;
+    @Autowired
+    private ForumService forumService;
 
     private final MasterMessageService masterMessageService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public SimpleResponseDTO create(PostDTO postDTO) throws SocialNetworkAppException {
         log.debug("Create post, post name: {}", postDTO.getName());
         Post post = modelMapper.map(postDTO, Post.class);
         post.setAppUser(userService.getCurrentUser());
         post.setForum(forumService.findById(postDTO.getForumId()));
         post.setIsActive(true);
-        saveAndFlush(post);
+        this.saveAndFlush(post);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         simpleResponseDTO.setTitle(CommonUtils.formatString(
@@ -74,13 +75,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException {
         log.debug("Delete post by id, id: {}", id);
-        Post post = this.findById(id);
+        Post post = this.setIsActive(id, false);
         List<AppComment> commentList = post.getCommentList();
         commentService.setIsActiveList(commentList, false);
-        post.setIsActive(false);
-        this.saveAndFlush(post);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS);
         SimpleResponseDTO simpleResponseDTO = new SimpleResponseDTO();
         simpleResponseDTO.setTitle(CommonUtils.formatString(
@@ -93,6 +93,25 @@ public class PostServiceImpl implements PostService {
                 post.getName()
         ));
         return simpleResponseDTO;
+    }
+
+    @Override
+    public Post setIsActive(Long id, boolean isActive) throws SocialNetworkAppException {
+        Post post = this.findById(id);
+        post.setIsActive(isActive);
+        return this.saveAndFlush(post);
+
+    }
+
+    @Override
+    public List<Post> setIsActiveList(List<Post> postList, boolean isActive) {
+        postList.forEach(appComment -> appComment.setIsActive(isActive));
+        return this.saveAllAndFlush(postList);
+    }
+
+    @Override
+    public List<Post> saveAllAndFlush(List<Post> postList) {
+        return postRepository.saveAllAndFlush(postList);
     }
 
     @Override

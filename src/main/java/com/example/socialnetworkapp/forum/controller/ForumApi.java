@@ -46,6 +46,17 @@ public interface ForumApi {
     })
     ResponseEntity<?> getById(Long id) throws SocialNetworkAppException;
 
+    @ApiOperation(value = "Delete forum by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Delete forum by id successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
+    })
+    ResponseEntity<?> deleteById(Long id) throws SocialNetworkAppException;
+
+
+
 
 
 

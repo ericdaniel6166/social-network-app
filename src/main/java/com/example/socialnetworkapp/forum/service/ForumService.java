@@ -21,4 +21,8 @@ public interface ForumService {
     Forum findById(Long id) throws ResourceNotFoundException;
 
     ForumDTO getById(Long id) throws ResourceNotFoundException;
+
+    SimpleResponseDTO deleteById(Long id) throws SocialNetworkAppException;
+
+    Forum setIsActive(Long id, boolean isActive) throws SocialNetworkAppException;
 }

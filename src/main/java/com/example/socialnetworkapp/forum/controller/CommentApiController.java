@@ -67,7 +67,7 @@ public class CommentApiController implements CommentApi {
     @DeleteMapping("/{id}")
     @PreAuthorize("@customPermissionEvaluator.isMatchedCommentCreatedBy(#id) or hasAuthority('SCOPE_ROLE_MODERATOR')")
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
-        commentService.setIsActive(id, false);
+        commentService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -30,4 +30,6 @@ public interface CommentService {
     List<AppComment> setIsActiveList(List<AppComment> commentList, boolean isActive);
 
     AppComment setIsActive(Long id, boolean isActive) throws ResourceNotFoundException;
+
+    void deleteById(Long id) throws ResourceNotFoundException;
 }

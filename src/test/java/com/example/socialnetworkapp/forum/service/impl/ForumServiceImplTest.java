@@ -12,8 +12,12 @@ import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.ForumTestUtils;
 import com.example.socialnetworkapp.forum.dto.ForumDTO;
+import com.example.socialnetworkapp.forum.model.AppComment;
 import com.example.socialnetworkapp.forum.model.Forum;
+import com.example.socialnetworkapp.forum.model.Post;
 import com.example.socialnetworkapp.forum.repository.ForumRepository;
+import com.example.socialnetworkapp.forum.service.CommentService;
+import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
@@ -33,6 +37,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.Collections;
 import java.util.Optional;
 
 class ForumServiceImplTest extends AbstractServiceTest {
@@ -52,6 +57,11 @@ class ForumServiceImplTest extends AbstractServiceTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private CommentService commentService;
+
+    @Mock
+    private PostService postService;
 
     @BeforeEach
     void setUp() {
@@ -80,6 +90,49 @@ class ForumServiceImplTest extends AbstractServiceTest {
 
         Assertions.assertTrue(actual);
     }
+
+    @Test
+    void whenDeleteById_thenReturnSimpleResponseDTO() throws SocialNetworkAppException {
+        AppComment appComment = ForumTestUtils.buildAppComment();
+        Post post = ForumTestUtils.buildPost();
+        post.setCommentList(Collections.singletonList(appComment));
+        Forum forum = ForumTestUtils.buildForum();
+        forum.setPostList(Collections.singletonList(post));
+        Long id = forum.getId();
+
+        AppComment appCommentReturn = ForumTestUtils.buildAppComment();
+        appCommentReturn.setIsActive(false);
+        Post postReturn = ForumTestUtils.buildPost();
+        postReturn.setIsActive(false);
+        postReturn.setCommentList(Collections.singletonList(appComment));
+        Forum forumReturn = ForumTestUtils.buildForum();
+        forumReturn.setIsActive(false);
+        forumReturn.setPostList(Collections.singletonList(post));
+
+        Mockito.when(forumRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(forum));
+        Mockito.when(forumRepository.saveAndFlush(forumReturn)).thenReturn(forumReturn);
+        Mockito.when(postService.setIsActiveList(forumReturn.getPostList(), false)).thenReturn(Collections.singletonList(postReturn));
+        Mockito.when(commentService.setIsActiveList(postReturn.getCommentList(), false)).thenReturn(Collections.singletonList(appCommentReturn));
+        MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.DELETE_SUCCESS);
+        Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.DELETE_SUCCESS)).thenReturn(masterMessage);
+        String title = CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getTitle()),
+                Constants.FORUM.toUpperCase()
+        );
+        String message = CommonUtils.formatString(
+                StringEscapeUtils.unescapeJava(masterMessage.getMessage()),
+                Constants.FORUM.toLowerCase(),
+                post.getName()
+        );
+        SimpleResponseDTO expected = new SimpleResponseDTO(title, message);
+
+        SimpleResponseDTO actual = forumService.deleteById(id);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+
 
 
 
