@@ -30,7 +30,9 @@
     - Comment API
         - GET /comment/**:
             - permit all
-        - POST, PUT, DELETE /comment/**:
+        - POST /comment/**:
+            - has authority ROLE_USER at least
+        - PUT, DELETE /comment/**:
             - has authority ROLE_USER and username match with comment created by, OR has authority ROLE_MODERATOR at least
         - GET /comment: Get all comment
         - POST /comment: Create comment
@@ -42,7 +44,9 @@
     - Post API
         - GET /post/**:
             - permit all
-        - POST, PUT, DELETE /post/**:
+        - POST /post/**:
+            - has authority ROLE_USER at least
+        - PUT, DELETE /post/**:
             - has authority ROLE_USER and username match with post created by, OR has authority ROLE_MODERATOR at least
         - GET /post: Get all post
         - POST /post: Create post
