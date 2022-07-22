@@ -16,6 +16,7 @@
             - user can't set role to account has already had that role
             - ROLE_ROOT_ADMIN can set role to any account except himself
             - ROLE_ADMIN can set role less or equal ROLE_MODERATOR to less or equal ROLE_MODERATOR account
+        - POST /account/profile/{username}: Create or update user profile
     - Admin API
         - /admin/**
             - has authority ROLE_ADMIN at least
