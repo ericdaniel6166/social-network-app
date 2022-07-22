@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public AppUser getCurrentUser() throws ResourceNotFoundException {
-        return findByUsername(CommonUtils.getCurrentUsername());
+        return this.findByUsername(CommonUtils.getCurrentUsername());
 
     }
 }

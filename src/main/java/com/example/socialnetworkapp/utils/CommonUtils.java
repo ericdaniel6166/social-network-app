@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.utils;
 
-import com.example.socialnetworkapp.auth.enums.ErrorMessageEnum;
+import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.configuration.rsql.CustomRSQLOperators;
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;

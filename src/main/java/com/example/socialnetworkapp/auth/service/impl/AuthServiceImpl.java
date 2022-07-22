@@ -106,7 +106,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException {
+    public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) {
         log.debug("Sign in, username: {}", signInRequestDTO.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword()));
@@ -119,7 +119,7 @@ public class AuthServiceImpl implements AuthService {
                 refreshTokenService.generateRefreshToken().getToken(), expiresAt);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public SimpleResponseDTO signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException {
         log.debug("Sign up, username: {}", signUpRequestDTO.getUsername());

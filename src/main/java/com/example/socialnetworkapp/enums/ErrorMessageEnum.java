@@ -1,4 +1,4 @@
-package com.example.socialnetworkapp.auth.enums;
+package com.example.socialnetworkapp.enums;
 
 public enum ErrorMessageEnum {
     ERROR_MESSAGE_SET_ROLE_YOURSELF("You can't set role to yourself"),

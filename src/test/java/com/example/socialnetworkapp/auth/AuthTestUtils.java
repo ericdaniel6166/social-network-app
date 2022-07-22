@@ -3,18 +3,23 @@ package com.example.socialnetworkapp.auth;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
-import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
+import com.example.socialnetworkapp.auth.model.UserProfileInfo;
 import com.example.socialnetworkapp.auth.model.VerificationToken;
 import com.example.socialnetworkapp.utils.Constants;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +47,6 @@ public class AuthTestUtils {
     public static final String SIGN_UP_SUCCESS_MESSAGE = "Hi %s, we've sent an email to %s. Please click on the link given in email to verify your account.\nThe link in the email will expire in 24 hours.";
 
     public static final String SIGN_UP_SUCCESS_TITLE = "VERIFICATION LINK SENT";
-
 
     public static SignUpRequestDTO buildSignUpRequestDTO() {
         SignUpRequestDTO signUpRequestDTO = new SignUpRequestDTO();
@@ -111,11 +115,11 @@ public class AuthTestUtils {
     }
 
 
-    public static UserRoleUpdateDTO buildUserDTO(RoleEnum roleEnum) {
-        UserRoleUpdateDTO userRoleUpdateDTO = new UserRoleUpdateDTO();
-        userRoleUpdateDTO.setUsername(USERNAME);
-        userRoleUpdateDTO.setRole(roleEnum);
-        return userRoleUpdateDTO;
+    public static UserRoleUpdateRequestDTO buildUserRoleUpdateRequestDTO(RoleEnum roleEnum) {
+        UserRoleUpdateRequestDTO userRoleUpdateRequestDTO = new UserRoleUpdateRequestDTO();
+        userRoleUpdateRequestDTO.setUsername(USERNAME);
+        userRoleUpdateRequestDTO.setRole(roleEnum);
+        return userRoleUpdateRequestDTO;
     }
 
     public static Map<String, Object> buildClaims(String... roleEnumNames) {
@@ -123,5 +127,21 @@ public class AuthTestUtils {
         claims.put(Constants.SCOPE, Arrays.asList(roleEnumNames));
         return claims;
 
+    }
+
+    public static UserProfileInfoRequestDTO buildUserProfileInfoRequestDTO() {
+        UserProfileInfoRequestDTO userProfileInfoRequestDTO = new UserProfileInfoRequestDTO();
+        userProfileInfoRequestDTO.setAddress(RandomStringUtils.randomAlphanumeric(10));
+        userProfileInfoRequestDTO.setBirthday(Date.from(Instant.now()));
+        userProfileInfoRequestDTO.setFullName(RandomStringUtils.randomAlphanumeric(10));
+        return userProfileInfoRequestDTO;
+    }
+
+    public static UserProfileInfo buildUserProfileInfo() {
+        UserProfileInfo userProfileInfo = new UserProfileInfo();
+        userProfileInfo.setAddress(RandomStringUtils.randomAlphanumeric(10));
+        userProfileInfo.setBirthday(Date.from(Instant.now()));
+        userProfileInfo.setFullName(RandomStringUtils.randomAlphanumeric(10));
+        return userProfileInfo;
     }
 }

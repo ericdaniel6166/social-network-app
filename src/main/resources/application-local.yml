@@ -4,7 +4,7 @@ spring:
     allow-circular-references: true
   jackson:
     default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm:ss Z
+    date-format: yyyy-MM-dd HH:mm:ss.SSS Z
     time-zone: Asia/Ho_Chi_Minh
 #    time-zone: Europe/Berlin
 #    time-zone: Singapore

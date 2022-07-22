@@ -15,9 +15,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class UserRoleUpdateDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class UserRoleUpdateRequestDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "Username is required")
     private String username;

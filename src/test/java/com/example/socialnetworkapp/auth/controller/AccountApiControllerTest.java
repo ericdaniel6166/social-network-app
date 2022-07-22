@@ -3,7 +3,8 @@ package com.example.socialnetworkapp.auth.controller;
 import com.example.socialnetworkapp.AbstractApiTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.dto.UserRoleUpdateDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.service.AccountService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -46,14 +47,14 @@ class AccountApiControllerTest extends AbstractApiTest {
     @Test
     void whenUpdateRole_thenReturnSimpleResponseDTO() throws Exception {
         SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
-        UserRoleUpdateDTO userRoleUpdateDTO = AuthTestUtils.buildUserDTO(RoleEnum.ROLE_USER);
-        Mockito.when(accountService.updateRole(userRoleUpdateDTO)).thenReturn(simpleResponseDTO);
+        UserRoleUpdateRequestDTO userRoleUpdateRequestDTO = AuthTestUtils.buildUserRoleUpdateRequestDTO(RoleEnum.ROLE_USER);
+        Mockito.when(accountService.updateRole(userRoleUpdateRequestDTO)).thenReturn(simpleResponseDTO);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .put(URL_TEMPLATE + "/updateRole")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(userRoleUpdateDTO));
+                .content(CommonUtils.writeValueAsString(userRoleUpdateRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -61,7 +62,27 @@ class AccountApiControllerTest extends AbstractApiTest {
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
         Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
+    }
 
+    @Test
+    void whenCreateOrUpdateProfile_thenReturnSimpleResponseDTO() throws Exception {
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        String username = AuthTestUtils.USERNAME;
+        UserProfileInfoRequestDTO userProfileInfoRequestDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
+        Mockito.when(accountService.createOrUpdateProfile(Mockito.anyString(), Mockito.any(UserProfileInfoRequestDTO.class))).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/profile/" + username)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(CommonUtils.writeValueAsString(userProfileInfoRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
+
 }
