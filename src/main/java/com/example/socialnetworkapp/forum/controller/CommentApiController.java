@@ -33,6 +33,13 @@ public class CommentApiController implements CommentApi {
     private final CommentService commentService;
 
     @Override
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody @Valid CommentDTO commentDTO) throws SocialNetworkAppException {
+        commentService.create(commentDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Override
     @GetMapping
     public ResponseEntity<?> getAll(@RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
                                     @RequestParam(name = "size", required = false, defaultValue = Constants.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
@@ -64,15 +71,6 @@ public class CommentApiController implements CommentApi {
     }
 
     @Override
-    @DeleteMapping("/{id}")
-    @PreAuthorize("@customPermissionEvaluator.isMatchedCommentCreatedBy(#id) or hasAuthority('SCOPE_ROLE_MODERATOR')")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
-        commentService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-    @Override
     @GetMapping("/createdBy/{username}")
     public ResponseEntity<?> getByCreatedBy(@PathVariable String username,
                                             @RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
@@ -85,10 +83,13 @@ public class CommentApiController implements CommentApi {
     }
 
     @Override
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid CommentDTO commentDTO) throws SocialNetworkAppException {
-        commentService.create(commentDTO);
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@customPermissionEvaluator.isMatchedCommentCreatedBy(#id) or hasAuthority('SCOPE_ROLE_MODERATOR')")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
+        commentService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
 }

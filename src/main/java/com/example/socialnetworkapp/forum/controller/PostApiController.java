@@ -41,14 +41,6 @@ public class PostApiController implements PostApi {
     }
 
     @Override
-    @DeleteMapping("/{id}")
-    @PreAuthorize("@customPermissionEvaluator.isMatchedPostCreatedBy(#id) or hasAuthority('SCOPE_ROLE_MODERATOR')")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
-        SimpleResponseDTO simpleResponseDTO = postService.deleteById(id);
-        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
-    }
-
-    @Override
     @GetMapping
     public ResponseEntity<?> getAll(@RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
                                     @RequestParam(name = "size", required = false, defaultValue = Constants.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
@@ -89,5 +81,13 @@ public class PostApiController implements PostApi {
         Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
         Page<PostDTO> postDTOPage = postService.getByCreatedBy(username, pageable);
         return CommonUtils.buildPageResponseEntity(postDTOPage);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@customPermissionEvaluator.isMatchedPostCreatedBy(#id) or hasAuthority('SCOPE_ROLE_MODERATOR')")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
+        SimpleResponseDTO simpleResponseDTO = postService.deleteById(id);
+        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
 }

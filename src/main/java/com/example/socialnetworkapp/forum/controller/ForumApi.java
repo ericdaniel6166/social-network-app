@@ -8,6 +8,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Api(value = "ForumAPI", tags = "Forum API")
 public interface ForumApi {
@@ -21,7 +26,7 @@ public interface ForumApi {
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> create(ForumDTO forumDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Get all forum")
     @ApiResponses(value = {
@@ -31,11 +36,11 @@ public interface ForumApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> getAll(Integer page,
-                             Integer size,
-                             Sort.Direction direction,
-                             String[] properties,
-                             String search) throws SocialNetworkAppException;
+    ResponseEntity<?> getAll(@RequestParam Integer page,
+                             @RequestParam Integer size,
+                             @RequestParam Sort.Direction direction,
+                             @RequestParam String[] properties,
+                             @RequestParam String search) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Get forum by id")
     @ApiResponses(value = {
@@ -44,7 +49,7 @@ public interface ForumApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> getById(Long id) throws SocialNetworkAppException;
+    ResponseEntity<?> getById(@PathVariable Long id) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Delete forum by id")
     @ApiResponses(value = {
@@ -53,7 +58,7 @@ public interface ForumApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> deleteById(Long id) throws SocialNetworkAppException;
+    ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException;
 
 
 

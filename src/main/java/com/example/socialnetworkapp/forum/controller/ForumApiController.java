@@ -34,6 +34,14 @@ public class ForumApiController implements ForumApi {
     private final ForumService forumService;
 
     @Override
+    @PostMapping
+    @PreAuthorize("hasAuthority('SCOPE_ROLE_MODERATOR')")
+    public ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
+        SimpleResponseDTO simpleResponseDTO = forumService.create(forumDTO);
+        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
+    }
+
+    @Override
     @GetMapping
     public ResponseEntity<?> getAll(@RequestParam(name = "page", required = false, defaultValue = Constants.PAGE_REQUEST_PAGE_NUMBER_DEFAULT) Integer page,
                                     @RequestParam(name = "size", required = false, defaultValue = Constants.PAGE_REQUEST_SIZE_DEFAULT) Integer size,
@@ -46,11 +54,10 @@ public class ForumApiController implements ForumApi {
     }
 
     @Override
-    @PostMapping
-    @PreAuthorize("hasAuthority('SCOPE_ROLE_MODERATOR')")
-    public ResponseEntity<?> create(@RequestBody @Valid ForumDTO forumDTO) throws SocialNetworkAppException {
-        SimpleResponseDTO simpleResponseDTO = forumService.create(forumDTO);
-        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable Long id) throws SocialNetworkAppException {
+        ForumDTO forumDTO = forumService.getById(id);
+        return new ResponseEntity<>(forumDTO, HttpStatus.OK);
     }
 
     @Override
@@ -59,13 +66,6 @@ public class ForumApiController implements ForumApi {
     public ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException {
         SimpleResponseDTO simpleResponseDTO = forumService.deleteById(id);
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
-    }
-
-    @Override
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) throws SocialNetworkAppException {
-        ForumDTO forumDTO = forumService.getById(id);
-        return new ResponseEntity<>(forumDTO, HttpStatus.OK);
     }
 
 }

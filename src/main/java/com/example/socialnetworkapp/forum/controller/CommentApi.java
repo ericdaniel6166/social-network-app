@@ -8,6 +8,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 @Api(value = "CommentAPI", tags = "Comment API")
 public interface CommentApi {
@@ -21,7 +26,7 @@ public interface CommentApi {
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> create(CommentDTO commentDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> create(@RequestBody @Valid CommentDTO commentDTO) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Get all comment")
     @ApiResponses(value = {
@@ -31,11 +36,11 @@ public interface CommentApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> getAll(Integer page,
-                             Integer size,
-                             Sort.Direction direction,
-                             String[] properties,
-                             String search) throws SocialNetworkAppException;
+    ResponseEntity<?> getAll(@RequestParam Integer page,
+                             @RequestParam Integer size,
+                             @RequestParam Sort.Direction direction,
+                             @RequestParam String[] properties,
+                             @RequestParam String search) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Get comment by post id")
     @ApiResponses(value = {
@@ -45,11 +50,11 @@ public interface CommentApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> getByPostId(Long id,
-                                  Integer page,
-                                  Integer size,
-                                  Sort.Direction direction,
-                                  String[] properties) throws SocialNetworkAppException;
+    ResponseEntity<?> getByPostId(@PathVariable Long id,
+                                  @RequestParam Integer page,
+                                  @RequestParam Integer size,
+                                  @RequestParam Sort.Direction direction,
+                                  @RequestParam String[] properties) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Get comment by id")
     @ApiResponses(value = {
@@ -58,18 +63,7 @@ public interface CommentApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> getById(Long id) throws SocialNetworkAppException;
-
-    @ApiOperation(value = "Delete comment by id")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Delete comment by id successfully"),
-            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
-            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
-            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
-    })
-    ResponseEntity<?> deleteById(Long id) throws SocialNetworkAppException;
-
-
+    ResponseEntity<?> getById(@PathVariable Long id) throws SocialNetworkAppException;
 
 
     @ApiOperation(value = "Get comment created by username")
@@ -80,11 +74,19 @@ public interface CommentApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> getByCreatedBy(String username,
-                                     Integer page,
-                                     Integer size,
-                                     Sort.Direction direction,
-                                     String[] properties) throws SocialNetworkAppException;
+    ResponseEntity<?> getByCreatedBy(@PathVariable String username,
+                                     @RequestParam Integer page,
+                                     @RequestParam Integer size,
+                                     @RequestParam Sort.Direction direction,
+                                     @RequestParam String[] properties) throws SocialNetworkAppException;
 
+    @ApiOperation(value = "Delete comment by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Delete comment by id successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
+    })
+    ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException;
 
 }

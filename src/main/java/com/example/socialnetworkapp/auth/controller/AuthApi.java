@@ -8,6 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 
 @Api(value = "AuthAPI", tags = "Auth API")
 public interface AuthApi {
@@ -21,7 +25,7 @@ public interface AuthApi {
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> signUp(SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> signUp(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Verify account")
     @ApiResponses(value = {
@@ -30,7 +34,7 @@ public interface AuthApi {
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> verifyAccount(String token) throws SocialNetworkAppException;
+    ResponseEntity<?> verifyAccount(@PathVariable String token) throws SocialNetworkAppException;
 
     @ApiOperation(value = "Sign in")
     @ApiResponses(value = {
