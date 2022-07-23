@@ -11698,7 +11698,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"1892-07-23\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"2009-07-24\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -11815,13 +11815,13 @@
 							"body": "{\n    \"title\": \"Update profile successfully\",\n    \"message\": \"You have successfully updated your profile\"\n}"
 						},
 						{
-							"name": "422_age_13",
+							"name": "422_age maximum 130",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"2009-07-23\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
+									"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"1892-07-22\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11896,7 +11896,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sat, 23 Jul 2022 14:07:36 GMT"
+									"value": "Sat, 23 Jul 2022 14:21:52 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -11908,16 +11908,16 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-23 21:07:36.917 +0700\",\n    \"status\": 422,\n    \"operationId\": \"6da4b1e98b80a82a\",\n    \"error\": \"VALIDATION_ERROR\",\n    \"path\": \"/account/profile/javadev311\",\n    \"errorDetails\": [\n        {\n            \"field\": \"birthday\",\n            \"message\": \"Invalid birthday, age minimum: 13, age maximum: 130\"\n        }\n    ]\n}"
+							"body": "{\n    \"timestamp\": \"2022-07-23 21:21:52.239 +0700\",\n    \"status\": 422,\n    \"operationId\": \"a5fd2f6046c22f4c\",\n    \"error\": \"VALIDATION_ERROR\",\n    \"path\": \"/account/profile/javadev311\",\n    \"errorDetails\": [\n        {\n            \"field\": \"birthday\",\n            \"message\": \"Invalid birthday, age maximum: 130\"\n        }\n    ]\n}"
 						},
 						{
-							"name": "422_age_130",
+							"name": "422_age minimum 13",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"1892-07-23\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
+									"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"2009-07-24\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11992,7 +11992,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Sat, 23 Jul 2022 14:08:26 GMT"
+									"value": "Sat, 23 Jul 2022 14:22:39 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -12004,7 +12004,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-23 21:08:26.452 +0700\",\n    \"status\": 422,\n    \"operationId\": \"74607d72f55ed721\",\n    \"error\": \"VALIDATION_ERROR\",\n    \"path\": \"/account/profile/javadev311\",\n    \"errorDetails\": [\n        {\n            \"field\": \"birthday\",\n            \"message\": \"Invalid birthday, age minimum: 13, age maximum: 130\"\n        }\n    ]\n}"
+							"body": "{\n    \"timestamp\": \"2022-07-23 21:22:39.593 +0700\",\n    \"status\": 422,\n    \"operationId\": \"e459da4c84181307\",\n    \"error\": \"VALIDATION_ERROR\",\n    \"path\": \"/account/profile/javadev311\",\n    \"errorDetails\": [\n        {\n            \"field\": \"birthday\",\n            \"message\": \"Invalid birthday, age minimum: 13\"\n        }\n    ]\n}"
 						}
 					]
 				},
