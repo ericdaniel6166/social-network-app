@@ -15,9 +15,11 @@ import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.enums.MessageEnum;
+import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
+import com.example.socialnetworkapp.utils.Constants;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -32,6 +34,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
+
+import java.util.Optional;
 
 class AccountServiceImplTest extends AbstractServiceTest {
 
@@ -73,14 +77,41 @@ class AccountServiceImplTest extends AbstractServiceTest {
         String username = appUser.getUsername();
         UserProfileInfoDTO userProfileInfoDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
         UserProfileInfo userProfileInfo = AuthTestUtils.buildUserProfileInfo();
-        Mockito.when(userService.findByUsername(username)).thenReturn(appUser);
-        Mockito.when(modelMapper.map(userProfileInfoDTO, UserProfileInfo.class)).thenReturn(userProfileInfo);
+        Mockito.when(userProfileInfoService.findByUsername(username)).thenReturn(Optional.of(userProfileInfo));
         Mockito.when(userProfileInfoService.saveAndFlush(userProfileInfo)).thenReturn(userProfileInfo);
         SimpleResponseDTO expected = new SimpleResponseDTO(MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getTitle(), MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getMessage());
 
         SimpleResponseDTO actual = accountService.createOrUpdateUserProfileInfo(username, userProfileInfoDTO);
 
         Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenGetUserProfileInfoByUsername_thenReturnUserProfileInfoDTO() throws SocialNetworkAppException {
+        String username = AuthTestUtils.USERNAME;
+        UserProfileInfoDTO expected = AuthTestUtils.buildUserProfileInfoRequestDTO();
+        UserProfileInfo userProfileInfo = AuthTestUtils.buildUserProfileInfo();
+        Mockito.when(userProfileInfoService.findByUsername(username)).thenReturn(Optional.of(userProfileInfo));
+        Mockito.when(modelMapper.map(userProfileInfo,UserProfileInfoDTO.class)).thenReturn(expected);
+
+        UserProfileInfoDTO actual = accountService.getUserProfileInfoByUsername(username);
+
+        Assertions.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void whenGetUserProfileInfoByUsername_thenThrowResourceNotFoundException() throws SocialNetworkAppException {
+        String username = AuthTestUtils.USERNAME;
+        Mockito.when(userProfileInfoService.findByUsername(username)).thenReturn(Optional.empty());
+        ResourceNotFoundException expected = new ResourceNotFoundException(Constants.USER_PROFILE_INFO + ", username: " + username);
+
+        try {
+            accountService.getUserProfileInfoByUsername(username);
+        } catch (ResourceNotFoundException e){
+            Assertions.assertEquals(expected, e);
+        }
 
     }
 

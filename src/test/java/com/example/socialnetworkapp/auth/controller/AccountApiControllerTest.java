@@ -69,7 +69,7 @@ class AccountApiControllerTest extends AbstractApiTest {
     }
 
     @Test
-    void whenCreateOrUpdateProfile_thenReturnSimpleResponseDTO() throws Exception {
+    void whenCreateOrUpdateUserProfileInfo_thenReturnSimpleResponseDTO() throws Exception {
         SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
         String username = AuthTestUtils.USERNAME;
         UserProfileInfoDTO userProfileInfoDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
@@ -79,16 +79,35 @@ class AccountApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-//                .content(objectMapper.writeValueAsString(userProfileInfoDTO));
                 .content(objectMapper.writeValueAsString(userProfileInfoDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-//        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
         Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
+
+    @Test
+    void whenGetUserProfileInfoByUsername_thenReturnUserProfileInfoDTO() throws Exception {
+        String username = AuthTestUtils.USERNAME;
+        UserProfileInfoDTO userProfileInfoDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
+        Mockito.when(accountService.getUserProfileInfoByUsername(username)).thenReturn(userProfileInfoDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .get(URL_TEMPLATE + "/profile/" + username)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8);
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(objectMapper.writeValueAsString(userProfileInfoDTO), actual.getResponse().getContentAsString());
+
+    }
+
+
 
 }

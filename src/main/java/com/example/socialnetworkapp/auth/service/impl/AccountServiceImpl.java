@@ -30,6 +30,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -100,12 +102,11 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(rollbackFor = Exception.class)
     public SimpleResponseDTO createOrUpdateUserProfileInfo(String username, UserProfileInfoDTO userProfileInfoDTO) throws ResourceNotFoundException {
         log.info("Create or update profile for username: {}", username);
-        AppUser appUser = userService.findByUsername(username);
-        userProfileInfoService.findByUsername(username).ifPresent(
-                profileInfo -> userProfileInfoDTO.setId(profileInfo.getId())
-        );
-        UserProfileInfo userProfileInfo = modelMapper.map(userProfileInfoDTO, UserProfileInfo.class);
-        userProfileInfo.setAppUser(appUser);
+        AtomicReference<UserProfileInfo> profileInfoAtomicReference = new AtomicReference<>(new UserProfileInfo());
+        userProfileInfoService.findByUsername(username).ifPresent(profileInfoAtomicReference::set);
+        UserProfileInfo userProfileInfo = profileInfoAtomicReference.get();
+        modelMapper.map(userProfileInfoDTO, userProfileInfo);
+        userProfileInfo.setUsername(username);
         userProfileInfoService.saveAndFlush(userProfileInfo);
         return new SimpleResponseDTO(MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getTitle(), MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getMessage());
     }

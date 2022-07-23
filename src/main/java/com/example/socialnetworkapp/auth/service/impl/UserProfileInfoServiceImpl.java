@@ -23,7 +23,7 @@ public class UserProfileInfoServiceImpl implements UserProfileInfoService {
 
     @Override
     public Optional<UserProfileInfo> findByUsername(String username) {
-        return userProfileInfoRepository.findByAppUser_Username(username);
+        return userProfileInfoRepository.findByUsername(username);
     }
 
 }

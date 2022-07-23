@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.Optional;
+
 class UserProfileInfoServiceImplTest extends AbstractServiceTest {
 
     @InjectMocks
@@ -19,7 +21,7 @@ class UserProfileInfoServiceImplTest extends AbstractServiceTest {
     private UserProfileInfoRepository userProfileInfoRepository;
 
     @Test
-    void saveAndFlush() {
+    void whenSaveAndFlush_thenReturnUserProfileInfo() {
         UserProfileInfo expected = AuthTestUtils.buildUserProfileInfo();
         Mockito.when(userProfileInfoRepository.saveAndFlush(expected)).thenReturn(expected);
 
@@ -27,4 +29,17 @@ class UserProfileInfoServiceImplTest extends AbstractServiceTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void whenFindByUsername_thenReturnUserProfileInfoOptional() {
+        String username = AuthTestUtils.USERNAME;
+        Optional<UserProfileInfo> expected = Optional.empty();
+        Mockito.when(userProfileInfoRepository.findByUsername(username)).thenReturn(expected);
+
+        Optional<UserProfileInfo> actual = userProfileInfoService.findByUsername(username);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+
 }

@@ -42,8 +42,7 @@ public class UserProfileInfo extends Auditable<String> implements Serializable {
     @Column
     private String address;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
-    private AppUser appUser;
+    @Column(unique = true)
+    private String username;
 
 }
