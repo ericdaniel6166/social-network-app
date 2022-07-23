@@ -4,9 +4,9 @@
 
 ##### Index
 
-- [Application Overview](/docs/md/application_overview.md)
-
 - [Getting started](/docs/md/getting_started.md)
+
+- [Application Overview](/docs/md/application_overview.md)
 
 - [Framework/Library](/docs/md/framework_library.md)
 
