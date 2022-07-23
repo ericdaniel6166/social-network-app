@@ -151,7 +151,6 @@ class AuthServiceImplTest extends AbstractServiceTest {
                 , signInRequestDTO.getPassword());
         Mockito.when(authenticationManager.authenticate(authentication)).thenReturn(authentication);
         Mockito.when(appConfiguration.getTimeZoneId()).thenReturn(CommonTestUtils.TIME_ZONE_ID);
-        Mockito.when(appConfiguration.getZonedDateTimeFormat()).thenReturn(CommonTestUtils.ZONED_DATE_TIME_FORMAT);
         Mockito.when(jwtConfiguration.getJwtExpirationInMillis()).thenReturn(AuthTestUtils.JWT_EXPIRATION_IN_MILLIS);
         Mockito.when(jwtService.generateToken(authentication)).thenReturn(AuthTestUtils.TOKEN);
         Mockito.when(refreshTokenService.generateRefreshToken()).thenReturn(AuthTestUtils.buildRefreshToken());

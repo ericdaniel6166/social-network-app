@@ -225,7 +225,7 @@ class CommentServiceImplTest extends AbstractServiceTest {
     void whenFindById_givenEmptyAppComment_thenReturnAppComment() {
         Long id = RandomUtils.nextLong();
         Mockito.when(commentRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.empty());
-        ResourceNotFoundException expected = new ResourceNotFoundException(Constants.Comment + ", id:" + id);
+        ResourceNotFoundException expected = new ResourceNotFoundException(Constants.COMMENT + ", id:" + id);
 
         try {
             commentService.findById(id);

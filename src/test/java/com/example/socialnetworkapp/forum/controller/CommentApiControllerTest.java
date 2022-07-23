@@ -7,6 +7,7 @@ import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -45,6 +46,9 @@ public class CommentApiControllerTest extends AbstractApiTest {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
@@ -85,7 +89,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
 
     }
 
@@ -119,7 +123,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
 
     }
 
@@ -141,7 +145,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(commentDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -175,7 +179,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(commentDTOPage), actual.getResponse().getContentAsString());
 
     }
 
@@ -188,7 +192,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(commentDTO));
+                .content(objectMapper.writeValueAsString(commentDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -222,7 +226,7 @@ public class CommentApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(commentDTO));
+                .content(objectMapper.writeValueAsString(commentDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();

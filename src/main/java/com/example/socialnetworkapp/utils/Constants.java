@@ -28,7 +28,9 @@ public final class Constants {
 
     public static final String POST = "Post";
 
-    public static final String Comment = "Comment";
+    public static final String COMMENT = "Comment";
+
+    public static final String USER_PROFILE_INFO = "User Profile Info";
 
     public static final String EMAIL = "Email";
 
@@ -51,4 +53,8 @@ public final class Constants {
     public static final String SCOPE = "scope";
 
     public static final String SELF = "self";
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+
+    public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS Z";
 }

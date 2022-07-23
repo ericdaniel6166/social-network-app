@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -18,4 +20,10 @@ public class UserProfileInfoServiceImpl implements UserProfileInfoService {
     public UserProfileInfo saveAndFlush(UserProfileInfo userProfileInfo) {
         return userProfileInfoRepository.saveAndFlush(userProfileInfo);
     }
+
+    @Override
+    public Optional<UserProfileInfo> findByUsername(String username) {
+        return userProfileInfoRepository.findByAppUser_Username(username);
+    }
+
 }

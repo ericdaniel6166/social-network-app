@@ -2,13 +2,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
-  jackson:
-    default-property-inclusion: non_null
-    date-format: yyyy-MM-dd HH:mm:ss.SSS Z
-    time-zone: Asia/Ho_Chi_Minh
-#    time-zone: Europe/Berlin
-#    time-zone: Singapore
-#    time-zone: America/New_York
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -61,10 +54,6 @@ com.example.socialnetworkapp:
 #  time-zone-id: "Europe/Berlin"
 #  time-zone-id: "Singapore"
 #  time-zone-id: "America/New_York"
-  date-time-format: "yyyy-MM-dd HH:mm:ss"
-  zoned-date-time-format: "yyyy-MM-dd HH:mm:ss Z"
-  date-format: "yyyy-MM-dd"
-  time-format: "HH:mm:ss"
 
 
 server:

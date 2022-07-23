@@ -7,6 +7,7 @@ import com.example.socialnetworkapp.dto.MasterMessageDTO;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,9 @@ public class AdminApiControllerTest extends AbstractApiTest {
     @Autowired
     private MasterErrorMessageService masterErrorMessageService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @BeforeEach
     void setUp() {
     }
@@ -62,7 +66,7 @@ public class AdminApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(masterErrorMessageDTOList), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(masterErrorMessageDTOList), actual.getResponse().getContentAsString());
 
     }
 
@@ -80,7 +84,7 @@ public class AdminApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(masterMessageDTOList), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(masterMessageDTOList), actual.getResponse().getContentAsString());
 
     }
 }

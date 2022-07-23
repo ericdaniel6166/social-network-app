@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.controller;
 
-import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import io.swagger.annotations.Api;
@@ -26,14 +26,24 @@ public interface AccountApi {
     })
     ResponseEntity<?> updateRole(@RequestBody @Valid UserRoleUpdateRequestDTO userRoleUpdateRequestDTO) throws SocialNetworkAppException;
 
-    @ApiOperation(value = "Create or update user profile")
+    @ApiOperation(value = "Create or update user profile info")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Create or update user profile successfully"),
+            @ApiResponse(code = 200, message = "Create or update user profile info successfully"),
             @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
             @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> createOrUpdateProfile(@PathVariable String username, @RequestBody UserProfileInfoRequestDTO userProfileInfoRequestDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> createOrUpdateUserProfileInfo(@PathVariable String username, @RequestBody @Valid UserProfileInfoDTO userProfileInfoDTO) throws SocialNetworkAppException;
+
+    @ApiOperation(value = "Get user profile info by username")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Get user profile info by username successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
+    })
+    ResponseEntity<?> getUserProfileInfoByUsername(@PathVariable String username) throws SocialNetworkAppException;
 
 }

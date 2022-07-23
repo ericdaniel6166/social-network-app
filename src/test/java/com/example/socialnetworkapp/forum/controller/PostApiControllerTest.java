@@ -9,6 +9,7 @@ import com.example.socialnetworkapp.forum.dto.PostDTO;
 import com.example.socialnetworkapp.forum.service.PostService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -48,6 +49,9 @@ class PostApiControllerTest extends AbstractApiTest {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @BeforeEach
     void setUp() {
     }
@@ -66,13 +70,13 @@ class PostApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(postDTO));
+                .content(objectMapper.writeValueAsString(postDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -91,7 +95,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -107,7 +111,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(postDTO));
+                .content(objectMapper.writeValueAsString(postDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -127,7 +131,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(postDTO));
+                .content(objectMapper.writeValueAsString(postDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -166,7 +170,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
 
     }
 
@@ -185,7 +189,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(postDTO), actual.getResponse().getContentAsString());
     }
 
     @Test
@@ -214,7 +218,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
     }
 
     @Test
@@ -243,7 +247,7 @@ class PostApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(postDTOPage), actual.getResponse().getContentAsString());
     }
 
 

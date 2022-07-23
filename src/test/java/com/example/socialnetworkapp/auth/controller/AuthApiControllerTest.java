@@ -9,6 +9,7 @@ import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -41,6 +42,9 @@ public class AuthApiControllerTest extends AbstractApiTest {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @BeforeEach
     void setUp() {
     }
@@ -59,13 +63,13 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+                .content(objectMapper.writeValueAsString(signUpRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -80,7 +84,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+                .content(objectMapper.writeValueAsString(signUpRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -101,7 +105,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+                .content(objectMapper.writeValueAsString(signUpRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -120,7 +124,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+                .content(objectMapper.writeValueAsString(signUpRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -139,7 +143,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signUpRequestDTO));
+                .content(objectMapper.writeValueAsString(signUpRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -164,7 +168,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -178,13 +182,13 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signInRequestDTO));
+                .content(objectMapper.writeValueAsString(signInRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(signInResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(signInResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -197,7 +201,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signInRequestDTO));
+                .content(objectMapper.writeValueAsString(signInRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -216,7 +220,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(signInRequestDTO));
+                .content(objectMapper.writeValueAsString(signInRequestDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();

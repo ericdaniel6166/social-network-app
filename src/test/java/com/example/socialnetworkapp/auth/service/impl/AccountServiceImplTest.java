@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.auth.service.impl;
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.auth.model.UserProfileInfo;
 import com.example.socialnetworkapp.auth.service.UserProfileInfoService;
@@ -71,14 +71,14 @@ class AccountServiceImplTest extends AbstractServiceTest {
     void whenCreateOrUpdateProfile_thenReturnSimpleResponseDTO() throws SocialNetworkAppException {
         AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
         String username = appUser.getUsername();
-        UserProfileInfoRequestDTO userProfileInfoRequestDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
+        UserProfileInfoDTO userProfileInfoDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
         UserProfileInfo userProfileInfo = AuthTestUtils.buildUserProfileInfo();
         Mockito.when(userService.findByUsername(username)).thenReturn(appUser);
-        Mockito.when(modelMapper.map(userProfileInfoRequestDTO, UserProfileInfo.class)).thenReturn(userProfileInfo);
+        Mockito.when(modelMapper.map(userProfileInfoDTO, UserProfileInfo.class)).thenReturn(userProfileInfo);
         Mockito.when(userProfileInfoService.saveAndFlush(userProfileInfo)).thenReturn(userProfileInfo);
         SimpleResponseDTO expected = new SimpleResponseDTO(MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getTitle(), MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getMessage());
 
-        SimpleResponseDTO actual = accountService.createOrUpdateProfile(username, userProfileInfoRequestDTO);
+        SimpleResponseDTO actual = accountService.createOrUpdateUserProfileInfo(username, userProfileInfoDTO);
 
         Assertions.assertEquals(expected, actual);
 

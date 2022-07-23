@@ -1,17 +1,17 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
-import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
-import com.example.socialnetworkapp.auth.model.UserProfileInfo;
-import com.example.socialnetworkapp.auth.service.UserProfileInfoService;
-import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.model.AppUser;
+import com.example.socialnetworkapp.auth.model.UserProfileInfo;
 import com.example.socialnetworkapp.auth.service.AccountService;
 import com.example.socialnetworkapp.auth.service.RoleService;
+import com.example.socialnetworkapp.auth.service.UserProfileInfoService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
+import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.enums.MessageEnum;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -19,6 +19,7 @@ import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
+import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,17 +45,6 @@ public class AccountServiceImpl implements AccountService {
 
     private final UserProfileInfoService userProfileInfoService;
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public SimpleResponseDTO createOrUpdateProfile(String username, UserProfileInfoRequestDTO userProfileInfoRequestDTO) throws ResourceNotFoundException {
-        log.info("Create or update profile for username: {}", username);
-        AppUser appUser = userService.findByUsername(username);
-        UserProfileInfo userProfileInfo = modelMapper.map(userProfileInfoRequestDTO, UserProfileInfo.class);
-        userProfileInfo.setAppUser(appUser);
-        userProfileInfoService.saveAndFlush(userProfileInfo);
-        return new SimpleResponseDTO(MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getTitle(), MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getMessage());
-    }
-
     /**
      * user can't set role to himself
      * user can't set role to account which has already had that role (ex: error set ROLE_MODERATOR to account has ROLE_MODERATOR)
@@ -69,6 +59,7 @@ public class AccountServiceImpl implements AccountService {
      * @throws ResourceNotFoundException
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public SimpleResponseDTO updateRole(UserRoleUpdateRequestDTO userRoleUpdateRequestDTO) throws SocialNetworkAppException {
         RoleEnum roleEnumNew = userRoleUpdateRequestDTO.getRole();
         String usernameUpdate = userRoleUpdateRequestDTO.getUsername();
@@ -103,7 +94,26 @@ public class AccountServiceImpl implements AccountService {
         simpleResponseDTO.setMessage(StringEscapeUtils.unescapeJava(CommonUtils.formatString(masterMessage.getMessage(), roleEnumNew.name(), usernameUpdate)));
         return simpleResponseDTO;
 
-
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public SimpleResponseDTO createOrUpdateUserProfileInfo(String username, UserProfileInfoDTO userProfileInfoDTO) throws ResourceNotFoundException {
+        log.info("Create or update profile for username: {}", username);
+        AppUser appUser = userService.findByUsername(username);
+        userProfileInfoService.findByUsername(username).ifPresent(
+                profileInfo -> userProfileInfoDTO.setId(profileInfo.getId())
+        );
+        UserProfileInfo userProfileInfo = modelMapper.map(userProfileInfoDTO, UserProfileInfo.class);
+        userProfileInfo.setAppUser(appUser);
+        userProfileInfoService.saveAndFlush(userProfileInfo);
+        return new SimpleResponseDTO(MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getTitle(), MessageEnum.MESSAGE_UPDATE_USER_PROFILE_SUCCESS.getMessage());
+    }
+
+    @Override
+    public UserProfileInfoDTO getUserProfileInfoByUsername(String username) throws ResourceNotFoundException {
+        UserProfileInfo userProfileInfo = userProfileInfoService.findByUsername(username).orElseThrow(
+                () -> new ResourceNotFoundException(Constants.USER_PROFILE_INFO + ", username: " + username));
+        return modelMapper.map(userProfileInfo, UserProfileInfoDTO.class);
+    }
 }

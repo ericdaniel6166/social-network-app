@@ -14,10 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -39,8 +37,7 @@ public class UserProfileInfo extends Auditable<String> implements Serializable {
     private String fullName;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date birthday;
+    private LocalDate birthday;
 
     @Column
     private String address;

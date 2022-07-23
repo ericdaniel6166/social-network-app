@@ -152,16 +152,6 @@ public final class CommonUtils {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-
-    public static String writeValueAsString(final Object object) {
-        try {
-            final ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsString(object);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static String getRootCauseMessage(Exception e) {
         return ExceptionUtils.getRootCause(e).getMessage();
     }

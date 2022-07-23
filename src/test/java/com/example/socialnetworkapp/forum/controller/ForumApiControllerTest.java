@@ -8,6 +8,7 @@ import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.service.ForumService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -49,6 +50,9 @@ public class ForumApiControllerTest extends AbstractApiTest {
     @Autowired
     private ForumService forumService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @BeforeEach
     void setUp() {
     }
@@ -72,7 +76,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
     }
 
 
@@ -106,7 +110,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(forumDTOPage), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(forumDTOPage), actual.getResponse().getContentAsString());
 
     }
 
@@ -120,13 +124,13 @@ public class ForumApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(forumDTO));
+                .content(objectMapper.writeValueAsString(forumDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -141,7 +145,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(forumDTO));
+                .content(objectMapper.writeValueAsString(forumDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -162,7 +166,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)
-                .content(CommonUtils.writeValueAsString(forumDTO));
+                .content(objectMapper.writeValueAsString(forumDTO));
 
         MvcResult actual = mockMvc.perform(builder)
                 .andReturn();
@@ -188,6 +192,6 @@ public class ForumApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(CommonUtils.writeValueAsString(forumDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(forumDTO), actual.getResponse().getContentAsString());
     }
 }

@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.controller;
 
-import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.auth.service.AccountService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,23 +47,20 @@ public class AccountApiController implements AccountApi {
      *
      * */
 
-    /*TODO: implement view user profile
-     * @GetMapping
-     * user with username match user profile can read
-     * OR greater than user role
-     * */
-
     @Override
     @PostMapping("/profile/{username}")
-    public ResponseEntity<?> createOrUpdateProfile(@PathVariable String username, @RequestBody UserProfileInfoRequestDTO userProfileInfoRequestDTO) throws SocialNetworkAppException {
-        SimpleResponseDTO simpleResponseDTO = accountService.createOrUpdateProfile(username, userProfileInfoRequestDTO);
+    @PreAuthorize("#username.equals(authentication.principal.subject)")
+    public ResponseEntity<?> createOrUpdateUserProfileInfo(@PathVariable String username, @RequestBody @Valid UserProfileInfoDTO userProfileInfoDTO) throws SocialNetworkAppException {
+        SimpleResponseDTO simpleResponseDTO = accountService.createOrUpdateUserProfileInfo(username, userProfileInfoDTO);
         return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
     }
-    /*TODO: implement update user profile
-     * @PutMapping
-     * user with username match user profile can update
-     * OR greater than user role
-     * */
 
+    @Override
+    @GetMapping("/profile/{username}")
+    @PreAuthorize("#username.equals(authentication.principal.subject) or hasAuthority('SCOPE_ROLE_ADMIN')")
+    public ResponseEntity<?> getUserProfileInfoByUsername(@PathVariable String username) throws SocialNetworkAppException {
+        UserProfileInfoDTO userProfileInfoDTO = accountService.getUserProfileInfoByUsername(username);
+        return new ResponseEntity<>(userProfileInfoDTO, HttpStatus.OK);
+    }
 
 }

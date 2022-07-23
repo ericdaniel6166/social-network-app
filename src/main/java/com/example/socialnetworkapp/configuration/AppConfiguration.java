@@ -10,9 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfiguration {
 
     private String timeZoneId;
-    private String dateTimeFormat;
-    private String zonedDateTimeFormat;
-    private String dateFormat;
-    private String timeFormat;
 
 }

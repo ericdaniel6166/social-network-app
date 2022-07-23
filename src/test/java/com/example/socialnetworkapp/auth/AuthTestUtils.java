@@ -3,7 +3,7 @@ package com.example.socialnetworkapp.auth;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
-import com.example.socialnetworkapp.auth.dto.UserProfileInfoRequestDTO;
+import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
@@ -16,10 +16,9 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,18 +128,18 @@ public class AuthTestUtils {
 
     }
 
-    public static UserProfileInfoRequestDTO buildUserProfileInfoRequestDTO() {
-        UserProfileInfoRequestDTO userProfileInfoRequestDTO = new UserProfileInfoRequestDTO();
-        userProfileInfoRequestDTO.setAddress(RandomStringUtils.randomAlphanumeric(10));
-        userProfileInfoRequestDTO.setBirthday(Date.from(Instant.now()));
-        userProfileInfoRequestDTO.setFullName(RandomStringUtils.randomAlphanumeric(10));
-        return userProfileInfoRequestDTO;
+    public static UserProfileInfoDTO buildUserProfileInfoRequestDTO() {
+        UserProfileInfoDTO userProfileInfoDTO = new UserProfileInfoDTO();
+        userProfileInfoDTO.setAddress(RandomStringUtils.randomAlphanumeric(10));
+        userProfileInfoDTO.setBirthday(LocalDate.now());
+        userProfileInfoDTO.setFullName(RandomStringUtils.randomAlphanumeric(10));
+        return userProfileInfoDTO;
     }
 
     public static UserProfileInfo buildUserProfileInfo() {
         UserProfileInfo userProfileInfo = new UserProfileInfo();
         userProfileInfo.setAddress(RandomStringUtils.randomAlphanumeric(10));
-        userProfileInfo.setBirthday(Date.from(Instant.now()));
+        userProfileInfo.setBirthday(LocalDate.now());
         userProfileInfo.setFullName(RandomStringUtils.randomAlphanumeric(10));
         return userProfileInfo;
     }

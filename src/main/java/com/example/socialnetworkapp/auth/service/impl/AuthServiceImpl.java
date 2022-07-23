@@ -112,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String expiresAt = DateTimeFormatter.ofPattern(appConfiguration.getZonedDateTimeFormat())
+        String expiresAt = DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_FORMAT)
                 .withZone(TimeZone.getTimeZone(appConfiguration.getTimeZoneId()).toZoneId())
                 .format(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()));
         return new SignInResponseDTO(jwtService.generateToken(authentication),
