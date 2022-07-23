@@ -84,7 +84,6 @@ public class AuthServiceImpl implements AuthService {
 
     private final AppConfiguration appConfiguration;
 
-
     @Override
     public SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException {
         log.debug("Verify account, token: {}", token);
@@ -112,7 +111,7 @@ public class AuthServiceImpl implements AuthService {
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String expiresAt = DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_FORMAT)
+        String expiresAt = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT)
                 .withZone(TimeZone.getTimeZone(appConfiguration.getTimeZoneId()).toZoneId())
                 .format(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()));
         return new SignInResponseDTO(jwtService.generateToken(authentication),

@@ -9,11 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
 import java.io.Serializable;
-import java.util.Date;
-
-import static javax.persistence.TemporalType.TIMESTAMP;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -24,15 +21,12 @@ public abstract class Auditable<U> implements Serializable {
     protected U createdBy;
 
     @CreatedDate
-    @Temporal(TIMESTAMP)
-    protected Date createdDate;
+    protected LocalDateTime createdDate;
 
     @LastModifiedBy
     protected U lastModifiedBy;
 
     @LastModifiedDate
-    @Temporal(TIMESTAMP)
-    protected Date lastModifiedDate;
-
+    protected LocalDateTime lastModifiedDate;
 
 }
