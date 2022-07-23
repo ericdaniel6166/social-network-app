@@ -54,6 +54,8 @@ com.example.socialnetworkapp:
 #  time-zone-id: "Europe/Berlin"
 #  time-zone-id: "Singapore"
 #  time-zone-id: "America/New_York"
+  age-minimum: 13
+  age-maximum: 130
 
 
 server:

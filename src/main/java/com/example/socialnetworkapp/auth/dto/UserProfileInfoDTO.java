@@ -1,6 +1,6 @@
 package com.example.socialnetworkapp.auth.dto;
 
-import com.example.socialnetworkapp.utils.Constants;
+import com.example.socialnetworkapp.configuration.validator.ValidBirthday;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +23,7 @@ public class UserProfileInfoDTO implements Serializable {
     private String fullName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @ValidBirthday
     private LocalDate birthday;
 
     private String address;

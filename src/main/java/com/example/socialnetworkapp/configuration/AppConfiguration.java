@@ -11,4 +11,8 @@ public class AppConfiguration {
 
     private String timeZoneId;
 
+    private Long ageMinimum;
+
+    private Long ageMaximum;
+
 }

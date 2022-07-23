@@ -11,16 +11,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(ElementType.FIELD)
 @Retention(RUNTIME)
-@Constraint(validatedBy = DateValidator.class)
+@Constraint(validatedBy = BirthdayValidator.class)
 @Documented
-public @interface IsInRange {
-    String message() default "{message.key}";
+public @interface ValidBirthday {
+    String message() default "Invalid";
 
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default { };
 
-    String isAfter();
-
-    String isBefore();
 }
