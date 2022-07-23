@@ -7,8 +7,8 @@ import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.service.AccountService;
+import com.example.socialnetworkapp.configuration.AppConfiguration;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
-import com.example.socialnetworkapp.utils.CommonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -39,6 +39,9 @@ class AccountApiControllerTest extends AbstractApiTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private AppConfiguration appConfiguration;
 
     @BeforeEach
     void setUp() {
@@ -73,6 +76,8 @@ class AccountApiControllerTest extends AbstractApiTest {
         SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
         String username = AuthTestUtils.USERNAME;
         UserProfileInfoDTO userProfileInfoDTO = AuthTestUtils.buildUserProfileInfoRequestDTO();
+        Mockito.when(appConfiguration.getAgeMaximum()).thenReturn(130L);
+        Mockito.when(appConfiguration.getAgeMinimum()).thenReturn(13L);
         Mockito.when(accountService.createOrUpdateUserProfileInfo(username, userProfileInfoDTO)).thenReturn(simpleResponseDTO);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .post(URL_TEMPLATE + "/profile/" + username)

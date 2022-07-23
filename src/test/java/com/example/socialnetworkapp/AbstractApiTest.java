@@ -2,6 +2,7 @@ package com.example.socialnetworkapp;
 
 import com.example.socialnetworkapp.auth.service.AccountService;
 import com.example.socialnetworkapp.auth.service.AuthService;
+import com.example.socialnetworkapp.configuration.AppConfiguration;
 import com.example.socialnetworkapp.configuration.OperationIdConfiguration;
 import com.example.socialnetworkapp.forum.service.CommentService;
 import com.example.socialnetworkapp.forum.service.ForumService;
@@ -40,6 +41,9 @@ public abstract class AbstractApiTest {
 
     @MockBean
     private AccountService accountService;
+
+    @MockBean
+    private AppConfiguration appConfiguration;
 
 
 

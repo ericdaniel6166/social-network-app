@@ -131,7 +131,7 @@ public class AuthTestUtils {
     public static UserProfileInfoDTO buildUserProfileInfoRequestDTO() {
         UserProfileInfoDTO userProfileInfoDTO = new UserProfileInfoDTO();
         userProfileInfoDTO.setAddress(RandomStringUtils.randomAlphanumeric(10));
-        userProfileInfoDTO.setBirthday(LocalDate.now());
+        userProfileInfoDTO.setBirthday(LocalDate.now().minusYears(18L));
         userProfileInfoDTO.setFullName(RandomStringUtils.randomAlphanumeric(10));
         return userProfileInfoDTO;
     }
@@ -139,7 +139,7 @@ public class AuthTestUtils {
     public static UserProfileInfo buildUserProfileInfo() {
         UserProfileInfo userProfileInfo = new UserProfileInfo();
         userProfileInfo.setAddress(RandomStringUtils.randomAlphanumeric(10));
-        userProfileInfo.setBirthday(LocalDate.now());
+        userProfileInfo.setBirthday(LocalDate.now().minusYears(18L));
         userProfileInfo.setFullName(RandomStringUtils.randomAlphanumeric(10));
         return userProfileInfo;
     }
