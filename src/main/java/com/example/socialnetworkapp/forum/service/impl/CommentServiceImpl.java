@@ -37,8 +37,6 @@ public class CommentServiceImpl implements CommentService {
 
     private final ModelMapper modelMapper;
 
-    private final UserService userService;
-
     @Override
     public AppComment saveAndFlush(AppComment appComment) {
         return commentRepository.saveAndFlush(appComment);
@@ -74,22 +72,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Page<CommentDTO> getByPostId(Long id, Pageable pageable) throws ResourceNotFoundException {
+    public Page<CommentDTO> getByPostId(Long id, Pageable pageable) {
         log.debug("Find comment by post id, id: {}", id);
-        if (!postService.existsById(id)){
-            throw new ResourceNotFoundException(Constants.POST + ", id:" + id);
-        }
-        Page<AppComment> commentPage = commentRepository.findAllByIsActiveTrueAndPost_Id(id, pageable);
+        Page<AppComment> commentPage = commentRepository.findAllByPost_IdAndIsActiveTrue(id, pageable);
         return buildCommentDTOPage(commentPage, pageable);
     }
 
     @Override
-    public Page<CommentDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException {
-        log.debug("Find comment created by username, username: {}", username);
-        if (!userService.existsByUsername(username)){
-            throw new ResourceNotFoundException("username " + username);
-        }
-        Page<AppComment> commentPage = commentRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable);
+    public Page<CommentDTO> getByUsername(String username, Pageable pageable) throws ResourceNotFoundException {
+        log.debug("Find comment by username, username: {}", username);
+        Page<AppComment> commentPage = commentRepository.findAllByUsernameAndIsActiveTrue(username, pageable);
         return buildCommentDTOPage(commentPage, pageable);
     }
 
@@ -120,7 +112,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public AppComment findById(Long id) throws ResourceNotFoundException {
         log.debug("Find comment by id, id: {}", id);
-        return commentRepository.findByIsActiveTrueAndId(id).orElseThrow(
+        return commentRepository.findByIdAndIsActiveTrue(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.COMMENT + ", id:" + id));
     }
 
@@ -128,7 +120,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(rollbackFor = Exception.class)
     public void create(CommentDTO commentDTO) throws SocialNetworkAppException {
         AppComment appComment = modelMapper.map(commentDTO, AppComment.class);
-        appComment.setAppUser(userService.getCurrentUser());
+        appComment.setUsername(CommonUtils.getCurrentUsername());
         appComment.setPost(postService.findById(commentDTO.getPostId()));
         appComment.setIsActive(true);
         this.saveAndFlush(appComment);

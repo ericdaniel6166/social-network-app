@@ -232,9 +232,9 @@ class PostApiControllerTest extends AbstractApiTest {
         String createdBy = AuthTestUtils.USERNAME;
         Pageable pageable = CommonUtils.buildPageable(page, size, direction, properties);
         Page<PostDTO> postDTOPage = new PageImpl<>(Collections.singletonList(postDTO), pageable, totalElement);
-        Mockito.when(postService.getByCreatedBy(createdBy, pageable)).thenReturn(postDTOPage);
+        Mockito.when(postService.getByUsername(createdBy, pageable)).thenReturn(postDTOPage);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
-                .get(URL_TEMPLATE + "/createdBy/" + createdBy)
+                .get(URL_TEMPLATE + "/username/" + createdBy)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)

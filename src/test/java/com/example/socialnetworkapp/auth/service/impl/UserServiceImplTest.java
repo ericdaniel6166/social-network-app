@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Optional;
@@ -96,19 +95,5 @@ class UserServiceImplTest extends AbstractServiceTest {
             Assertions.assertEquals(expected, e);
         }
 
-    }
-
-    @Test
-    void whenGetCurrentUser_givenNotEmptyAppUser_thenReturnAppUser() throws ResourceNotFoundException {
-        AppUser expected = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
-        String username = expected.getUsername();
-        Mockito.when(authentication.getPrincipal()).thenReturn(jwt);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        Mockito.when(jwt.getSubject()).thenReturn(username);
-        Mockito.when(userRepository.findByIsActiveTrueAndUsername(username)).thenReturn(Optional.of(expected));
-
-        AppUser actual = userService.getCurrentUser();
-
-        Assertions.assertEquals(expected, actual);
     }
 }

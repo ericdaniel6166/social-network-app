@@ -14,5 +14,4 @@ public interface UserService {
 
     AppUser findByUsername(String username) throws ResourceNotFoundException;
 
-    AppUser getCurrentUser() throws ResourceNotFoundException;
 }

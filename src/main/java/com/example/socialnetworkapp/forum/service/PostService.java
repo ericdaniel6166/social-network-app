@@ -18,8 +18,6 @@ public interface PostService {
 
     List<Post> saveAllAndFlush(List<Post> postList);
 
-    boolean existsById(Long id);
-
     Page<PostDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException;
 
     Post findById(Long id) throws ResourceNotFoundException;
@@ -28,7 +26,7 @@ public interface PostService {
 
     Page<PostDTO> getByForumId(Long id, Pageable pageable) throws ResourceNotFoundException;
 
-    Page<PostDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException;
+    Page<PostDTO> getByUsername(String username, Pageable pageable) throws ResourceNotFoundException;
 
     Post setIsActive(Long id, boolean isActive) throws SocialNetworkAppException;
 

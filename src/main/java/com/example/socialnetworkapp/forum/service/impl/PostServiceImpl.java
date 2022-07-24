@@ -44,8 +44,6 @@ public class PostServiceImpl implements PostService {
 
     private final ModelMapper modelMapper;
 
-    private final UserService userService;
-
     @Autowired
     private ForumService forumService;
 
@@ -56,7 +54,7 @@ public class PostServiceImpl implements PostService {
     public SimpleResponseDTO create(PostDTO postDTO) throws SocialNetworkAppException {
         log.debug("Create post, post name: {}", postDTO.getName());
         Post post = modelMapper.map(postDTO, Post.class);
-        post.setAppUser(userService.getCurrentUser());
+        post.setUsername(CommonUtils.getCurrentUsername());
         post.setForum(forumService.findById(postDTO.getForumId()));
         post.setIsActive(true);
         this.saveAndFlush(post);
@@ -120,11 +118,6 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public boolean existsById(Long id) {
-        return postRepository.existsById(id);
-    }
-
-    @Override
     public Page<PostDTO> getAll(Pageable pageable, String search) throws SocialNetworkAppException {
         Page<Post> postPage;
         if (StringUtils.isBlank(search)) {
@@ -150,7 +143,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post findById(Long id) throws ResourceNotFoundException {
         log.debug("Find post by id, id: {}", id);
-        return postRepository.findByIsActiveTrueAndId(id).orElseThrow(
+        return postRepository.findByIdAndIsActiveTrue(id).orElseThrow(
                 () -> new ResourceNotFoundException(Constants.POST + ", id:" + id));
     }
 
@@ -160,22 +153,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getByCreatedBy(String username, Pageable pageable) throws ResourceNotFoundException {
+    public Page<PostDTO> getByUsername(String username, Pageable pageable) throws ResourceNotFoundException {
         log.debug("Find post created by username, username: {}", username);
-        if (!userService.existsByUsername(username)){
-            throw new ResourceNotFoundException("username " + username);
-        }
-        Page<Post> postPage = postRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable);
+        Page<Post> postPage = postRepository.findAllByUsernameAndIsActiveTrue(username, pageable);
         return buildPostDTOPage(postPage, pageable);
     }
 
     @Override
-    public Page<PostDTO> getByForumId(Long id, Pageable pageable) throws ResourceNotFoundException {
+    public Page<PostDTO> getByForumId(Long id, Pageable pageable) {
         log.debug("Find post by forum id, id: {}", id);
-        if (!forumService.existsById(id)){
-            throw new ResourceNotFoundException(Constants.FORUM + ", id:" + id);
-        }
-        Page<Post> postPage = postRepository.findAllByIsActiveTrueAndForum_Id(id, pageable);
+        Page<Post> postPage = postRepository.findAllByForum_IdAndIsActiveTrue(id, pageable);
         return buildPostDTOPage(postPage, pageable);
     }
 }

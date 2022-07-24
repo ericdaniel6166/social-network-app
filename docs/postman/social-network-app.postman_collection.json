@@ -3840,7 +3840,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"forumId\", 24);"
+									"pm.environment.set(\"forumId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -5916,7 +5916,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"forumId\", 48);"
+									"pm.environment.set(\"forumId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -6018,6 +6018,114 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"content\": [\n        {\n            \"id\": 50,\n            \"name\": \"SQL yellow Pound Tasty architecture\",\n            \"content\": \"Try to override the PNG transmitter, maybe it will transmit the solid state hard drive!, transmitting the card won't do anything, we need to copy the 1080p JSON bus!, We need to copy the virtual SSL pixel!, calculating the array won't do anything, we need to generate the wireless SAS bus!, The RAM transmitter is down, quantify the primary feed so we can override the JBOD interface!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:55:01 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:55:01 +0700\"\n        },\n        {\n            \"id\": 49,\n            \"name\": \"Australia Computer Baby Table green\",\n            \"content\": \"parsing the port won't do anything, we need to input the bluetooth ADP protocol!, connecting the monitor won't do anything, we need to parse the neural SMTP transmitter!, The JBOD interface is down, compress the multi-byte bandwidth so we can program the HDD microchip!, If we hack the card, we can get to the IB firewall through the online AGP sensor!, Try to connect the IB panel, maybe it will index the neural microchip!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:55:00 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:55:00 +0700\"\n        },\n        {\n            \"id\": 48,\n            \"name\": \"payment Kids solid\",\n            \"content\": \"Use the virtual TCP circuit, then you can index the 1080p sensor!, Try to back up the HDD panel, maybe it will generate the mobile interface!, Try to compress the SCSI pixel, maybe it will parse the primary sensor!, We need to parse the online HDD panel!, Try to copy the FTP bus, maybe it will synthesize the online hard drive!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:59 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:59 +0700\"\n        },\n        {\n            \"id\": 47,\n            \"name\": \"Future-proofed uniform\",\n            \"content\": \"I'll back up the auxiliary JSON alarm, that should array the JSON hard drive!, I'll back up the auxiliary RSS port, that should matrix the ADP capacitor!, transmitting the driver won't do anything, we need to hack the neural PNG card!, The SSL array is down, generate the bluetooth system so we can generate the SCSI matrix!, I'll parse the redundant SMTP panel, that should application the SAS pixel!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:59 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:59 +0700\"\n        },\n        {\n            \"id\": 46,\n            \"name\": \"Cotton Brand JSON calculating Plastic\",\n            \"content\": \"You can't compress the transmitter without connecting the neural USB driver!, generating the port won't do anything, we need to hack the mobile SCSI firewall!, If we transmit the application, we can get to the RAM feed through the optical PCI array!, Use the wireless HDD application, then you can compress the auxiliary matrix!, Try to connect the SCSI microchip, maybe it will synthesize the back-end system!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:58 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:58 +0700\"\n        },\n        {\n            \"id\": 45,\n            \"name\": \"District Cape\",\n            \"content\": \"Try to synthesize the CSS microchip, maybe it will hack the 1080p bandwidth!, programming the application won't do anything, we need to navigate the haptic RAM pixel!, If we index the port, we can get to the SMS firewall through the digital SMTP system!, If we input the transmitter, we can get to the JBOD microchip through the bluetooth PNG application!, You can't hack the port without parsing the auxiliary THX microchip!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:58 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:58 +0700\"\n        },\n        {\n            \"id\": 44,\n            \"name\": \"implementation generate Customizable Account\",\n            \"content\": \"We need to parse the open-source XML driver!, We need to override the multi-byte PNG system!, We need to transmit the cross-platform PCI alarm!, You can't override the pixel without compressing the wireless SMTP microchip!, Use the primary USB driver, then you can index the back-end circuit!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:58 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:58 +0700\"\n        },\n        {\n            \"id\": 43,\n            \"name\": \"parsing Metal\",\n            \"content\": \"We need to bypass the auxiliary SMS firewall!, overriding the pixel won't do anything, we need to compress the haptic JBOD panel!, Use the redundant THX sensor, then you can bypass the optical driver!, I'll program the virtual THX driver, that should port the SSL bandwidth!, I'll parse the neural SAS application, that should bus the SDD sensor!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:57 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:57 +0700\"\n        },\n        {\n            \"id\": 42,\n            \"name\": \"Bedfordshire ADP\",\n            \"content\": \"We need to connect the virtual RAM transmitter!, Try to quantify the SQL array, maybe it will reboot the redundant sensor!, Use the multi-byte SCSI transmitter, then you can generate the primary panel!, The PNG bandwidth is down, override the multi-byte matrix so we can compress the AGP circuit!, If we program the monitor, we can get to the AGP driver through the haptic COM bus!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:56 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:56 +0700\"\n        },\n        {\n            \"id\": 41,\n            \"name\": \"Cameroon pixel\",\n            \"content\": \"The SDD hard drive is down, parse the 1080p card so we can bypass the SCSI sensor!, We need to transmit the 1080p SSL alarm!, You can't navigate the card without parsing the bluetooth HTTP sensor!, You can't connect the capacitor without synthesizing the auxiliary SQL firewall!, You can't index the card without hacking the 1080p XSS alarm!\",\n            \"forumId\": 48,\n            \"createdBy\": \"javadev111\",\n            \"createdDate\": \"2022-07-06 00:54:55 +0700\",\n            \"lastModifiedBy\": \"javadev111\",\n            \"lastModifiedDate\": \"2022-07-06 00:54:55 +0700\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"pageSize\": 10,\n        \"pageNumber\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalElements\": 34,\n    \"last\": false,\n    \"totalPages\": 4,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "forumId not exists",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"forumId\", 999999);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/post/forum/{{forumId}}",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"post",
+								"forum",
+								"{{forumId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "204",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/post/forum/{{forumId}}",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"post",
+										"forum",
+										"{{forumId}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Jul 2022 05:11:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
 						}
 					]
 				},
@@ -6140,123 +6248,11 @@
 							"body": null
 						}
 					]
-				},
-				{
-					"name": "404",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"forumId\", 999999999999999);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/post/forum/{{forumId}}",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"post",
-								"forum",
-								"{{forumId}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "404",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{domain}}/post/forum/{{forumId}}",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"post",
-										"forum",
-										"{{forumId}}"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 13 Jul 2022 15:28:54 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-13 22:28:54 +0700\",\n    \"status\": 404,\n    \"operationId\": \"addda9bab24824f9\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"Forum, id:999999999999999 not found\",\n    \"path\": \"/post/forum/999999999999999\"\n}"
-						}
-					]
 				}
 			]
 		},
 		{
-			"name": "04.04_/post/createdBy/{{createdBy}}",
+			"name": "04.04_/post/username/:username",
 			"item": [
 				{
 					"name": "200",
@@ -6265,7 +6261,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"javadev311\");"
+									"pm.environment.set(\"usernamePost\", \"user\");"
 								],
 								"type": "text/javascript"
 							}
@@ -6275,14 +6271,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/post/createdBy/{{createdBy}}",
+							"raw": "{{domain}}/post/username/:username",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"post",
-								"createdBy",
-								"{{createdBy}}"
+								"username",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{usernamePost}}"
+								}
 							]
 						}
 					},
@@ -6371,13 +6373,13 @@
 					]
 				},
 				{
-					"name": "404",
+					"name": "username not exists",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"wrongusername\");"
+									"pm.environment.set(\"usernamePost\", \"wrongusername\");"
 								],
 								"type": "text/javascript"
 							}
@@ -6387,37 +6389,49 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/post/createdBy/{{createdBy}}",
+							"raw": "{{domain}}/post/username/:username",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"post",
-								"createdBy",
-								"{{createdBy}}"
+								"username",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{usernamePost}}"
+								}
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "404",
+							"name": "204",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{domain}}/post/createdBy/{{createdBy}}",
+									"raw": "{{domain}}/post/username/:username",
 									"host": [
 										"{{domain}}"
 									],
 									"path": [
 										"post",
-										"createdBy",
-										"{{createdBy}}"
+										"username",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username",
+											"value": "{{usernamePost}}"
+										}
 									]
 								}
 							},
-							"status": "Not Found",
-							"code": 404,
+							"status": "No Content",
+							"code": 204,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -6461,12 +6475,8 @@
 									"value": "application/json"
 								},
 								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
 									"key": "Date",
-									"value": "Wed, 13 Jul 2022 15:32:58 GMT"
+									"value": "Sun, 24 Jul 2022 05:09:33 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -6478,7 +6488,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-13 22:32:58 +0700\",\n    \"status\": 404,\n    \"operationId\": \"6cf5eda5d64da84e\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"username wrongusername not found\",\n    \"path\": \"/post/createdBy/wrongusername\"\n}"
+							"body": null
 						}
 					]
 				},
@@ -6489,7 +6499,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"javadev311\");"
+									"pm.environment.set(\"usernamePost\", \"user\");"
 								],
 								"type": "text/javascript"
 							}
@@ -6499,19 +6509,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/post/createdBy/{{createdBy}}?page=1000000",
+							"raw": "{{domain}}/post/username/:username?page=1000000",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"post",
-								"createdBy",
-								"{{createdBy}}"
+								"username",
+								":username"
 							],
 							"query": [
 								{
 									"key": "page",
 									"value": "1000000"
+								}
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{usernamePost}}"
 								}
 							]
 						}
@@ -7425,7 +7441,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 33);"
+									"pm.environment.set(\"postId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -8008,6 +8024,122 @@
 					]
 				},
 				{
+					"name": "page index >= totalPage",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/comment?page=10000",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"comment"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "10000"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "204",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/comment?page=10000",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"comment"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "10000"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 13 Jul 2022 15:39:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
 					"name": "search_inactive comment",
 					"event": [
 						{
@@ -8346,122 +8478,6 @@
 					]
 				},
 				{
-					"name": "page index >= totalPage",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/comment?page=10000",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"comment"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "10000"
-								}
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "204",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{domain}}/comment?page=10000",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"comment"
-									],
-									"query": [
-										{
-											"key": "page",
-											"value": "10000"
-										}
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 13 Jul 2022 15:39:46 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": null
-						}
-					]
-				},
-				{
 					"name": "search_contains navigating",
 					"event": [
 						{
@@ -8713,7 +8729,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 17);"
+									"pm.environment.set(\"postId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -8819,125 +8835,13 @@
 					]
 				},
 				{
-					"name": "404",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"postId\", 999999);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/comment/post/{{postId}}",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"comment",
-								"post",
-								"{{postId}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "404",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{domain}}/comment/post/{{postId}}",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"comment",
-										"post",
-										"{{postId}}"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 13 Jul 2022 15:44:23 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-13 22:44:23 +0700\",\n    \"status\": 404,\n    \"operationId\": \"9634b4d60a38546b\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"Post, id:999999 not found\",\n    \"path\": \"/comment/post/999999\"\n}"
-						}
-					]
-				},
-				{
 					"name": "page index >= totalPage",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 17);"
+									"pm.environment.set(\"postId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -9053,7 +8957,7 @@
 			]
 		},
 		{
-			"name": "05.04_/comment/createdBy/{{createdBy}}",
+			"name": "05.04_/comment/username/:username",
 			"item": [
 				{
 					"name": "200",
@@ -9062,7 +8966,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"javadev111\");"
+									"pm.environment.set(\"usernameComment\", \"user\");"
 								],
 								"type": "text/javascript"
 							}
@@ -9072,14 +8976,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/comment/createdBy/{{createdBy}}",
+							"raw": "{{domain}}/comment/username/:username",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"comment",
-								"createdBy",
-								"{{createdBy}}"
+								"username",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{usernameComment}}"
+								}
 							]
 						}
 					},
@@ -9168,125 +9078,13 @@
 					]
 				},
 				{
-					"name": "404",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"pm.environment.set(\"createdBy\", \"wrongusername\");"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/comment/createdBy/{{createdBy}}",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"comment",
-								"createdBy",
-								"{{createdBy}}"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "404",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{domain}}/comment/createdBy/{{createdBy}}",
-									"host": [
-										"{{domain}}"
-									],
-									"path": [
-										"comment",
-										"createdBy",
-										"{{createdBy}}"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "1; mode=block"
-								},
-								{
-									"key": "Cache-Control",
-									"value": "no-cache, no-store, max-age=0, must-revalidate"
-								},
-								{
-									"key": "Pragma",
-									"value": "no-cache"
-								},
-								{
-									"key": "Expires",
-									"value": "0"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 13 Jul 2022 15:46:18 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-13 22:46:18 +0700\",\n    \"status\": 404,\n    \"operationId\": \"946facbf2b6a6ac4\",\n    \"error\": \"RESOURCE_NOT_FOUND_ERROR\",\n    \"message\": \"username wrongusername not found\",\n    \"path\": \"/comment/createdBy/wrongusername\"\n}"
-						}
-					]
-				},
-				{
 					"name": "page index >= totalPage",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"createdBy\", \"javadev111\");"
+									"pm.environment.set(\"usernameComment\", \"user\");"
 								],
 								"type": "text/javascript"
 							}
@@ -9296,19 +9094,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{domain}}/comment/createdBy/{{createdBy}}?page=999999",
+							"raw": "{{domain}}/comment/username/:username?page=999999",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
 								"comment",
-								"createdBy",
-								"{{createdBy}}"
+								"username",
+								":username"
 							],
 							"query": [
 								{
 									"key": "page",
 									"value": "999999"
+								}
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{usernameComment}}"
 								}
 							]
 						}
@@ -11698,7 +11502,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"2009-07-24\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"birthday\": \"2000-07-24\",\r\n    \"address\": \"{{$randomStreetAddress}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -12165,7 +11969,7 @@
 			]
 		},
 		{
-			"name": "08.03_/account/profile/:username",
+			"name": "08.03_/account/profile/:username GET",
 			"item": [
 				{
 					"name": "view user profile",

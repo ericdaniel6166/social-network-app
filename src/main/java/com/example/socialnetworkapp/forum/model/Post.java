@@ -1,6 +1,5 @@
 package com.example.socialnetworkapp.forum.model;
 
-import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.model.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,9 +44,8 @@ public class Post extends Auditable<String> implements Serializable {
     @OneToMany(mappedBy = "post")
     private List<AppComment> commentList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
-    private AppUser appUser;
+    @Column
+    private String username;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "forum_id", referencedColumnName = "id")
