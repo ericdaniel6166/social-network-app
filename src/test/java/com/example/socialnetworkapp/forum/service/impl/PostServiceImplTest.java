@@ -3,9 +3,6 @@ package com.example.socialnetworkapp.forum.service.impl;
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.RoleEnum;
-import com.example.socialnetworkapp.auth.model.AppUser;
-import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -21,7 +18,6 @@ import com.example.socialnetworkapp.model.MasterMessage;
 import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -34,9 +30,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -57,9 +55,6 @@ class PostServiceImplTest extends AbstractServiceTest {
 
     @Mock
     private ModelMapper modelMapper;
-
-    @Mock
-    private UserService userService;
 
     @Mock
     private ForumService forumService;
@@ -122,8 +117,6 @@ class PostServiceImplTest extends AbstractServiceTest {
         PostDTO postDTO = ForumTestUtils.buildPostDTO();
         Post post = ForumTestUtils.buildPost();
         Mockito.when(modelMapper.map(postDTO, Post.class)).thenReturn(post);
-        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
-        Mockito.when(userService.getCurrentUser()).thenReturn(appUser);
         Mockito.when(forumService.findById(postDTO.getForumId())).thenReturn(post.getForum());
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.CREATE_SUCCESS);
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS)).thenReturn(masterMessage);
@@ -156,7 +149,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         postReturn.setIsActive(false);
         List<AppComment> commentListReturn = Collections.singletonList(appCommentReturn);
         postReturn.setCommentList(commentList);
-        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(post));
+        Mockito.when(postRepository.findByIdAndIsActiveTrue(id)).thenReturn(Optional.of(post));
         Mockito.when(commentService.setIsActiveList(commentList, false)).thenReturn(commentListReturn);
         Mockito.when(postRepository.saveAndFlush(postReturn)).thenReturn(postReturn);
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.DELETE_SUCCESS);
@@ -182,7 +175,7 @@ class PostServiceImplTest extends AbstractServiceTest {
     void whenFindById_givenNotEmptyPost_thenReturnForum() throws SocialNetworkAppException {
         Post expected = ForumTestUtils.buildPost();
         Long id = expected.getId();
-        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(expected));
+        Mockito.when(postRepository.findByIdAndIsActiveTrue(id)).thenReturn(Optional.of(expected));
 
         Post actual = postService.findById(id);
 
@@ -208,7 +201,7 @@ class PostServiceImplTest extends AbstractServiceTest {
     @Test
     void whenFindById_givenEmptyPost_thenThrowResourceNotFoundException() {
         Long id = RandomUtils.nextLong();
-        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.empty());
+        Mockito.when(postRepository.findByIdAndIsActiveTrue(id)).thenReturn(Optional.empty());
         ResourceNotFoundException expected = new ResourceNotFoundException(Constants.POST + ", id:" + id);
 
         try {
@@ -225,7 +218,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Post post = ForumTestUtils.buildPost();
         PostDTO expected = ForumTestUtils.buildPostDTO();
         Long id = post.getId();
-        Mockito.when(postRepository.findByIsActiveTrueAndId(id)).thenReturn(Optional.of(post));
+        Mockito.when(postRepository.findByIdAndIsActiveTrue(id)).thenReturn(Optional.of(post));
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(expected);
 
         PostDTO actual = postService.getById(id);
@@ -235,7 +228,7 @@ class PostServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    void whenGetByForumId_givenForumExists_thenReturnForumDTOPage() throws ResourceNotFoundException {
+    void whenGetByForumId_givenNotEmptyPostPage_thenReturnPostDTOPage() throws ResourceNotFoundException {
         Post post = ForumTestUtils.buildPost();
         PostDTO postDTO = ForumTestUtils.buildPostDTO();
         Long id = postDTO.getForumId();
@@ -243,8 +236,7 @@ class PostServiceImplTest extends AbstractServiceTest {
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
 
-        Mockito.when(postRepository.findAllByIsActiveTrueAndForum_Id(id, pageable)).thenReturn(postPage);
-        Mockito.when(forumService.existsById(id)).thenReturn(true);
+        Mockito.when(postRepository.findAllByForum_IdAndIsActiveTrue(id, pageable)).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
         Page<PostDTO> actual = postService.getByForumId(id, pageable);
@@ -254,24 +246,22 @@ class PostServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    void whenGetByForumId_givenForumNotExists_thenThrowResourceNotFoundException() {
+    void whenGetByForumId_givenEmptyPostPage_thenReturnEmptyPostDTOPage() throws ResourceNotFoundException {
         Long id = RandomUtils.nextLong();
         Pageable pageable = CommonTestUtils.buildPageable();
+        Page<Post> postPage = Page.empty();
+        Page<PostDTO> expected = new PageImpl<>(new ArrayList<>(), pageable, 0);
+        Mockito.when(postRepository.findAllByForum_IdAndIsActiveTrue(id, pageable)).thenReturn(postPage);
 
-        Mockito.when(forumService.existsById(id)).thenReturn(false);
-        ResourceNotFoundException expected = new ResourceNotFoundException(Constants.FORUM + ", id:" + id);
+        Page<PostDTO> actual = postService.getByForumId(id, pageable);
 
-        try {
-            postService.getByForumId(id, pageable);
-        } catch (ResourceNotFoundException e) {
-            Assertions.assertEquals(expected, e);
-        }
+        Assertions.assertEquals(expected, actual);
 
     }
 
 
     @Test
-    void whenGetByCreatedBy_givenUsernameExists_thenReturnForumDTOPage() throws ResourceNotFoundException {
+    void whenGetByUsername_thenReturnForumDTOPage() throws ResourceNotFoundException {
         Post post = ForumTestUtils.buildPost();
         PostDTO postDTO = ForumTestUtils.buildPostDTO();
         String username = AuthTestUtils.USERNAME;
@@ -279,42 +269,13 @@ class PostServiceImplTest extends AbstractServiceTest {
         Page<Post> postPage = (Page<Post>) CommonTestUtils.buildPage(post, post);
         Page<PostDTO> expected = (Page<PostDTO>) CommonTestUtils.buildPage(postDTO, postDTO);
 
-        Mockito.when(userService.existsByUsername(username)).thenReturn(true);
-        Mockito.when(postRepository.findAllByIsActiveTrueAndCreatedBy(username, pageable)).thenReturn(postPage);
+        Mockito.when(postRepository.findAllByUsernameAndIsActiveTrue(username, pageable)).thenReturn(postPage);
         Mockito.when(modelMapper.map(post, PostDTO.class)).thenReturn(postDTO);
 
-        Page<PostDTO> actual = postService.getByCreatedBy(username, pageable);
+        Page<PostDTO> actual = postService.getByUsername(username, pageable);
 
         Assertions.assertEquals(expected, actual);
 
     }
-
-    @Test
-    void whenGetByCreatedBy_givenUsernameNotExists_thenThrowResourceNotFoundException() {
-        String username = RandomStringUtils.random(10);
-        Pageable pageable = CommonTestUtils.buildPageable();
-
-        Mockito.when(userService.existsByUsername(username)).thenReturn(false);
-        ResourceNotFoundException expected = new ResourceNotFoundException("username " + username);
-
-        try {
-            postService.getByCreatedBy(username, pageable);
-        } catch (ResourceNotFoundException e) {
-            Assertions.assertEquals(expected, e);
-        }
-
-    }
-
-    @Test
-    void whenExistsById_thenReturnTrue() {
-        Long id = RandomUtils.nextLong();
-        Mockito.when(postRepository.existsById(id)).thenReturn(true);
-
-        boolean actual = postService.existsById(id);
-
-        Assertions.assertTrue(actual);
-
-    }
-
 
 }

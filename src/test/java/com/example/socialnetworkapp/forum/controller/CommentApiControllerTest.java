@@ -162,11 +162,11 @@ public class CommentApiControllerTest extends AbstractApiTest {
         String username = AuthTestUtils.USERNAME;
         Page<CommentDTO> commentDTOPage = new PageImpl<>(Collections.singletonList(commentDTO), pageable, totalElement);
 
-        Mockito.when(commentService.getByCreatedBy(username, pageable)).thenReturn(commentDTOPage);
+        Mockito.when(commentService.getByUsername(username, pageable)).thenReturn(commentDTOPage);
 
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
-                .get(URL_TEMPLATE + "/createdBy/" + username)
+                .get(URL_TEMPLATE + "/username/" + username)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding(UTF_8)

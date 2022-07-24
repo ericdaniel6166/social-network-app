@@ -2,10 +2,6 @@ package com.example.socialnetworkapp.forum.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
-import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.RoleEnum;
-import com.example.socialnetworkapp.auth.model.AppUser;
-import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -53,9 +49,6 @@ class ForumServiceImplTest extends AbstractServiceTest {
 
     @Mock
     private ModelMapper modelMapper;
-
-    @Mock
-    private UserService userService;
 
     @Mock
     private CommentService commentService;
@@ -175,8 +168,6 @@ class ForumServiceImplTest extends AbstractServiceTest {
         ForumDTO forumDTO = ForumTestUtils.buildForumDTO();
         Forum forum = ForumTestUtils.buildForum();
         Mockito.when(modelMapper.map(forumDTO, Forum.class)).thenReturn(forum);
-        AppUser appUser = AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER);
-        Mockito.when(userService.getCurrentUser()).thenReturn(appUser);
         MasterMessage masterMessage = CommonTestUtils.buildMasterMessage(MasterMessageCode.CREATE_SUCCESS);
         Mockito.when(masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS)).thenReturn(masterMessage);
         String title = CommonUtils.formatString(

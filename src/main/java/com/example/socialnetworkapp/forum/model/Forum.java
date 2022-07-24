@@ -1,6 +1,5 @@
 package com.example.socialnetworkapp.forum.model;
 
-import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.model.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -36,14 +33,14 @@ public class Forum extends Auditable<String> implements Serializable {
     private String name;
 
     @Column
+    @Lob
     private String description;
 
     @Column
     private Boolean isActive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
-    private AppUser appUser;
+    @Column
+    private String username;
 
     @OneToMany(mappedBy = "forum")
     private List<Post> postList;

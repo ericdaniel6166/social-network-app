@@ -41,8 +41,6 @@ public class ForumServiceImpl implements ForumService {
 
     private final ModelMapper modelMapper;
 
-    private final UserService userService;
-
     private final MasterMessageService masterMessageService;
 
     @Autowired
@@ -122,7 +120,7 @@ public class ForumServiceImpl implements ForumService {
     public SimpleResponseDTO create(ForumDTO forumDTO) throws SocialNetworkAppException {
         log.debug("Create forum, forum name: {}", forumDTO.getName());
         Forum forum = modelMapper.map(forumDTO, Forum.class);
-        forum.setAppUser(userService.getCurrentUser());
+        forum.setUsername(CommonUtils.getCurrentUsername());
         forum.setIsActive(true);
         this.saveAndFlush(forum);
         MasterMessage masterMessage = masterMessageService.findByMessageCode(MasterMessageCode.CREATE_SUCCESS);

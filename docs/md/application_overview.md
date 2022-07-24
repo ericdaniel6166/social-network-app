@@ -17,6 +17,7 @@
     - ROLE_ROOT_ADMIN can set role to any account except himself
     - ROLE_ADMIN can set role less or equal ROLE_MODERATOR to less or equal ROLE_MODERATOR account
   - POST /account/profile/{username}: Create or update user profile
+    - username match current user
   - GET /account/profile/{username}: Get user profile
     - username match current user OR has authority ROLE_ADMIN at least
 - Admin API
@@ -42,7 +43,7 @@
   - PUT /comment/{id}: Update comment by id (Updating)
   - DELETE /comment/{id}: Delete comment by id
   - GET /comment/{id}: Get comment by id
-  - GET /comment/createdBy/{username}: Get all comment created by username
+  - GET /comment/username/{username}: Get all comment by username
   - GET /comment/post/{id}: Get all comment by post id
 - Post API
   - GET /post/**:
@@ -56,7 +57,7 @@
   - PUT /post/{id}: Update post by id (Updating)
   - DELETE /post/{id}: Delete post by id
   - GET /post/{id}: Get post by id
-  - GET /post/createdBy/{username}: Get all post created by username
+  - GET /post/username/{username}: Get all post created by username
   - GET /post/forum/{id}: Get all post by forum id
 - Forum API
   - GET /forum/**:
@@ -68,7 +69,7 @@
   - PUT /forum/{id}: Update forum by id (Updating)
   - DELETE /forum/{id}: Delete forum by id
   - GET /forum/{id}: Get forum by id
-  - GET /forum/createdBy/{username}: Get all forum created by username (Updating)
+  - GET /forum/username/{username}: Get all forum created by username (Updating)
 2. Notice:
    - Search inactive resource (isActive is false)
      - has authority ROLE_MODERATOR at least

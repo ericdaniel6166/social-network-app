@@ -1,7 +1,6 @@
 package com.example.socialnetworkapp.forum;
 
 import com.example.socialnetworkapp.auth.AuthTestUtils;
-import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
 import com.example.socialnetworkapp.forum.dto.ForumDTO;
 import com.example.socialnetworkapp.forum.dto.PostDTO;
@@ -49,7 +48,7 @@ public class ForumTestUtils {
     public static AppComment buildAppComment() {
         AppComment appComment = new AppComment();
         appComment.setPost(buildPost());
-        appComment.setAppUser(AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER));
+        appComment.setUsername(AuthTestUtils.USERNAME);
         appComment.setIsActive(true);
         appComment.setContent(CONTENT);
         appComment.setId(1L);
@@ -61,7 +60,7 @@ public class ForumTestUtils {
         post.setId(1L);
         post.setIsActive(true);
         post.setForum(buildForum());
-        post.setAppUser(AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER));
+        post.setUsername(AuthTestUtils.USERNAME);
         post.setContent(CONTENT);
         post.setName(NAME);
         return post;
@@ -71,7 +70,7 @@ public class ForumTestUtils {
         Forum forum = new Forum();
         forum.setId(1L);
         forum.setIsActive(true);
-        forum.setAppUser(AuthTestUtils.buildAppUser(RoleEnum.ROLE_USER));
+        forum.setUsername(AuthTestUtils.USERNAME);
         forum.setDescription(DESCRIPTION);
         forum.setName(NAME);
         return forum;
