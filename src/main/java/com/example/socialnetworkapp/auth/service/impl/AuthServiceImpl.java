@@ -1,11 +1,13 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
+import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppRole;
 import com.example.socialnetworkapp.auth.model.AppUser;
+import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.model.VerificationToken;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.auth.service.EncryptionService;
@@ -20,6 +22,7 @@ import com.example.socialnetworkapp.dto.EmailDTO;
 import com.example.socialnetworkapp.dto.ErrorDetail;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.dto.ValidationErrorDetail;
+import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -50,6 +53,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -105,17 +109,32 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) {
+    public AuthenticationResponseDTO signIn(SignInRequestDTO signInRequestDTO) {
         log.debug("Sign in, username: {}", signInRequestDTO.getUsername());
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequestDTO.getUsername()
                 , signInRequestDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String expiresAt = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT)
+        return new AuthenticationResponseDTO(jwtService.generateToken(authentication),
+                refreshTokenService.generateRefreshToken(signInRequestDTO.getUsername()).getToken(), buildExpiresAt());
+    }
+
+    @Override
+    public AuthenticationResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException {
+        Optional<RefreshToken> refreshTokenOptional = refreshTokenService.findByTokenAndUsername(refreshTokenRequestDTO.getRefreshToken(),
+                refreshTokenRequestDTO.getUsername());
+        if (!refreshTokenOptional.isPresent()){
+            throw new SocialNetworkAppException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
+                    ErrorMessageEnum.ERROR_MESSAGE_INVALID_REFRESH_TOKEN.getErrorMessage(), null);
+        }
+        return new AuthenticationResponseDTO(jwtService.buildToken(refreshTokenRequestDTO.getUsername(), CommonUtils.getScope()),
+                refreshTokenRequestDTO.getRefreshToken(), buildExpiresAt());
+    }
+
+    private String buildExpiresAt() {
+        return DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT)
                 .withZone(TimeZone.getTimeZone(appConfiguration.getTimeZoneId()).toZoneId())
                 .format(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()));
-        return new SignInResponseDTO(jwtService.generateToken(authentication),
-                refreshTokenService.generateRefreshToken().getToken(), expiresAt);
     }
 
     @Transactional(rollbackFor = Exception.class)

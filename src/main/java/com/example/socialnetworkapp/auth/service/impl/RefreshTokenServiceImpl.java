@@ -3,11 +3,11 @@ package com.example.socialnetworkapp.auth.service.impl;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.repository.RefreshTokenRepository;
 import com.example.socialnetworkapp.auth.service.RefreshTokenService;
-import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,10 +18,9 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
-    public RefreshToken findByToken(String token) throws ResourceNotFoundException {
-        log.debug("Find refresh token by token, token: {}", token);
-        return refreshTokenRepository.findByToken(token).orElseThrow(
-                () -> new ResourceNotFoundException("Refresh token " + token));
+    public Optional<RefreshToken> findByTokenAndUsername(String token, String username) {
+        log.debug("Find refresh token by token and username, token: {}, username: {}", token, username);
+        return refreshTokenRepository.findByTokenAndUsername(token, username);
     }
 
     @Override
@@ -30,9 +29,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    public RefreshToken generateRefreshToken() {
+    public RefreshToken generateRefreshToken(String username) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken(UUID.randomUUID().toString());
+        refreshToken.setUsername(username);
         return refreshTokenRepository.saveAndFlush(refreshToken);
     }
 }

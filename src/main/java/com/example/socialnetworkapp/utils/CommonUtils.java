@@ -120,7 +120,7 @@ public final class CommonUtils {
 
     }
 
-    private static List<String> getScope() {
+    public static List<String> getScope() {
         Jwt principal = getJwt();
         if (principal != null) {
             return (List<String>) principal.getClaims().get(Constants.SCOPE);

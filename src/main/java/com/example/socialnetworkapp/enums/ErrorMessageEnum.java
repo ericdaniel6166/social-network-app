@@ -9,7 +9,9 @@ public enum ErrorMessageEnum {
 
     ERROR_MESSAGE_USER_ALREADY_HAD_THIS_ROLE("This user has already had this role"),
 
-    ERROR_MESSAGE_NOT_HAVE_PERMISSION_SEARCH_INACTIVE_RESOURCE("User does not have permission to search inactive resource");
+    ERROR_MESSAGE_NOT_HAVE_PERMISSION_SEARCH_INACTIVE_RESOURCE("User does not have permission to search inactive resource"),
+
+    ERROR_MESSAGE_INVALID_REFRESH_TOKEN("Invalid refresh token");
 
     private final String errorMessage;
 

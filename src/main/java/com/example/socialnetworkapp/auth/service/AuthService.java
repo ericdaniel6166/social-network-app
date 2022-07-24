@@ -1,7 +1,8 @@
 package com.example.socialnetworkapp.auth.service;
 
+import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
@@ -12,5 +13,7 @@ public interface AuthService {
 
     SimpleResponseDTO verifyAccount(String token) throws SocialNetworkAppException;
 
-    SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException;
+    AuthenticationResponseDTO signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException;
+
+    AuthenticationResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException;
 }

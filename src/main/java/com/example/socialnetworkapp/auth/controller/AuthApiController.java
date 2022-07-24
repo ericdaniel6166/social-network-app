@@ -1,7 +1,8 @@
 package com.example.socialnetworkapp.auth.controller;
 
+import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,8 +46,16 @@ public class AuthApiController implements AuthApi {
     @Override
     @PostMapping("/signIn")
     public ResponseEntity<?> signIn(@RequestBody @Valid SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException {
-        SignInResponseDTO signInResponseDTO = authService.signIn(signInRequestDTO);
-        return new ResponseEntity<>(signInResponseDTO, HttpStatus.OK);
+        AuthenticationResponseDTO authenticationResponseDTO = authService.signIn(signInRequestDTO);
+        return new ResponseEntity<>(authenticationResponseDTO, HttpStatus.OK);
+    }
+
+    @Override
+    @PostMapping("/refreshToken")
+    @PreAuthorize("#refreshTokenRequestDTO.username.equals(authentication.principal.subject)")
+    public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException {
+        AuthenticationResponseDTO authenticationResponseDTO = authService.refreshToken(refreshTokenRequestDTO);
+        return new ResponseEntity<>(authenticationResponseDTO, HttpStatus.OK);
     }
 
 }

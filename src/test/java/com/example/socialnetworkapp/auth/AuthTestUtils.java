@@ -1,7 +1,8 @@
 package com.example.socialnetworkapp.auth;
 
+import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
@@ -62,12 +63,20 @@ public class AuthTestUtils {
         return SignInRequestDTO;
     }
 
-    public static SignInResponseDTO buildSignInResponseDTO() {
-        SignInResponseDTO signInResponseDTO = new SignInResponseDTO();
-        signInResponseDTO.setAccessToken(TOKEN);
-        signInResponseDTO.setExpiresAt(EXPIRES_AT);
-        signInResponseDTO.setRefreshToken(TOKEN);
-        return signInResponseDTO;
+    public static RefreshTokenRequestDTO buildRefreshTokenRequestDTO() {
+        RefreshTokenRequestDTO refreshTokenRequestDTO = new RefreshTokenRequestDTO();
+        refreshTokenRequestDTO.setRefreshToken(TOKEN);
+        refreshTokenRequestDTO.setUsername(USERNAME);
+        return refreshTokenRequestDTO;
+
+    }
+
+    public static AuthenticationResponseDTO buildSignInResponseDTO() {
+        AuthenticationResponseDTO authenticationResponseDTO = new AuthenticationResponseDTO();
+        authenticationResponseDTO.setAccessToken(TOKEN);
+        authenticationResponseDTO.setExpiresAt(EXPIRES_AT);
+        authenticationResponseDTO.setRefreshToken(TOKEN);
+        return authenticationResponseDTO;
     }
 
     public static VerificationToken buildVerificationToken() {
@@ -98,6 +107,7 @@ public class AuthTestUtils {
     public static RefreshToken buildRefreshToken() {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken(TOKEN);
+        refreshToken.setUsername(USERNAME);
         return refreshToken;
     }
 
