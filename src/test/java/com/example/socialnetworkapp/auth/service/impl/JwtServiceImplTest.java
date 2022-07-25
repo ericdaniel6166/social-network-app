@@ -43,8 +43,6 @@ class JwtServiceImplTest extends AbstractServiceTest {
     private Jwt jwt;
 
 
-
-
     @BeforeEach
     void setUp() {
     }

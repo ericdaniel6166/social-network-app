@@ -1,5 +1,6 @@
 package com.example.socialnetworkapp.auth.controller;
 
+import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
@@ -44,7 +45,27 @@ public interface AuthApi {
             @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
             @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
     })
-    ResponseEntity<?> signIn(SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException;
+    ResponseEntity<?> signIn(@RequestBody @Valid SignInRequestDTO signInRequestDTO) throws SocialNetworkAppException;
+
+    @ApiOperation(value = "Refresh token")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Refresh token successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
+    })
+    ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException;
+
+    @ApiOperation(value = "Sign out")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Sign out successfully"),
+            @ApiResponse(code = 400, message = "[Business Exception] - Bad request"),
+            @ApiResponse(code = 404, message = "[Business Exception] - Not Found"),
+            @ApiResponse(code = 422, message = "[Business Exception] - Unprocessable Entity"),
+            @ApiResponse(code = 500, message = "[System Exception] - Internal server error")
+    })
+    ResponseEntity<?> signOut(@RequestBody @Valid RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException;
 
 
 }

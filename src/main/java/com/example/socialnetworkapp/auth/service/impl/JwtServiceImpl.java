@@ -1,7 +1,7 @@
 package com.example.socialnetworkapp.auth.service.impl;
 
-import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
 import com.example.socialnetworkapp.auth.service.JwtService;
+import com.example.socialnetworkapp.configuration.security.JwtConfiguration;
 import com.example.socialnetworkapp.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,16 +28,17 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return buildToken(user);
+        return buildToken(user.getUsername(), getAuthorityList(user));
     }
 
-    private String buildToken(User user) {
+    @Override
+    public String buildToken(String username, List<String> scope) {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer(Constants.SELF)
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusMillis(jwtConfiguration.getJwtExpirationInMillis()))
-                .subject(user.getUsername())
-                .claim(Constants.SCOPE, getAuthorityList(user))
+                .subject(username)
+                .claim(Constants.SCOPE, scope)
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

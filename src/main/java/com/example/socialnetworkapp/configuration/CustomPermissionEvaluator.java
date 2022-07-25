@@ -27,12 +27,12 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
 
     public boolean isMatchedPostCreatedBy(Long id) throws ResourceNotFoundException {
         Post post = postService.findById(id);
-        return post.getCreatedBy().equalsIgnoreCase(CommonUtils.getCurrentUsername());
+        return post.getUsername().equals(CommonUtils.getCurrentUsername());
     }
 
     public boolean isMatchedCommentCreatedBy(Long id) throws ResourceNotFoundException {
         AppComment appComment = commentService.findById(id);
-        return appComment.getCreatedBy().equalsIgnoreCase(CommonUtils.getCurrentUsername());
+        return appComment.getUsername().equals(CommonUtils.getCurrentUsername());
     }
 
     @Override

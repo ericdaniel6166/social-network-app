@@ -11,7 +11,6 @@ import com.example.socialnetworkapp.service.MailBuilderService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.utils.CommonUtils;
 import com.example.socialnetworkapp.utils.Constants;
-import com.mysql.cj.util.TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringEscapeUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -22,7 +21,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
-import org.springframework.mail.MailException;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -70,7 +68,7 @@ class MailServiceImplTest extends AbstractServiceTest {
         try {
             Mockito.doThrow(new MailSendException("Mail send exception error message")).when(javaMailSender).send(Mockito.any(MimeMessagePreparator.class));
             mailService.sendMail(emailDTO);
-        } catch (SocialNetworkAppException e){
+        } catch (SocialNetworkAppException e) {
             Assertions.assertEquals(expected, e);
         }
     }

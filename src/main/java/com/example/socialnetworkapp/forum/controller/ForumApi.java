@@ -61,8 +61,4 @@ public interface ForumApi {
     ResponseEntity<?> deleteById(@PathVariable Long id) throws SocialNetworkAppException;
 
 
-
-
-
-
 }

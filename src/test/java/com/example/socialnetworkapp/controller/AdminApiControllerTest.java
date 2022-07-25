@@ -6,7 +6,6 @@ import com.example.socialnetworkapp.dto.MasterErrorMessageDTO;
 import com.example.socialnetworkapp.dto.MasterMessageDTO;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
-import com.example.socialnetworkapp.utils.CommonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

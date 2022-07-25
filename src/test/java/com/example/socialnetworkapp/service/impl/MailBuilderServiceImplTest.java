@@ -1,8 +1,6 @@
 package com.example.socialnetworkapp.service.impl;
 
 import com.example.socialnetworkapp.AbstractServiceTest;
-import com.example.socialnetworkapp.forum.service.impl.ForumServiceImpl;
-import com.example.socialnetworkapp.service.MasterMessageService;
 import com.example.socialnetworkapp.service.TemplateService;
 import com.example.socialnetworkapp.utils.Constants;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -13,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MailBuilderServiceImplTest extends AbstractServiceTest {
 

@@ -1,6 +1,5 @@
 package com.example.socialnetworkapp.forum.service.impl;
 
-import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.forum.dto.CommentDTO;
@@ -30,12 +29,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired
-    private PostService postService;
-
     private final CommentRepository commentRepository;
 
     private final ModelMapper modelMapper;
+
+    @Autowired
+    private PostService postService;
 
     @Override
     public AppComment saveAndFlush(AppComment appComment) {

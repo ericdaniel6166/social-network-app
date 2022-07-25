@@ -46,6 +46,4 @@ public abstract class AbstractApiTest {
     private AppConfiguration appConfiguration;
 
 
-
-
 }

@@ -31,4 +31,7 @@ public class RefreshToken extends Auditable<String> implements Serializable {
     @Column(unique = true)
     private String token;
 
+    @Column
+    private String username;
+
 }

@@ -5,14 +5,14 @@ import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
 import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
-import com.example.socialnetworkapp.auth.model.UserProfileInfo;
-import com.example.socialnetworkapp.auth.service.UserProfileInfoService;
-import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
+import com.example.socialnetworkapp.auth.model.UserProfileInfo;
 import com.example.socialnetworkapp.auth.service.RoleService;
+import com.example.socialnetworkapp.auth.service.UserProfileInfoService;
 import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
+import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.enums.MessageEnum;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -93,7 +93,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
         UserProfileInfoDTO expected = AuthTestUtils.buildUserProfileInfoRequestDTO();
         UserProfileInfo userProfileInfo = AuthTestUtils.buildUserProfileInfo();
         Mockito.when(userProfileInfoService.findByUsername(username)).thenReturn(Optional.of(userProfileInfo));
-        Mockito.when(modelMapper.map(userProfileInfo,UserProfileInfoDTO.class)).thenReturn(expected);
+        Mockito.when(modelMapper.map(userProfileInfo, UserProfileInfoDTO.class)).thenReturn(expected);
 
         UserProfileInfoDTO actual = accountService.getUserProfileInfoByUsername(username);
 
@@ -109,7 +109,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
 
         try {
             accountService.getUserProfileInfoByUsername(username);
-        } catch (ResourceNotFoundException e){
+        } catch (ResourceNotFoundException e) {
             Assertions.assertEquals(expected, e);
         }
 
@@ -127,7 +127,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
 
         try {
             accountService.updateRole(userRoleUpdateRequestDTO);
-        } catch (AccessDeniedException e){
+        } catch (AccessDeniedException e) {
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
         }
     }
@@ -150,7 +150,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
 
         try {
             accountService.updateRole(userRoleUpdateRequestDTO);
-        } catch (AccessDeniedException e){
+        } catch (AccessDeniedException e) {
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
         }
     }
@@ -173,7 +173,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
 
         try {
             accountService.updateRole(userRoleUpdateRequestDTO);
-        } catch (AccessDeniedException e){
+        } catch (AccessDeniedException e) {
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
         }
     }
@@ -196,7 +196,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
 
         try {
             accountService.updateRole(userRoleUpdateRequestDTO);
-        } catch (SocialNetworkAppException e){
+        } catch (SocialNetworkAppException e) {
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
             Assertions.assertEquals(HttpStatus.BAD_REQUEST.name(), e.getError());
             Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getHttpStatus());
@@ -246,7 +246,7 @@ class AccountServiceImplTest extends AbstractServiceTest {
 
         try {
             accountService.updateRole(userRoleUpdateRequestDTO);
-        } catch (SocialNetworkAppException e){
+        } catch (SocialNetworkAppException e) {
             Assertions.assertEquals(expected.getMessage(), e.getMessage());
             Assertions.assertEquals(HttpStatus.BAD_REQUEST.name(), e.getError());
             Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.getHttpStatus());

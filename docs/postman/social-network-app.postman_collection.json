@@ -1168,6 +1168,14 @@
 									"    if (jsonData.accessToken != null) {\r",
 									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
 									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
 									"\r",
 									"}"
 								],
@@ -1543,6 +1551,1439 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"timestamp\": \"2022-07-13 21:30:06 +0700\",\n    \"status\": 401,\n    \"operationId\": \"323b433d7647dfe8\",\n    \"error\": \"UNAUTHORIZED\",\n    \"message\": \"username wrongusername not found\",\n    \"path\": \"/auth/signIn\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "02.04_/auth/refreshToken",
+			"item": [
+				{
+					"name": "refresh token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/refreshToken",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/refreshToken",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Jul 2022 17:53:53 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoibW9kZXJhdG9yIiwiZXhwIjoxNjU4Njg1MzIzLCJpYXQiOjE2NTg2ODUyMzMsInNjb3BlIjpbIlJPTEVfTU9ERVJBVE9SIl19.gQHUd1Ns7KUlRNIBQVqH0gNG9gg6qxhFSTmMn4s64x072qfzq6lYNSxucK3kuqMgwkkb9-u3FrTUuYg_827PDnm4kOBN5upyn61PQMPZhR9qHxygzYXG5g2zYkooEES-RGpp8-YkoX1QEGBYd3zZUorEuSXYNqe3yE6CI8OQdfftAdWFzL8Y4LalSSzDyFmRtI_ITkwZKlkr2atoQzfNPGcW6vewjMHVXcfls1aSA8hENkDG2tVPDGnfsxDdIpUxpziDkfcgdpDpM0EdhYlVCpPhWAKr-i8QheIm67gWieJk3BcHUIfSNXjDfXVBo9D6oKGmbroWhF0k0wpM_EGFEg\",\n    \"refreshToken\": \"ae8b559f-79eb-4987-bae2-4792346e9acb\",\n    \"expiresAt\": \"2022-07-25 00:55:23.887\"\n}"
+						}
+					]
+				},
+				{
+					"name": "No Auth",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/refreshToken",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/refreshToken",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 07:33:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 14:33:49.053\",\n    \"status\": 403,\n    \"operationId\": \"8f3957d764cfa623\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/auth/refreshToken\"\n}"
+						}
+					]
+				},
+				{
+					"name": "wrong refreh token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"wrongRefreshToken\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/refreshToken",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"wrongRefreshToken\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/refreshToken",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 06:45:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 13:45:57.108\",\n    \"status\": 400,\n    \"operationId\": \"a7f1873fddff414b\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"Invalid refresh token request\",\n    \"path\": \"/auth/refreshToken\"\n}"
+						}
+					]
+				},
+				{
+					"name": "wrong username",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"wrongusername\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/refreshToken",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"refreshToken"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"wrongusername\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/refreshToken",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"refreshToken"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 24 Jul 2022 17:54:58 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 00:54:58.408\",\n    \"status\": 403,\n    \"operationId\": \"7abc3c401b0b7135\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/auth/refreshToken\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "02.05_/auth/signOut",
+			"item": [
+				{
+					"name": "sign out",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/signOut",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"signOut"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/signOut",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"signOut"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 06:11:59 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"title\": \"Sign out successfully\",\n    \"message\": \"You have successfully signed out your account\"\n}"
+						},
+						{
+							"name": "400_already_sign_ot",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/signOut",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"signOut"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 06:47:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 13:47:16.821\",\n    \"status\": 400,\n    \"operationId\": \"a2229ae04f18b862\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"Invalid sign out request\",\n    \"path\": \"/auth/signOut\"\n}"
+						}
+					]
+				},
+				{
+					"name": "wrong username",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"wrongusername\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/signOut",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"signOut"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"wrongusername\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/signOut",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"signOut"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 06:48:33 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 13:48:33.185\",\n    \"status\": 403,\n    \"operationId\": \"aca36def07e8c314\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/auth/signOut\"\n}"
+						}
+					]
+				},
+				{
+					"name": "wrong refreh token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"wrongRefreshToken\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/signOut",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"signOut"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"wrongRefreshToken\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/signOut",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"signOut"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 07:00:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 14:00:40.749\",\n    \"status\": 400,\n    \"operationId\": \"816aeeedd36616a4\",\n    \"error\": \"BAD_REQUEST\",\n    \"message\": \"Invalid sign out request\",\n    \"path\": \"/auth/signOut\"\n}"
+						}
+					]
+				},
+				{
+					"name": "No Auth",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    pm.test(\"accessToken is not null\", function () {\r",
+									"        pm.expect(jsonData.accessToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.accessToken != null) {\r",
+									"        pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"    }\r",
+									"    pm.test(\"refreshToken is not null\", function () {\r",
+									"        pm.expect(jsonData.refreshToken).is.not.null;\r",
+									"    });\r",
+									"    if (jsonData.refreshToken != null) {\r",
+									"        pm.environment.set(\"refreshToken\", jsonData.refreshToken);\r",
+									"    }\r",
+									"\r",
+									"    \r",
+									"\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/auth/signOut",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"auth",
+								"signOut"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "403",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/auth/signOut",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"auth",
+										"signOut"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Jul 2022 07:33:06 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2022-07-25 14:33:06.348\",\n    \"status\": 403,\n    \"operationId\": \"e8126ed975dae46d\",\n    \"error\": \"FORBIDDEN\",\n    \"message\": \"Access is denied\",\n    \"path\": \"/auth/signOut\"\n}"
 						}
 					]
 				}
@@ -3840,7 +5281,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"forumId\", 10);"
+									"pm.environment.set(\"forumId\", 11);"
 								],
 								"type": "text/javascript"
 							}
@@ -6855,7 +8296,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 65);"
+									"pm.environment.set(\"postId\", 24);"
 								],
 								"type": "text/javascript"
 							}
@@ -7441,7 +8882,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 10);"
+									"pm.environment.set(\"postId\", 15);"
 								],
 								"type": "text/javascript"
 							}

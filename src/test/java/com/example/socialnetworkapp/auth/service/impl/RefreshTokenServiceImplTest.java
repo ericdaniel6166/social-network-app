@@ -32,33 +32,18 @@ class RefreshTokenServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
-    void whenFindByToken_givenNotEmptyRefreshToken_ThenReturnRefreshToken() throws ResourceNotFoundException {
-        RefreshToken expected = AuthTestUtils.buildRefreshToken();
-        String token = expected.getToken();
-        Mockito.when(refreshTokenRepository.findByToken(token)).thenReturn(Optional.of(expected));
+    void whenFindByTokenAndUsername_ThenReturnRefreshToken() throws ResourceNotFoundException {
+        RefreshToken refreshToken = AuthTestUtils.buildRefreshToken();
+        Optional<RefreshToken> expected = Optional.of(refreshToken);
+        String token = refreshToken.getToken();
+        String username = refreshToken.getUsername();
+        Mockito.when(refreshTokenRepository.findByTokenAndUsername(token, username)).thenReturn(expected);
 
-        RefreshToken actual = refreshTokenService.findByToken(token);
+        Optional<RefreshToken> actual = refreshTokenService.findByTokenAndUsername(token, username);
 
         Assertions.assertEquals(expected, actual);
 
     }
-
-    @Test
-    void whenFindByToken_givenEmptyRefreshToken_ThenThrowResourceNotFoundException() {
-        RefreshToken refreshToken = AuthTestUtils.buildRefreshToken();
-        String token = refreshToken.getToken();
-        Mockito.when(refreshTokenRepository.findByToken(token)).thenReturn(Optional.empty());
-        ResourceNotFoundException expected = new ResourceNotFoundException("Refresh token " + token);
-
-        try {
-            refreshTokenService.findByToken(token);
-        } catch (ResourceNotFoundException e) {
-            Assertions.assertEquals(expected, e);
-        }
-
-
-    }
-
 
     @Test
     void whenDeleteByToken_thenReturnSuccess() {
@@ -70,7 +55,7 @@ class RefreshTokenServiceImplTest extends AbstractServiceTest {
         RefreshToken expected = AuthTestUtils.buildRefreshToken();
         Mockito.when(refreshTokenRepository.saveAndFlush(Mockito.any(RefreshToken.class))).thenReturn(expected);
 
-        RefreshToken actual = refreshTokenService.generateRefreshToken();
+        RefreshToken actual = refreshTokenService.generateRefreshToken(expected.getUsername());
 
         Assertions.assertEquals(expected, actual);
     }

@@ -3,12 +3,12 @@ package com.example.socialnetworkapp.auth.controller;
 import com.example.socialnetworkapp.AbstractApiTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
+import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.SignInResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
-import com.example.socialnetworkapp.utils.CommonUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -175,8 +175,8 @@ public class AuthApiControllerTest extends AbstractApiTest {
     @Test
     void whenSignIn_givenValidSignInRequestDTO_thenReturnOK() throws Exception {
         SignInRequestDTO signInRequestDTO = AuthTestUtils.buildSignInRequestDTO();
-        SignInResponseDTO signInResponseDTO = AuthTestUtils.buildSignInResponseDTO();
-        Mockito.when(authService.signIn(signInRequestDTO)).thenReturn(signInResponseDTO);
+        AuthenticationResponseDTO authenticationResponseDTO = AuthTestUtils.buildSignInResponseDTO();
+        Mockito.when(authService.signIn(signInRequestDTO)).thenReturn(authenticationResponseDTO);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
                 .post(URL_TEMPLATE + "/signIn")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -188,7 +188,7 @@ public class AuthApiControllerTest extends AbstractApiTest {
                 .andReturn();
 
         Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
-        Assertions.assertEquals(objectMapper.writeValueAsString(signInResponseDTO), actual.getResponse().getContentAsString());
+        Assertions.assertEquals(objectMapper.writeValueAsString(authenticationResponseDTO), actual.getResponse().getContentAsString());
 
     }
 
@@ -230,7 +230,45 @@ public class AuthApiControllerTest extends AbstractApiTest {
 
     }
 
+    @Test
+    void whenRefreshToken_givenValidRefreshTokenRequestDTO_thenReturnOK() throws Exception {
+        RefreshTokenRequestDTO refreshTokenRequestDTO = AuthTestUtils.buildRefreshTokenRequestDTO();
+        AuthenticationResponseDTO authenticationResponseDTO = AuthTestUtils.buildSignInResponseDTO();
+        Mockito.when(authService.refreshToken(refreshTokenRequestDTO)).thenReturn(authenticationResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/refreshToken")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(objectMapper.writeValueAsString(refreshTokenRequestDTO));
 
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(objectMapper.writeValueAsString(authenticationResponseDTO), actual.getResponse().getContentAsString());
+
+    }
+
+    @Test
+    void whenSignOut_givenValidRefreshTokenRequestDTO_thenReturnOK() throws Exception {
+        RefreshTokenRequestDTO refreshTokenRequestDTO = AuthTestUtils.buildRefreshTokenRequestDTO();
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        Mockito.when(authService.signOut(refreshTokenRequestDTO)).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signOut")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(objectMapper.writeValueAsString(refreshTokenRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+
+    }
 
 
 }

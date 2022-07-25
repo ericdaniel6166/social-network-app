@@ -53,4 +53,10 @@ drop index if exists idx_username on user_profile
 CREATE UNIQUE INDEX idx_username
 ON user_profile (username)
 include (created_by, created_date, last_modified_by, last_modified_date, address, birthday, full_name)
+---
+drop index if exists idx_token on refresh_token
+
+CREATE UNIQUE INDEX idx_token
+    ON refresh_token (token)
+    include (created_by, created_date, last_modified_by, last_modified_date, username)
 COMMIT TRANSACTION
