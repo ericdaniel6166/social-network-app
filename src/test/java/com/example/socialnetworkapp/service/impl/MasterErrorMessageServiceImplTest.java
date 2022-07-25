@@ -5,12 +5,8 @@ import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.dto.MasterErrorMessageDTO;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
-import com.example.socialnetworkapp.forum.service.impl.ForumServiceImpl;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.repository.MasterErrorMessageRepository;
-import com.example.socialnetworkapp.repository.MasterMessageRepository;
-import com.example.socialnetworkapp.service.MasterMessageService;
-import com.example.socialnetworkapp.utils.Constants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +19,6 @@ import org.modelmapper.ModelMapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MasterErrorMessageServiceImplTest extends AbstractServiceTest {
 
@@ -63,12 +57,11 @@ class MasterErrorMessageServiceImplTest extends AbstractServiceTest {
         ResourceNotFoundException expected = new ResourceNotFoundException("Error code " + errorCode.name());
         try {
             masterErrorMessageService.findByErrorCode(errorCode);
-        }catch (ResourceNotFoundException e){
+        } catch (ResourceNotFoundException e) {
             Assertions.assertEquals(expected, e);
         }
 
     }
-
 
 
     @Test

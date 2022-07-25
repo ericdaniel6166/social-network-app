@@ -103,7 +103,7 @@ public class CommonTestUtils {
 
     public static List<MasterErrorMessage> buildMasterErrorMessageList(MasterErrorCode... masterErrorCodes) {
         List<MasterErrorMessage> masterErrorMessageList = new ArrayList<>();
-        for (MasterErrorCode masterErrorCode: masterErrorCodes){
+        for (MasterErrorCode masterErrorCode : masterErrorCodes) {
             masterErrorMessageList.add(buildMasterErrorMessage(masterErrorCode));
         }
         return masterErrorMessageList;

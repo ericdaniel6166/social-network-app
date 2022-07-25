@@ -16,12 +16,12 @@ public class BirthdayValidator implements ConstraintValidator<ValidBirthday, Loc
     public boolean isValid(LocalDate date, ConstraintValidatorContext constraintValidatorContext) {
         LocalDate current = LocalDate.now();
         constraintValidatorContext.disableDefaultConstraintViolation();
-        if (date.isAfter(current.minusYears(appConfiguration.getAgeMinimum()))){
+        if (date.isAfter(current.minusYears(appConfiguration.getAgeMinimum()))) {
             constraintValidatorContext.buildConstraintViolationWithTemplate(
-                    "Invalid birthday, age minimum: " + appConfiguration.getAgeMinimum())
+                            "Invalid birthday, age minimum: " + appConfiguration.getAgeMinimum())
                     .addConstraintViolation();
             return false;
-        } else if (date.isBefore(current.minusYears(appConfiguration.getAgeMaximum()))){
+        } else if (date.isBefore(current.minusYears(appConfiguration.getAgeMaximum()))) {
             constraintValidatorContext.buildConstraintViolationWithTemplate(
                             "Invalid birthday, age maximum: " + appConfiguration.getAgeMaximum())
                     .addConstraintViolation();

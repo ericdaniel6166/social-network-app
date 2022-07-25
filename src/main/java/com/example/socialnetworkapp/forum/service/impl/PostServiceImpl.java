@@ -1,6 +1,5 @@
 package com.example.socialnetworkapp.forum.service.impl;
 
-import com.example.socialnetworkapp.auth.service.UserService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
@@ -37,17 +36,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-    @Autowired
-    private CommentService commentService;
-
     private final PostRepository postRepository;
 
     private final ModelMapper modelMapper;
 
+    private final MasterMessageService masterMessageService;
+
+    @Autowired
+    private CommentService commentService;
+
     @Autowired
     private ForumService forumService;
-
-    private final MasterMessageService masterMessageService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)

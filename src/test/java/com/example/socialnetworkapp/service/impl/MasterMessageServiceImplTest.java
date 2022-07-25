@@ -72,7 +72,7 @@ class MasterMessageServiceImplTest extends AbstractServiceTest {
 
         try {
             masterMessageService.findByMessageCode(messageCode);
-        } catch (ResourceNotFoundException e){
+        } catch (ResourceNotFoundException e) {
             Assertions.assertEquals(expected, e);
         }
 

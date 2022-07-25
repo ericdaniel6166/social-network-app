@@ -1,11 +1,10 @@
 package com.example.socialnetworkapp.utils;
 
-import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.configuration.rsql.CustomRSQLOperators;
 import com.example.socialnetworkapp.configuration.rsql.CustomRsqlVisitor;
+import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -86,7 +85,7 @@ public final class CommonUtils {
 
     public static boolean hasAuthority(RoleEnum roleEnumCompare) {
         List<String> scope = getScope();
-        if (scope == null){
+        if (scope == null) {
             return false;
         }
         RoleEnum roleEnum;

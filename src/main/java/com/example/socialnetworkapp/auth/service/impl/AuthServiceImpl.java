@@ -25,6 +25,7 @@ import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
+import com.example.socialnetworkapp.enums.MessageEnum;
 import com.example.socialnetworkapp.exception.ResourceNotFoundException;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
@@ -123,12 +124,27 @@ public class AuthServiceImpl implements AuthService {
     public AuthenticationResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException {
         Optional<RefreshToken> refreshTokenOptional = refreshTokenService.findByTokenAndUsername(refreshTokenRequestDTO.getRefreshToken(),
                 refreshTokenRequestDTO.getUsername());
-        if (!refreshTokenOptional.isPresent()){
+        if (!refreshTokenOptional.isPresent()) {
+            log.error("Refresh token, token not found, username: {}, token: {}", refreshTokenRequestDTO.getUsername(), refreshTokenRequestDTO.getRefreshToken());
             throw new SocialNetworkAppException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
-                    ErrorMessageEnum.ERROR_MESSAGE_INVALID_REFRESH_TOKEN.getErrorMessage(), null);
+                    ErrorMessageEnum.ERROR_MESSAGE_INVALID_REFRESH_TOKEN_REQUEST.getErrorMessage(), null);
         }
         return new AuthenticationResponseDTO(jwtService.buildToken(refreshTokenRequestDTO.getUsername(), CommonUtils.getScope()),
                 refreshTokenRequestDTO.getRefreshToken(), buildExpiresAt());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public SimpleResponseDTO signOut(RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException {
+        Optional<RefreshToken> refreshTokenOptional = refreshTokenService.findByTokenAndUsername(refreshTokenRequestDTO.getRefreshToken(),
+                refreshTokenRequestDTO.getUsername());
+        if (!refreshTokenOptional.isPresent()) {
+            log.error("Sign out, token not found, username: {}, token: {}", refreshTokenRequestDTO.getUsername(), refreshTokenRequestDTO.getRefreshToken());
+            throw new SocialNetworkAppException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
+                    ErrorMessageEnum.ERROR_MESSAGE_INVALID_SIGN_OUT_REQUEST.getErrorMessage(), null);
+        }
+        refreshTokenService.deleteByToken(refreshTokenRequestDTO.getRefreshToken());
+        return new SimpleResponseDTO(MessageEnum.MESSAGE_SIGN_OUT_SUCCESS.getTitle(), MessageEnum.MESSAGE_SIGN_OUT_SUCCESS.getMessage());
     }
 
     private String buildExpiresAt() {

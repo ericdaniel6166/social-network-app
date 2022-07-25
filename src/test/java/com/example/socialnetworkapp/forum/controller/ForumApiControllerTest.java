@@ -62,7 +62,7 @@ public class ForumApiControllerTest extends AbstractApiTest {
     }
 
     @Test
-    void whenDeleteById_thenReturnOK() throws Exception{
+    void whenDeleteById_thenReturnOK() throws Exception {
         Long id = RandomUtils.nextLong();
         SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
         Mockito.when(forumService.deleteById(id)).thenReturn(simpleResponseDTO);

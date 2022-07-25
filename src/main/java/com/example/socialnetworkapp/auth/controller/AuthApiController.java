@@ -1,8 +1,8 @@
 package com.example.socialnetworkapp.auth.controller;
 
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -52,10 +52,19 @@ public class AuthApiController implements AuthApi {
 
     @Override
     @PostMapping("/refreshToken")
-    @PreAuthorize("#refreshTokenRequestDTO.username.equals(authentication.principal.subject)")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ROLE_USER') and #refreshTokenRequestDTO.username.equals(authentication.principal.subject)")
     public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException {
         AuthenticationResponseDTO authenticationResponseDTO = authService.refreshToken(refreshTokenRequestDTO);
         return new ResponseEntity<>(authenticationResponseDTO, HttpStatus.OK);
     }
+
+    @Override
+    @PostMapping("/signOut")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ROLE_USER') and #refreshTokenRequestDTO.username.equals(authentication.principal.subject)")
+    public ResponseEntity<?> signOut(@RequestBody @Valid RefreshTokenRequestDTO refreshTokenRequestDTO) throws SocialNetworkAppException {
+        SimpleResponseDTO simpleResponseDTO = authService.signOut(refreshTokenRequestDTO);
+        return new ResponseEntity<>(simpleResponseDTO, HttpStatus.OK);
+    }
+
 
 }

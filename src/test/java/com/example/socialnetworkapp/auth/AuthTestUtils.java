@@ -1,8 +1,8 @@
 package com.example.socialnetworkapp.auth;
 
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.dto.UserProfileInfoDTO;
 import com.example.socialnetworkapp.auth.dto.UserRoleUpdateRequestDTO;
@@ -113,7 +113,7 @@ public class AuthTestUtils {
 
     public static List<GrantedAuthority> buildAuthorityList(RoleEnum... roleEnums) {
         List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (RoleEnum roleName: roleEnums){
+        for (RoleEnum roleName : roleEnums) {
             authorityList.add(buildAuthority(roleName));
         }
         return authorityList;

@@ -126,9 +126,6 @@ class ForumServiceImplTest extends AbstractServiceTest {
     }
 
 
-
-
-
     @Test
     void whenFindAll_givenNotBlankSearch_thenReturnForumDTOPage() throws SocialNetworkAppException {
         String search = CommonTestUtils.SEARCH;

@@ -3,14 +3,16 @@ package com.example.socialnetworkapp.auth.service.impl;
 import com.example.socialnetworkapp.AbstractServiceTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.enums.RoleEnum;
 import com.example.socialnetworkapp.auth.model.AppUser;
 import com.example.socialnetworkapp.auth.model.RefreshToken;
 import com.example.socialnetworkapp.auth.model.VerificationToken;
+import com.example.socialnetworkapp.auth.service.EncryptionService;
+import com.example.socialnetworkapp.auth.service.JwtService;
 import com.example.socialnetworkapp.auth.service.RefreshTokenService;
 import com.example.socialnetworkapp.auth.service.RoleService;
 import com.example.socialnetworkapp.auth.service.UserService;
@@ -23,12 +25,11 @@ import com.example.socialnetworkapp.dto.ValidationErrorDetail;
 import com.example.socialnetworkapp.enums.ErrorMessageEnum;
 import com.example.socialnetworkapp.enums.MasterErrorCode;
 import com.example.socialnetworkapp.enums.MasterMessageCode;
+import com.example.socialnetworkapp.enums.MessageEnum;
 import com.example.socialnetworkapp.exception.SocialNetworkAppException;
 import com.example.socialnetworkapp.exception.ValidationException;
 import com.example.socialnetworkapp.model.MasterErrorMessage;
 import com.example.socialnetworkapp.model.MasterMessage;
-import com.example.socialnetworkapp.auth.service.EncryptionService;
-import com.example.socialnetworkapp.auth.service.JwtService;
 import com.example.socialnetworkapp.service.MailService;
 import com.example.socialnetworkapp.service.MasterErrorMessageService;
 import com.example.socialnetworkapp.service.MasterMessageService;
@@ -167,6 +168,38 @@ class AuthServiceImplTest extends AbstractServiceTest {
     }
 
     @Test
+    void whenSignOut_givenNotEmptyRefreshToken_thenReturnSimpleResponseDTO() throws SocialNetworkAppException {
+        RefreshTokenRequestDTO refreshTokenRequestDTO = AuthTestUtils.buildRefreshTokenRequestDTO();
+        String username = refreshTokenRequestDTO.getUsername();
+        RefreshToken refreshToken = AuthTestUtils.buildRefreshToken();
+        Mockito.when(refreshTokenService.findByTokenAndUsername(refreshTokenRequestDTO.getRefreshToken(),
+                username)).thenReturn(Optional.of(refreshToken));
+        SimpleResponseDTO expected = new SimpleResponseDTO(MessageEnum.MESSAGE_SIGN_OUT_SUCCESS.getTitle(), MessageEnum.MESSAGE_SIGN_OUT_SUCCESS.getMessage());
+
+        SimpleResponseDTO actual = authService.signOut(refreshTokenRequestDTO);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void whenSignOut_givenEmptyRefreshToken_thenThrowSocialNetworkAppException() throws SocialNetworkAppException {
+        RefreshTokenRequestDTO refreshTokenRequestDTO = AuthTestUtils.buildRefreshTokenRequestDTO();
+        String username = refreshTokenRequestDTO.getUsername();
+        Mockito.when(refreshTokenService.findByTokenAndUsername(refreshTokenRequestDTO.getRefreshToken(),
+                username)).thenReturn(Optional.empty());
+
+        SocialNetworkAppException expected = new SocialNetworkAppException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
+                ErrorMessageEnum.ERROR_MESSAGE_INVALID_REFRESH_TOKEN_REQUEST.getErrorMessage(), null);
+
+        try {
+            authService.signOut(refreshTokenRequestDTO);
+        } catch (SocialNetworkAppException e) {
+            Assertions.assertEquals(expected, e);
+        }
+
+    }
+
+    @Test
     void whenRefreshToken_givenValidRefreshTokenRequestDTO_thenReturnAuthenticationResponseDTO() throws SocialNetworkAppException {
         RefreshTokenRequestDTO refreshTokenRequestDTO = AuthTestUtils.buildRefreshTokenRequestDTO();
         String username = refreshTokenRequestDTO.getUsername();
@@ -191,7 +224,7 @@ class AuthServiceImplTest extends AbstractServiceTest {
         Mockito.when(refreshTokenService.findByTokenAndUsername(refreshTokenRequestDTO.getRefreshToken(),
                 refreshTokenRequestDTO.getUsername())).thenReturn(Optional.empty());
         SocialNetworkAppException expected = new SocialNetworkAppException(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.name(),
-                ErrorMessageEnum.ERROR_MESSAGE_INVALID_REFRESH_TOKEN.getErrorMessage(), null);
+                ErrorMessageEnum.ERROR_MESSAGE_INVALID_REFRESH_TOKEN_REQUEST.getErrorMessage(), null);
         try {
             authService.refreshToken(refreshTokenRequestDTO);
         } catch (SocialNetworkAppException e) {

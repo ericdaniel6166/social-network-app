@@ -29,7 +29,4 @@ public interface AdminApi {
     ResponseEntity<?> findAllMasterErrorMessage() throws SocialNetworkAppException;
 
 
-
-
-
 }

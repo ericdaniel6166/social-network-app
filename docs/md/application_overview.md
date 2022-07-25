@@ -31,6 +31,10 @@
   - POST /auth/signIn: sign in
   - POST /auth/signUp: sign up
   - GET /auth/verifyAccount/{token}: Verify account
+  - POST /auth/refreshToken: Refresh token
+    - has authority ROLE_USER at least AND username match current user
+  - POST /auth/signOut: Sign out
+    - has authority ROLE_USER at least AND username match current user
 - Comment API
   - GET /comment/**:
     - permit all

@@ -10,14 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TemplateServiceImplTest extends AbstractServiceTest {
 

@@ -3,9 +3,9 @@ package com.example.socialnetworkapp.auth.controller;
 import com.example.socialnetworkapp.AbstractApiTest;
 import com.example.socialnetworkapp.CommonTestUtils;
 import com.example.socialnetworkapp.auth.AuthTestUtils;
+import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.RefreshTokenRequestDTO;
 import com.example.socialnetworkapp.auth.dto.SignInRequestDTO;
-import com.example.socialnetworkapp.auth.dto.AuthenticationResponseDTO;
 import com.example.socialnetworkapp.auth.dto.SignUpRequestDTO;
 import com.example.socialnetworkapp.auth.service.AuthService;
 import com.example.socialnetworkapp.dto.SimpleResponseDTO;
@@ -249,5 +249,26 @@ public class AuthApiControllerTest extends AbstractApiTest {
         Assertions.assertEquals(objectMapper.writeValueAsString(authenticationResponseDTO), actual.getResponse().getContentAsString());
 
     }
+
+    @Test
+    void whenSignOut_givenValidRefreshTokenRequestDTO_thenReturnOK() throws Exception {
+        RefreshTokenRequestDTO refreshTokenRequestDTO = AuthTestUtils.buildRefreshTokenRequestDTO();
+        SimpleResponseDTO simpleResponseDTO = CommonTestUtils.buildSimpleResponseDTO();
+        Mockito.when(authService.signOut(refreshTokenRequestDTO)).thenReturn(simpleResponseDTO);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders
+                .post(URL_TEMPLATE + "/signOut")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding(UTF_8)
+                .content(objectMapper.writeValueAsString(refreshTokenRequestDTO));
+
+        MvcResult actual = mockMvc.perform(builder)
+                .andReturn();
+
+        Assertions.assertEquals(HttpStatus.OK.value(), actual.getResponse().getStatus());
+        Assertions.assertEquals(objectMapper.writeValueAsString(simpleResponseDTO), actual.getResponse().getContentAsString());
+
+    }
+
 
 }
