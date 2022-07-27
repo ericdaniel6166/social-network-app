@@ -830,7 +830,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"token\", \"c1b7d497-28d4-409e-b3f7-7115c185d652\");"
+									"pm.environment.set(\"token\", \"a4fc2975-463e-4e4d-b729-59e7e4b93ea2\");"
 								],
 								"type": "text/javascript"
 							}
@@ -5281,7 +5281,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"forumId\", 11);"
+									"pm.environment.set(\"forumId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -8882,7 +8882,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"postId\", 15);"
+									"pm.environment.set(\"postId\", 10);"
 								],
 								"type": "text/javascript"
 							}
@@ -13419,8 +13419,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"usernameUpdate\", \"javadev311\");\r",
-									"pm.environment.set(\"roleUpdate\", \"ROLE_MODERATOR\");\r",
+									"\r",
 									""
 								],
 								"type": "text/javascript"
@@ -13453,7 +13452,7 @@
 							"variable": [
 								{
 									"key": "username",
-									"value": "javadev311"
+									"value": "{{username}}"
 								}
 							]
 						}
