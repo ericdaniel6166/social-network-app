@@ -2,7 +2,7 @@ BEGIN TRANSACTION
 
 SET IDENTITY_INSERT app_role ON
 
-if not exists(select 1 from app_role where role_name = 'ROLE_ADMIN')
+if not exists(select 1 from app_role where role_name = 'ROLE_ROOT_ADMIN')
 insert app_role(id, created_by, last_modified_by, created_date, last_modified_date, role_name)
 values (1,  'social_network_app_v1', 'social_network_app_v1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
         'ROLE_ROOT_ADMIN')
