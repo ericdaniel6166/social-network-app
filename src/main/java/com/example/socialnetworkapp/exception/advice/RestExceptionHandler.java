@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -121,7 +122,7 @@ public class RestExceptionHandler {
         String errorMessage = CommonUtils.getRootCauseMessage(e);
         log.error("Handle {}, error message: {}", e.getClass(), errorMessage, e);
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(HttpStatus.UNAUTHORIZED, HttpStatus.UNAUTHORIZED.name(),
-                errorMessage,
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(),
                 httpServletRequest, null);
 
         return buildResponseExceptionEntity(errorResponseDTO);
