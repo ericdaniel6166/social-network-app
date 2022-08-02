@@ -10,6 +10,37 @@
 			"name": "01.01_Prepare",
 			"item": [
 				{
+					"name": "port 8089",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"domain\", \"http://localhost:8089\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://postman-echo.com/get",
+							"protocol": "https",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Prepare root admin account rootAdmin",
 					"event": [
 						{
@@ -1410,7 +1441,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 13 Jul 2022 14:29:09 GMT"
+									"value": "Tue, 02 Aug 2022 06:24:56 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1422,7 +1453,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-13 21:29:09 +0700\",\n    \"status\": 401,\n    \"operationId\": \"604f42ab2898dac8\",\n    \"error\": \"UNAUTHORIZED\",\n    \"message\": \"Bad credentials\",\n    \"path\": \"/auth/signIn\"\n}"
+							"body": "{\n    \"timestamp\": \"2022-08-02 13:24:56.341\",\n    \"status\": 401,\n    \"operationId\": \"89af6d6a008f306e\",\n    \"error\": \"UNAUTHORIZED\",\n    \"message\": \"Unauthorized\",\n    \"path\": \"/auth/signIn\"\n}"
 						}
 					]
 				},
@@ -1538,7 +1569,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 13 Jul 2022 14:30:06 GMT"
+									"value": "Tue, 02 Aug 2022 06:25:05 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1550,7 +1581,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"timestamp\": \"2022-07-13 21:30:06 +0700\",\n    \"status\": 401,\n    \"operationId\": \"323b433d7647dfe8\",\n    \"error\": \"UNAUTHORIZED\",\n    \"message\": \"username wrongusername not found\",\n    \"path\": \"/auth/signIn\"\n}"
+							"body": "{\n    \"timestamp\": \"2022-08-02 13:25:05.478\",\n    \"status\": 401,\n    \"operationId\": \"6988a30e997c9fbd\",\n    \"error\": \"UNAUTHORIZED\",\n    \"message\": \"Unauthorized\",\n    \"path\": \"/auth/signIn\"\n}"
 						}
 					]
 				}
